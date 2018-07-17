@@ -39,7 +39,7 @@
   .top-right {
     position: absolute;
     right: 15%;
-    top:9%;
+    top:12%;
     z-index: 1;
     height: auto;
   }
@@ -67,7 +67,7 @@
     color: white;
     font-size: 16px;
     border: 0.5px solid #3a7f59;
-    border-left: none; /* Prevent double borders */
+    border-left: none;
     cursor: pointer;
   }
 
@@ -102,13 +102,12 @@
   form.search input[type=text] {
     padding: 4px;
     font-size: 16px;
-    border: 0.5px solid #e9e9e9;
+    border: 0.5px solid #f1f1f1;
     float: left;
     width: 75%;
     background: #f1f1f1;
   }
 
-  /* Style the submit button */
   form.search button {
     float: left;
     width: 15%;
@@ -117,7 +116,7 @@
     color: white;
     font-size: 16px;
     border: 0.5px solid #A69229;
-    border-left: none; /* Prevent double borders */
+    border-left: none;
     cursor: pointer;
   }
 
@@ -135,18 +134,32 @@
     height: 370px;
     left: 15%;
     top:40%;
-    z-index: 2;
-
+    z-index: 1;
     padding: 20px;
-    /*background-color: rgba(255, 255, 255, 0.8);*/
     background-color: white;
   }
+
+  .search-result a i{
+    color: #3a7f59;
+    cursor: pointer;
+  }
+
+  .search-result a i:hover {
+    color: #226f44;
+  }
+
+
   .search-result table {
     text-align: left;
     border-collapse: collapse;
     width: 100%;
 
   }
+
+  .search-result table tr:hover {
+    background-color: #f6f6f6;
+  }
+
   .search-result th, td {
     padding: 10px;
   }
@@ -206,7 +219,7 @@
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
 
-    <a href="#">Summary Report</a><button onclick="window.location.href='#'"><i class="fa fa-chevron-circle-right"></i></button>
+    <!--<a href="#">Summary Report</a><button onclick="window.location.href='#'"><i class="fa fa-chevron-right"></i></button>-->
   </div>
 
   <div class="flex-center position-ref full-height">
@@ -219,7 +232,8 @@
       <h4>Search Result for <span style='letter-spacing:normal;'>"{{$search}}"</span>..</h4>
       @if (isset($searchResults))
       <table>
-        <tr><th>First Name</th>
+        <tr><th></th>
+          <th>First Name</th>
           <th>Last Name</th>
           <th>Badge</th>
           <th>National ID</th>
@@ -230,6 +244,7 @@
         </tr>
         @foreach($searchResults as $result)
         <tr>
+          <td><a href="{{route('student.show',$result->ID)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
           <td>{{$result->FirstName}}</td>
           <td>{{$result->LastName}}</td>
           <td>{{$result->Badge}}</td>

@@ -38,8 +38,9 @@
 
           .top-right {
               position: absolute;
-              right: 15%;
-              top:9%;
+              left: 50%;
+              transform: translate(-50%, 0);
+              top: 50%;
               z-index: 1;
               height: auto;
           }
@@ -59,7 +60,7 @@
           }
 
             .top-right > button {
-                margin-top:6px;
+            margin-top:6px;
             float: left;
             width: 15%;
             padding: 4px;
@@ -67,7 +68,7 @@
             color: white;
             font-size: 16px;
             border: 0.5px solid #3a7f59;
-            border-left: none; /* Prevent double borders */
+            border-left: none;
             cursor: pointer;
           }
 
@@ -102,22 +103,23 @@
           form.search input[type=text] {
             padding: 4px;
             font-size: 16px;
-            border: 0.5px solid #e9e9e9;
+            border: 0.5px solid #f1f1f1;
             float: left;
-            width: 75%;
+            width: 250px;
+            height: 30px;
             background: #f1f1f1;
           }
 
-          /* Style the submit button */
           form.search button {
             float: left;
-            width: 15%;
+            width: 40px;
+            height: 39px;
             padding: 4px;
             background: 	#A69229;
             color: white;
             font-size: 16px;
             border: 0.5px solid #A69229;
-            border-left: none; /* Prevent double borders */
+            border-left: none;
             cursor: pointer;
           }
 
@@ -145,7 +147,7 @@
           <button type="submit"><i class="fa fa-search"></i></button>
         </form>
 
-      <a href="#">Summary Report</a><button onclick="window.location.href='#'"><i class="fa fa-chevron-circle-right"></i></button>
+      <!--<a href="#">Summary Report</a><button onclick="window.location.href='#'"><i class="fa fa-chevron-right"></i></button>-->
       </div>
 
       <div class="flex-center position-ref full-height">
