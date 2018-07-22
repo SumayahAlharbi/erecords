@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Student;
+use DB;
 
 class StudentController extends Controller
 {
@@ -18,17 +19,13 @@ class StudentController extends Controller
   }
 
   /**
-  * search the blog
+  * search
   *
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
   public function search(Request $request)
   {
-
-    //$search = $request->get('keyword');
-
-    //return view('search', compact('search'));
     $search = $request->get('keyword');
 
     $searchResults = Student::where('Badge', '=', $search)
@@ -41,8 +38,175 @@ class StudentController extends Controller
     ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
     ->paginate(5);
 
-    return view('search',compact('searchResults','search'));
+    return view('search_result',compact('searchResults','search'));
+  }
 
+  /**
+  * advanced search
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function advanced_search(Request $request)
+  {
+
+    $query = DB::table('students')->select('*');
+
+    // text
+    $fname= $request->get('FirstName');
+    $mname= $request->get('MiddleName');
+    $lname= $request->get('LastName');
+
+    $NationalID= $request->get('NationalID');
+    $Batch = $request->get('Batch');
+
+
+    $Badge= $request->get('Badge');
+    $Status= $request->get('Status');
+    $StudentNo= $request->get('StudentNo');
+    $Mobile= $request->get('Mobile');
+    $KSAUHSEmail= $request->get('KSAUHSEmail');
+    $NGHAEmail= $request->get('NGHAEmail');
+    $PersonalEmail= $request->get('PersonalEmail');
+    $GraduateExpectationsYear= $request->get('GraduateExpectationsYear');
+    $Stream = $request->get('Stream');
+
+    // dates
+    $LastActivationDate= $request->get('LastActivationDate');
+    $Dismissed= $request->get('Dismissed');
+    $FirstBlockDrop= $request->get('FirstBlockDrop');
+    $FirstPostpone= $request->get('FirstPostpone');
+    $FirstAcademicViolation= $request->get('FirstAcademicViolation');
+    $SecondBlockDrop= $request->get('SecondBlockDrop');
+    $SecondPostpone= $request->get('SecondPostpone');
+    $SecondAcademicViolation= $request->get('SecondAcademicViolation');
+    $ThirdBlockDrop= $request->get('ThirdBlockDrop');
+    $ThirdPostpone= $request->get('ThirdPostpone');
+    $ThirdAcademicViolation= $request->get('ThirdAcademicViolation');
+    $FirstAttemptAttendanceViolation= $request->get('FirstAttemptAttendanceViolation');
+    $SecondAttemptAttendanceViolation= $request->get('SecondAttemptAttendanceViolation');
+    $ThirdAttemptAttendanceViolation= $request->get('ThirdAttemptAttendanceViolation');
+    $Withdrawal= $request->get('Withdrawal');
+
+    if ($fname) {
+        $query->where('FirstName', '=', $fname);
+    }
+
+    if ($mname) {
+        $query->where('MiddleName', '=', $mname);
+    }
+
+    if ($lname) {
+        $query->where('LastName', '=', $lname);
+    }
+
+    if ($NationalID) {
+        $query->where('NationalID', '=', $NationalID);
+    }
+
+    if ($Badge) {
+        $query->where('Badge', '=', $Badge);
+    }
+
+    if ($Status) {
+        $query->whereIn('Status', $Status);
+    }
+
+    if ($Stream) {
+        $query->whereIn('Stream', $Stream);
+      }
+
+    if ($Batch) {
+        $query->whereIn('Batch', $Batch);
+    }
+
+    if ($StudentNo) {
+        $query->where('StudentNo', '=', $StudentNo );
+    }
+
+    if ($Mobile) {
+        $query->where('Mobile', 'LIKE', $Mobile);
+    }
+
+    if ($KSAUHSEmail) {
+        $query->where('KSAUHSEmail', 'LIKE', $KSAUHSEmail );
+    }
+
+    if ($NGHAEmail) {
+        $query->where('NGHAEmail', 'LIKE', $NGHAEmail);
+    }
+
+    if ($PersonalEmail) {
+        $query->where('PersonalEmail', 'LIKE', $PersonalEmail);
+    }
+
+    if ($GraduateExpectationsYear) {
+        $query->whereIn('GraduateExpectationsYear',$GraduateExpectationsYear);
+    }
+
+    if ($LastActivationDate) {
+        $query->where('LastActivationDate', '=', $LastActivationDate);
+    }
+
+    if ($Dismissed) {
+        $query->where('Dismissed', '=', $Dismissed);
+    }
+
+    if ($FirstBlockDrop) {
+        $query->where('FirstBlockDrop', '=', $FirstBlockDrop);
+    }
+
+    if ($FirstPostpone) {
+        $query->where('FirstPostpone', '=', $FirstPostpone);
+    }
+
+    if ($FirstAcademicViolation) {
+        $query->where('FirstAcademicViolation', '=', $FirstAcademicViolation );
+    }
+
+    if ($SecondBlockDrop) {
+        $query->where('SecondBlockDrop', '=', $SecondBlockDrop);
+    }
+
+    if ($SecondPostpone) {
+        $query->where('SecondPostpone', '=', $SecondPostpone);
+    }
+
+    if ($SecondAcademicViolation) {
+        $query->where('SecondAcademicViolation', '=',$SecondAcademicViolation );
+    }
+
+    if ($ThirdBlockDrop) {
+        $query->where('ThirdBlockDrop', '=',$ThirdBlockDrop );
+    }
+
+    if ($ThirdPostpone) {
+        $query->where('ThirdPostpone', '=', $ThirdPostpone);
+    }
+
+    if ($ThirdAcademicViolation) {
+        $query->where('ThirdAcademicViolation', '=', $ThirdAcademicViolation);
+    }
+
+    if ($FirstAttemptAttendanceViolation) {
+        $query->where('FirstAttemptAttendanceViolation', '=', $FirstAttemptAttendanceViolation);
+    }
+
+    if ($SecondAttemptAttendanceViolation) {
+        $query->where('SecondAttemptAttendanceViolation', '=', $SecondAttemptAttendanceViolation );
+    }
+
+    if ($ThirdAttemptAttendanceViolation) {
+        $query->where('ThirdAttemptAttendanceViolation', '=', $ThirdAttemptAttendanceViolation);
+    }
+
+    if ($Withdrawal) {
+        $query->where('Withdrawal', '=', $Withdrawal);
+    }
+
+    $searchResults = $query->orderBy('FirstName', 'asc')->paginate(5);
+
+    return view('advanced_search_result',compact('searchResults'));
   }
 
 

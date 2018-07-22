@@ -19,5 +19,11 @@ Route::get('/home', function () {
   return view('welcome');
 })->name('home');
 
-Route::get('student/search', 'StudentController@search')->name('student.search');
+Route::get('/advanced_search', function () {
+  return view('advanced_search');
+})->name('advanced_search');
+
+Route::get('student/search_result', 'StudentController@search')->name('student.search_result');
+Route::get('student/advanced_search_result', 'StudentController@advanced_search')->name('student.advanced_search_result');
+
 Route::resource('/student', 'StudentController');
