@@ -291,6 +291,15 @@
         background-color: white;
       }
 
+      .search-details a i{
+        color: #3a7f59;
+        cursor: pointer;
+      }
+
+      .search-details a i:hover {
+        color: #226f44;
+      }
+
       .search-details table {
         text-align: left;
         border-collapse: collapse;
