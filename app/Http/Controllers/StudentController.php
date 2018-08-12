@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student;
 use DB;
+use PDF;
+use Session;
+
+
 
 class StudentController extends Controller
 {
+
   /**
   * Display a listing of the resource.
   *
@@ -26,7 +31,12 @@ class StudentController extends Controller
   */
   public function search(Request $request)
   {
+
     $search = $request->get('keyword');
+
+    //adding session for exporting the result and removing old session
+    session(['search'=>$search]);
+    Session::forget('SR');
 
     $searchResults = Student::where('Badge', '=', $search)
     ->orWhere('NationalID', '=', $search)
@@ -37,8 +47,40 @@ class StudentController extends Controller
     ->orWhere('LastName', 'LIKE', '%'.$search.'%')
     ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
     ->paginate(5);
-
     return view('search_result',compact('searchResults','search'));
+  }
+
+
+  // this function is for exporting the search result to PDF
+  public function export_pdf()
+  {
+        if (Session::has('SR')) {
+            $searchResults =session('SR')->all();
+            //return view('ExportPDFSearch',compact('searchResults'));
+            $pdf = PDF::loadView('ExportPDFSearch',compact('searchResults'));
+            $pdf->save(storage_path().'_erecords.pdf');
+            return $pdf->download('erecords.pdf');
+      }
+      else
+      {
+          $search =session('search');
+          // Fetch all students from database
+          $searchResults = Student::where('Badge', '=',$search)
+          ->orWhere('NationalID', '=', $search)
+          ->orWhere('Batch', 'LIKE', '%'.$search.'%')
+          ->orWhere('Stream', 'LIKE', '%'.$search.'%')
+          ->orWhere('Status', 'LIKE', '%'.$search.'%')
+          ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
+          ->orWhere('LastName', 'LIKE', '%'.$search.'%')
+          ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
+          ->get();
+
+          // Send data to the view using loadView function of PDF facade
+          $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
+          $pdf->save(storage_path().'_erecords.pdf');
+          //session->forget('search');
+          return $pdf->download('erecords.pdf');
+      }
   }
 
   /**
@@ -204,8 +246,11 @@ class StudentController extends Controller
         $query->where('Withdrawal', '=', $Withdrawal);
     }
 
-    $searchResults = $query->orderBy('FirstName', 'asc')->paginate(5);
+    //adding session for exporting the result and removing old session
+    session(['SR'=>$query->orderBy('FirstName', 'asc')->get()]);
+    Session::forget('search');
 
+    $searchResults = $query->orderBy('FirstName', 'asc')->paginate(5);
     return view('advanced_search_result',compact('searchResults'));
   }
 
