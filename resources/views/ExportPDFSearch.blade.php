@@ -1,28 +1,26 @@
-<h1>Search Result</h1>
+<h3 Style="text-align:center;">Comj E-Records</h3>
 
 @if (isset($searchResults))
-  <table>
-      <tr><th></th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Badge</th>
-        <th>National ID</th>
-        <th>Status</th>
-        <th>Student No</th>
-        <th>Batch</th>
-        <th>Stream</th>
+  <table Style="width:100%; border-collapse: collapse; border: 1px solid black;">
+      <tr>
+        <th Style="border: 1px solid black; text-align:center; height: 50px;">Student Name</th>
+        <th Style="border: 1px solid black; text-align:center; height: 50px;">Badge</th>
+        <th Style="border: 1px solid black; text-align:center; height: 50px;">National ID</th>
+        <th Style="border: 1px solid black; text-align:center; height: 50px;">Status</th>
+        <th Style="border: 1px solid black; text-align:center; height: 50px;">Student No</th>
+        <th Style="border: 1px solid black; text-align:center; height: 50px;">Batch</th>
+        <th Style="border: 1px solid black; text-align:center; height: 50px;">Stream</th>
       </tr>
       @foreach($searchResults as $result)
-      <tr>
+      <tr Style="border: 1px solid black; text-align:center;">
 
-        <td>{{$result->FirstName}}</td>
-        <td>{{$result->LastName}}</td>
-        <td>{{$result->Badge}}</td>
-        <td>{{$result->NationalID}}</td>
-        <td>{{$result->Status}}</td>
-        <td>{{$result->StudentNo}}</td>
-        <td>{{$result->Batch}}</td>
-        <td>{{$result->Stream}}</td>
+        <td Style="border-right: 1px solid black; padding: 5px;">{{$result->FirstName}} {{$result->LastName}}</td>
+        <td Style="border-right: 1px solid black; padding: 5px;">{{$result->Badge}}</td>
+        <td Style="border-right: 1px solid black; padding: 5px;">{{$result->NationalID}}</td>
+        <td Style="border-right: 1px solid black; padding: 5px;">{{$result->Status}}</td>
+        <td Style="border-right: 1px solid black; padding: 5px;">{{$result->StudentNo}}</td>
+        <td Style="border-right: 1px solid black; padding: 5px;">{{$result->Batch}}</td>
+        <td Style="border-right: 1px solid black; padding: 5px;">{{$result->Stream}}</td>
       </tr>
 
       @endforeach
