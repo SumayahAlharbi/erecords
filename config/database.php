@@ -78,6 +78,19 @@ return [
             'prefix' => '',
         ],
 
+        'oracle' => [
+        'driver'        => 'oracle',
+        'tns'           => env('DB_TNS', ''),
+        'host'          => env('DB_HOST', 'rupsisdbsrv01.ksuhs.edu.sa'),
+        'port'          => env('DB_PORT', '1521'),
+        'database'      => env('DB_DATABASE', 'SISPROD'),
+        'username'      => env('DB_USERNAME', 'Moyad'),
+        'password'      => env('DB_PASSWORD', 'K$AU2COMJ18'),
+        'charset'       => env('DB_CHARSET', 'AL32UTF8'),
+        'prefix'        => env('DB_PREFIX', ''),
+        'prefix_schema' => env('DB_SCHEMA_PREFIX', ''),
+      ],
+
     ],
 
     /*
