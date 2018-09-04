@@ -39,9 +39,3 @@ Route::get('/Student/excel', function () {
 Route::get('/pdfview', function () {
   return view('ExportPDFSearch');
 });
-Route::get('/SR', function () {
-  return session('SR');
-});
-Route::get('/fname', function () {
-  return session('fname');
-});

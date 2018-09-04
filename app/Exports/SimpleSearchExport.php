@@ -7,9 +7,10 @@ use DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithMapping;
 use Session;
 
-class SimpleSearchExport implements FromCollection, WithHeadings
+class SimpleSearchExport implements FromCollection, WithHeadings, ShouldAutoSize, WithMapping
 {
 
         public function collection()
@@ -134,7 +135,7 @@ class SimpleSearchExport implements FromCollection, WithHeadings
                                 return student::query()->where('Withdrawal', '=', session('Withdrawal'))->orderBy('FirstName', 'asc');
                             }
 
-                            return student::query()->orderBy('FirstName', 'asc');
+                            return student::query()->select('FirstName');
           }
           else
           {
@@ -155,17 +156,31 @@ class SimpleSearchExport implements FromCollection, WithHeadings
 
         }
 
+        public function map($searchResults): array
+        {
+            return [
+                $searchResults->FirstName,
+                $searchResults->LastName,
+                $searchResults->Badge,
+                $searchResults->NationalID,
+                $searchResults->Status,
+                $searchResults->StudentNo,
+                $searchResults->Batch,
+                $searchResults->Stream
+            ];
+        }
+
         public function headings(): array
         {
             return [
-                'Badge',
-                'NationalID',
-                'Batch',
-                'Stream',
-                'Status',
                 'FirstName',
                 'LastName',
-                'StudentNo'
+                'Badge',
+                'NationalID',
+                'Status',
+                'StudentNo',
+                'Batch',
+                'Stream'
             ];
         }
   }
