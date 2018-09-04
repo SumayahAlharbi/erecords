@@ -1,5 +1,7 @@
 <?php
 
+use App\Exports\SimpleSearchExport;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,3 +29,13 @@ Route::get('student/search_result', 'StudentController@search')->name('student.s
 Route::get('student/advanced_search_result', 'StudentController@advanced_search')->name('student.advanced_search_result');
 
 Route::resource('/student', 'StudentController');
+
+
+//Routes for exporting to PDF or Excel
+Route::get('/Student/pdf','StudentController@export_pdf');
+Route::get('/Student/excel', function () {
+  return Excel::download(new SimpleSearchExport, 'erecords.xlsx');
+});
+Route::get('/pdfview', function () {
+  return view('ExportPDFSearch');
+});
