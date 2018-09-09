@@ -1,5 +1,5 @@
 <?php
-
+// php class for all excel export features
 namespace App\Exports;
 use App\Http\Controllers;
 use App\Student;
