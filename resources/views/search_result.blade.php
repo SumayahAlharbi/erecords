@@ -7,7 +7,7 @@
 
   <title>COMJ E-RECORDS</title>
   <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet" type="text/css">
-  
+
 </head>
 <body>
   <div class='header'>
@@ -28,6 +28,8 @@
     </div>
 
     <div class="search-result">
+      <a class="advanced_search" href="{{ URL::to('Student/pdf') }}">Export to PDF</a>
+      <a class="advanced_search" href="{{ URL::to('Student/excel') }}">Export to exel</a>
       <a class="advanced_search" href="{{ route('advanced_search') }}">Advanced Search</a>
       <h4>Search Result for <span style='letter-spacing:normal;'>"{{$search}}"</span>..</h4>
       @if (isset($searchResults))
