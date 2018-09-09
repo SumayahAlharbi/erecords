@@ -5,14 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student;
 use DB;
-use PDF;
-use Session;
-
-
 
 class StudentController extends Controller
 {
-
   /**
   * Display a listing of the resource.
   *
@@ -31,12 +26,7 @@ class StudentController extends Controller
   */
   public function search(Request $request)
   {
-
     $search = $request->get('keyword');
-
-    //adding session for exporting the result and removing old session
-    session(['search'=>$search]);
-    Session::forget('SR');
 
     $searchResults = Student::where('Badge', '=', $search)
     ->orWhere('NationalID', '=', $search)
@@ -47,40 +37,8 @@ class StudentController extends Controller
     ->orWhere('LastName', 'LIKE', '%'.$search.'%')
     ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
     ->paginate(5);
+
     return view('search_result',compact('searchResults','search'));
-  }
-
-
-  // this function is for exporting the search result to PDF
-  public function export_pdf()
-  {
-        if (Session::has('SR')) {
-            $searchResults =session('SR')->all();
-            //return view('ExportPDFSearch',compact('searchResults'));
-            $pdf = PDF::loadView('ExportPDFSearch',compact('searchResults'));
-            $pdf->save(storage_path().'_erecords.pdf');
-            return $pdf->download('erecords.pdf');
-      }
-      else
-      {
-          $search =session('search');
-          // Fetch all students from database
-          $searchResults = Student::where('Badge', '=',$search)
-          ->orWhere('NationalID', '=', $search)
-          ->orWhere('Batch', 'LIKE', '%'.$search.'%')
-          ->orWhere('Stream', 'LIKE', '%'.$search.'%')
-          ->orWhere('Status', 'LIKE', '%'.$search.'%')
-          ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
-          ->orWhere('LastName', 'LIKE', '%'.$search.'%')
-          ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
-          ->get();
-
-          // Send data to the view using loadView function of PDF facade
-          $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
-          $pdf->save(storage_path().'_erecords.pdf');
-          //session->forget('search');
-          return $pdf->download('erecords.pdf');
-      }
   }
 
   /**
@@ -89,7 +47,6 @@ class StudentController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  // every session created on this function is used to create excel sheet
   public function advanced_search(Request $request)
   {
 
@@ -97,68 +54,39 @@ class StudentController extends Controller
 
     // text
     $fname= $request->get('FirstName');
-    session(['fname'=>$fname]); //used to create excel sheet
     $mname= $request->get('MiddleName');
-    session(['mname'=>$mname]); //used to create excel sheet
     $lname= $request->get('LastName');
-    session(['lname'=>$lname]); //used to create excel sheet
-
 
     $NationalID= $request->get('NationalID');
-    session(['NationalID'=>$NationalID]); //used to create excel sheet
     $Batch = $request->get('Batch');
-    session(['Batch'=>$Batch]); //used to create excel sheet
+
 
     $Badge= $request->get('Badge');
-    session(['Badge'=>$Badge]); //used to create excel sheet
     $Status= $request->get('Status');
-    session(['Status'=>$Status]); //used to create excel sheet
     $StudentNo= $request->get('StudentNo');
-    session(['StudentNo'=>$StudentNo]); //used to create excel sheet
     $Mobile= $request->get('Mobile');
-    session(['Mobile'=>$Mobile]); //used to create excel sheet
     $KSAUHSEmail= $request->get('KSAUHSEmail');
-    session(['KSAUHSEmail'=>$KSAUHSEmail]); //used to create excel sheet
     $NGHAEmail= $request->get('NGHAEmail');
-    session(['NGHAEmail'=>$NGHAEmail]); //used to create excel sheet
     $PersonalEmail= $request->get('PersonalEmail');
-    session(['PersonalEmail'=>$PersonalEmail]); //used to create excel sheet
     $GraduateExpectationsYear= $request->get('GraduateExpectationsYear');
-    session(['GraduateExpectationsYear'=>$GraduateExpectationsYear]); //used to create excel sheet
     $Stream = $request->get('Stream');
-    session(['Stream'=>$Stream]); //used to create excel sheet
 
     // dates
     $LastActivationDate= $request->get('LastActivationDate');
-    session(['LastActivationDate'=>$LastActivationDate]); //used to create excel sheet
     $Dismissed= $request->get('Dismissed');
-    session(['Dismissed'=>$Dismissed]); //used to create excel sheet
     $FirstBlockDrop= $request->get('FirstBlockDrop');
-    session(['FirstBlockDrop'=>$FirstBlockDrop]); //used to create excel sheet
     $FirstPostpone= $request->get('FirstPostpone');
-    session(['FirstPostpone'=>$FirstPostpone]); //used to create excel sheet
     $FirstAcademicViolation= $request->get('FirstAcademicViolation');
-    session(['FirstAcademicViolation'=>$FirstAcademicViolation]); //used to create excel sheet
     $SecondBlockDrop= $request->get('SecondBlockDrop');
-    session(['SecondBlockDrop'=>$SecondBlockDrop]); //used to create excel sheet
     $SecondPostpone= $request->get('SecondPostpone');
-    session(['SecondPostpone'=>$SecondPostpone]); //used to create excel sheet
     $SecondAcademicViolation= $request->get('SecondAcademicViolation');
-    session(['SecondAcademicViolation'=>$SecondAcademicViolation]); //used to create excel sheet
     $ThirdBlockDrop= $request->get('ThirdBlockDrop');
-    session(['ThirdBlockDrop'=>$ThirdBlockDrop]); //used to create excel sheet
     $ThirdPostpone= $request->get('ThirdPostpone');
-    session(['ThirdPostpone'=>$ThirdPostpone]); //used to create excel sheet
     $ThirdAcademicViolation= $request->get('ThirdAcademicViolation');
-    session(['ThirdAcademicViolation'=>$ThirdAcademicViolation]); //used to create excel sheet
     $FirstAttemptAttendanceViolation= $request->get('FirstAttemptAttendanceViolation');
-    session(['FirstAttemptAttendanceViolation'=>$FirstAttemptAttendanceViolation]); //used to create excel sheet
     $SecondAttemptAttendanceViolation= $request->get('SecondAttemptAttendanceViolation');
-    session(['SecondAttemptAttendanceViolation'=>$SecondAttemptAttendanceViolation]); //used to create excel sheet
     $ThirdAttemptAttendanceViolation= $request->get('ThirdAttemptAttendanceViolation');
-    session(['ThirdAttemptAttendanceViolation'=>$ThirdAttemptAttendanceViolation]); //used to create excel sheet
     $Withdrawal= $request->get('Withdrawal');
-    session(['Withdrawal'=>$Withdrawal]); //used to create excel sheet
 
     if ($fname) {
         $query->where('FirstName', '=', $fname);
@@ -276,11 +204,8 @@ class StudentController extends Controller
         $query->where('Withdrawal', '=', $Withdrawal);
     }
 
-    //adding session for exporting the result and removing old session
-    session(['SR'=>$query->get()]);
-    Session::forget('search');
-
     $searchResults = $query->orderBy('FirstName', 'asc')->paginate(5);
+
     return view('advanced_search_result',compact('searchResults'));
   }
 
