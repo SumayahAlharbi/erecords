@@ -8,8 +8,6 @@ use DB;
 use PDF;
 use Session;
 
-
-
 class StudentController extends Controller
 {
 
@@ -54,33 +52,33 @@ class StudentController extends Controller
   // this function is for exporting the search result to PDF
   public function export_pdf()
   {
-        if (Session::has('SR')) {
-            $searchResults =session('SR')->all();
-            //return view('ExportPDFSearch',compact('searchResults'));
-            $pdf = PDF::loadView('ExportPDFSearch',compact('searchResults'));
-            $pdf->save(storage_path().'_erecords.pdf');
-            return $pdf->download('erecords.pdf');
-      }
-      else
-      {
-          $search =session('search');
-          // Fetch all students from database
-          $searchResults = Student::where('Badge', '=',$search)
-          ->orWhere('NationalID', '=', $search)
-          ->orWhere('Batch', 'LIKE', '%'.$search.'%')
-          ->orWhere('Stream', 'LIKE', '%'.$search.'%')
-          ->orWhere('Status', 'LIKE', '%'.$search.'%')
-          ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
-          ->orWhere('LastName', 'LIKE', '%'.$search.'%')
-          ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
-          ->get();
+    if (Session::has('SR')) {
+      $searchResults =session('SR')->all();
+      //return view('ExportPDFSearch',compact('searchResults'));
+      $pdf = PDF::loadView('ExportPDFSearch',compact('searchResults'));
+      $pdf->save(storage_path().'_erecords.pdf');
+      return $pdf->download('erecords.pdf');
+    }
+    else
+    {
+      $search =session('search');
+      // Fetch all students from database
+      $searchResults = Student::where('Badge', '=',$search)
+      ->orWhere('NationalID', '=', $search)
+      ->orWhere('Batch', 'LIKE', '%'.$search.'%')
+      ->orWhere('Stream', 'LIKE', '%'.$search.'%')
+      ->orWhere('Status', 'LIKE', '%'.$search.'%')
+      ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
+      ->orWhere('LastName', 'LIKE', '%'.$search.'%')
+      ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
+      ->get();
 
-          // Send data to the view using loadView function of PDF facade
-          $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
-          $pdf->save(storage_path().'_erecords.pdf');
-          //session->forget('search');
-          return $pdf->download('erecords.pdf');
-      }
+      // Send data to the view using loadView function of PDF facade
+      $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
+      $pdf->save(storage_path().'_erecords.pdf');
+      //session->forget('search');
+      return $pdf->download('erecords.pdf');
+    }
   }
 
   /**
@@ -161,119 +159,119 @@ class StudentController extends Controller
     session(['Withdrawal'=>$Withdrawal]); //used to create excel sheet
 
     if ($fname) {
-        $query->where('FirstName', '=', $fname);
+      $query->where('FirstName', '=', $fname);
     }
 
     if ($mname) {
-        $query->where('MiddleName', '=', $mname);
+      $query->where('MiddleName', '=', $mname);
     }
 
     if ($lname) {
-        $query->where('LastName', '=', $lname);
+      $query->where('LastName', '=', $lname);
     }
 
     if ($NationalID) {
-        $query->where('NationalID', '=', $NationalID);
+      $query->where('NationalID', '=', $NationalID);
     }
 
     if ($Badge) {
-        $query->where('Badge', '=', $Badge);
+      $query->where('Badge', '=', $Badge);
     }
 
     if ($Status) {
-        $query->whereIn('Status', $Status);
+      $query->whereIn('Status', $Status);
     }
 
     if ($Stream) {
-        $query->whereIn('Stream', $Stream);
-      }
+      $query->whereIn('Stream', $Stream);
+    }
 
     if ($Batch) {
-        $query->whereIn('Batch', $Batch);
+      $query->whereIn('Batch', $Batch);
     }
 
     if ($StudentNo) {
-        $query->where('StudentNo', '=', $StudentNo );
+      $query->where('StudentNo', '=', $StudentNo );
     }
 
     if ($Mobile) {
-        $query->where('Mobile', 'LIKE', $Mobile);
+      $query->where('Mobile', 'LIKE', $Mobile);
     }
 
     if ($KSAUHSEmail) {
-        $query->where('KSAUHSEmail', 'LIKE', $KSAUHSEmail );
+      $query->where('KSAUHSEmail', 'LIKE', $KSAUHSEmail );
     }
 
     if ($NGHAEmail) {
-        $query->where('NGHAEmail', 'LIKE', $NGHAEmail);
+      $query->where('NGHAEmail', 'LIKE', $NGHAEmail);
     }
 
     if ($PersonalEmail) {
-        $query->where('PersonalEmail', 'LIKE', $PersonalEmail);
+      $query->where('PersonalEmail', 'LIKE', $PersonalEmail);
     }
 
     if ($GraduateExpectationsYear) {
-        $query->whereIn('GraduateExpectationsYear',$GraduateExpectationsYear);
+      $query->whereIn('GraduateExpectationsYear',$GraduateExpectationsYear);
     }
 
     if ($LastActivationDate) {
-        $query->where('LastActivationDate', '=', $LastActivationDate);
+      $query->where('LastActivationDate', '=', $LastActivationDate);
     }
 
     if ($Dismissed) {
-        $query->where('Dismissed', '=', $Dismissed);
+      $query->where('Dismissed', '=', $Dismissed);
     }
 
     if ($FirstBlockDrop) {
-        $query->where('FirstBlockDrop', '=', $FirstBlockDrop);
+      $query->where('FirstBlockDrop', '=', $FirstBlockDrop);
     }
 
     if ($FirstPostpone) {
-        $query->where('FirstPostpone', '=', $FirstPostpone);
+      $query->where('FirstPostpone', '=', $FirstPostpone);
     }
 
     if ($FirstAcademicViolation) {
-        $query->where('FirstAcademicViolation', '=', $FirstAcademicViolation );
+      $query->where('FirstAcademicViolation', '=', $FirstAcademicViolation );
     }
 
     if ($SecondBlockDrop) {
-        $query->where('SecondBlockDrop', '=', $SecondBlockDrop);
+      $query->where('SecondBlockDrop', '=', $SecondBlockDrop);
     }
 
     if ($SecondPostpone) {
-        $query->where('SecondPostpone', '=', $SecondPostpone);
+      $query->where('SecondPostpone', '=', $SecondPostpone);
     }
 
     if ($SecondAcademicViolation) {
-        $query->where('SecondAcademicViolation', '=',$SecondAcademicViolation );
+      $query->where('SecondAcademicViolation', '=',$SecondAcademicViolation );
     }
 
     if ($ThirdBlockDrop) {
-        $query->where('ThirdBlockDrop', '=',$ThirdBlockDrop );
+      $query->where('ThirdBlockDrop', '=',$ThirdBlockDrop );
     }
 
     if ($ThirdPostpone) {
-        $query->where('ThirdPostpone', '=', $ThirdPostpone);
+      $query->where('ThirdPostpone', '=', $ThirdPostpone);
     }
 
     if ($ThirdAcademicViolation) {
-        $query->where('ThirdAcademicViolation', '=', $ThirdAcademicViolation);
+      $query->where('ThirdAcademicViolation', '=', $ThirdAcademicViolation);
     }
 
     if ($FirstAttemptAttendanceViolation) {
-        $query->where('FirstAttemptAttendanceViolation', '=', $FirstAttemptAttendanceViolation);
+      $query->where('FirstAttemptAttendanceViolation', '=', $FirstAttemptAttendanceViolation);
     }
 
     if ($SecondAttemptAttendanceViolation) {
-        $query->where('SecondAttemptAttendanceViolation', '=', $SecondAttemptAttendanceViolation );
+      $query->where('SecondAttemptAttendanceViolation', '=', $SecondAttemptAttendanceViolation );
     }
 
     if ($ThirdAttemptAttendanceViolation) {
-        $query->where('ThirdAttemptAttendanceViolation', '=', $ThirdAttemptAttendanceViolation);
+      $query->where('ThirdAttemptAttendanceViolation', '=', $ThirdAttemptAttendanceViolation);
     }
 
     if ($Withdrawal) {
-        $query->where('Withdrawal', '=', $Withdrawal);
+      $query->where('Withdrawal', '=', $Withdrawal);
     }
 
     //adding session for exporting the result and removing old session
@@ -284,71 +282,161 @@ class StudentController extends Controller
     return view('advanced_search_result',compact('searchResults'));
   }
 
-
   /**
-  * Show the form for creating a new resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
-  public function create()
-  {
-    //
-  }
-
-  /**
-  * Store a newly created resource in storage.
+  * Update student personal info
   *
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request)
+  public function update_personal(Request $request)
   {
-    //
-  }
+    // Validate the form data
+    $this->validate($request, [
+      'ArabicFirstName' => 'required',
+      'ArabicMiddleName' => 'required',
+      'ArabicLastName' => 'required',
+    ]);
 
-  /**
-  * Display the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function show($id)
-  {
-    $student = Student::findOrFail($id);
-    return view('student.show',compact('student'));
-  }
+    $id = $request->get('id');
+    $ArabicFirstName = $request->get('ArabicFirstName');
+    $ArabicMiddleName = $request->get('ArabicMiddleName');
+    $ArabicLastName = $request->get('ArabicLastName');
 
-  /**
-  * Show the form for editing the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function edit($id)
-  {
-    //
-  }
+    $query = Student::where('id', '=', $id)->update(
+      ['ArabicFirstName' => $ArabicFirstName ,
+      'ArabicMiddleName' => $ArabicMiddleName ,
+      'ArabicLastName' => $ArabicLastName]);
 
-  /**
-  * Update the specified resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function update(Request $request, $id)
-  {
-    //
-  }
+      if ($query) {return back();}
+    }
 
-  /**
-  * Remove the specified resource from storage.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function destroy($id)
-  {
-    //
+    /**
+    * Update student academic info
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function update_academic(Request $request)
+    {
+      // Validate the form data
+      $this->validate($request, [
+        'Batch' => 'required|numeric|min:1',
+        'Stream' => 'required|numeric|min:1',
+        'FirstAcademicViolation' => 'required',
+        'FirstAttemptAttendanceViolation' => 'required',
+        'SecondAcademicViolation' => 'required',
+        'SecondAttemptAttendanceViolation' => 'required',
+        'ThirdAcademicViolation' => 'required',
+        'ThirdAttemptAttendanceViolation' => 'required',
+      ]);
+
+      $id = $request->get('id');
+      $Batch = $request->get('Batch');
+      $Stream = $request->get('Stream');
+      $FirstAcademicViolation = $request->get('FirstAcademicViolation');
+      $FirstAttemptAttendanceViolation = $request->get('FirstAttemptAttendanceViolation');
+      $SecondAcademicViolation = $request->get('SecondAcademicViolation');
+      $SecondAttemptAttendanceViolation = $request->get('SecondAttemptAttendanceViolation');
+      $ThirdAcademicViolation = $request->get('ThirdAcademicViolation');
+      $ThirdAttemptAttendanceViolation = $request->get('ThirdAttemptAttendanceViolation');
+
+      $query = Student::where('id', '=', $id)->update(
+        ['Batch' => $Batch ,
+        'Stream' =>  $Stream,
+        'FirstAcademicViolation' =>  $FirstAcademicViolation,
+        'FirstAttemptAttendanceViolation' =>  $FirstAttemptAttendanceViolation,
+        'SecondAcademicViolation' =>  $SecondAcademicViolation,
+        'SecondAttemptAttendanceViolation' =>  $SecondAttemptAttendanceViolation,
+        'ThirdAcademicViolation' =>  $ThirdAcademicViolation,
+        'ThirdAttemptAttendanceViolation' =>  $ThirdAttemptAttendanceViolation
+      ]);
+
+      if ($query) {return back();}
+    }
+
+    /**
+    * Update student contact info
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function update_contact(Request $request)
+    {
+      // Validate the form data
+      $this->validate($request, [
+        'Mobile' => 'required',
+      ]);
+
+      $id = $request->get('id');
+      $Mobile = $request->get('Mobile');
+      $query = Student::where('id', '=', $id)->update(['Mobile' => $Mobile]);
+      if ($query) {return back();}
+    }
+
+    /**
+    * Show the form for creating a new resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function create()
+    {
+      //
+    }
+
+    /**
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function store(Request $request)
+    {
+      //
+    }
+
+    /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function show($id)
+    {
+      $student = Student::findOrFail($id);
+      return view('student.show',compact('student'));
+    }
+
+    /**
+    * Show the form for editing the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function edit($id)
+    {
+      //
+    }
+
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function update(Request $request, $id)
+    {
+      //
+    }
+
+    /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function destroy($id)
+    {
+      //
+    }
   }
-}

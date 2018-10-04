@@ -17,5 +17,6 @@ class Student extends Model
     'Batch',
     'Stream'
   ];
+  public $timestamps = false;
 
 }

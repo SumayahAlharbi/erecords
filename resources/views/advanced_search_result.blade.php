@@ -7,13 +7,36 @@
 
   <title>COMJ E-RECORDS</title>
   <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet" type="text/css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <link href="{{ URL::asset('css/navbar.css') }}" rel="stylesheet" type="text/css">
 
 </head>
 <body>
   <div class='header'>
     <a href="{{ route('home') }}"><img src={{ asset('logo/comj-logo.png')}} alt='COMJ Logo' height="87" width="385"/></a>
-
   </div>
+
+  <div class="nav-right">
+    <nav class="navbar-logout" role="navigation">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
+            <a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+            {{ __('Logout') }}
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+          </form>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  </div>
+  
   <div class='top-right'>
     <form method="get" action="{{ route('student.search_result') }}" enctype="multipart/form-data" class="search">
       <input type="text" placeholder="Search.." name="keyword"/>
@@ -28,8 +51,8 @@
     </div>
 
     <div class="search-result">
-      <a class="advanced_search" href="{{ URL::to('Student/pdf') }}">Export to PDF</a>
-      <a class="advanced_search" href="{{ URL::to('Student/excel') }}">Export to exel</a>
+      <a class="advanced_search" href="{{ URL::to('student/pdf') }}">Export to PDF</a>
+      <a class="advanced_search" href="{{ URL::to('student/excel') }}">Export to exel</a>
       <a class="advanced_search" href="{{ route('advanced_search') }}">Advanced Search</a>
       @if (isset($searchResults))
       <table>
