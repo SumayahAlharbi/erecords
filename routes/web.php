@@ -21,10 +21,6 @@ Route::get('/home', function () {
   return view('home');
 })->name('home');
 
-Route::get('/test', function () {
-  return view('test');
-});
-
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function()
@@ -38,12 +34,17 @@ Route::resource('/student', 'StudentController');
 Route::get('/advanced_search', function () {
   return view('advanced_search');
 })->name('advanced_search');
+
 //Routes for exporting to PDF or Excel
-Route::get('/student/pdf','StudentController@export_pdf');
-Route::get('/student/excel', function () {
+Route::get('Student/pdf','StudentController@export_pdf');
+Route::get('Student/excel', function () {
   return Excel::download(new SimpleSearchExport, 'erecords.xlsx');
 });
 Route::get('/pdfview', function () {
   return view('ExportPDFSearch');
 });
+
+Route::get('summeryReport/pdf','StudentController@summeryReport_pdf');
+Route::get('studentReport/pdf/{id}','StudentController@studentReport_pdf');
+
 });

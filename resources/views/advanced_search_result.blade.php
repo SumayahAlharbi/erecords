@@ -23,7 +23,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
-            <a class="dropdown-item" href="{{ route('logout') }}"
+            <li><a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
             {{ __('Logout') }}
@@ -31,12 +31,14 @@
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
           </form>
+          </li>
+          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summery Report</a></li>
         </ul>
       </li>
     </ul>
   </nav>
   </div>
-  
+
   <div class='top-right'>
     <form method="get" action="{{ route('student.search_result') }}" enctype="multipart/form-data" class="search">
       <input type="text" placeholder="Search.." name="keyword"/>

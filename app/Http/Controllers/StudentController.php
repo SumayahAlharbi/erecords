@@ -81,6 +81,64 @@ class StudentController extends Controller
     }
   }
 
+
+  // this function is for creating the Summery Report
+  public function summeryReport_pdf()
+  {
+
+    $batches = Student::distinct()->get(['Batch']);
+
+    $active = [];
+    $alumni=[];
+    $intern=[];
+    $postponed=[];
+    $withdrawal=[];
+    $dismissed=[];
+    $total=[];
+
+    foreach ($batches as $key => $value) {
+      $active[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ACTIVE')->count();
+      $total_active = Student::where('Status', '=', 'ACTIVE')->count();
+
+      $alumni[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ALUMNI')->count();
+      $total_alumni = Student::where('Status', '=', 'ALUMNI')->count();
+
+
+      $intern[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'INTERN')->count();
+      $total_intern = Student::where('Status', '=', 'INTERN')->count();
+
+      $postponed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'POSTPONED')->count();
+      $total_postponed = Student::where('Status', '=', 'POSTPONED')->count();
+
+      $withdrawal[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'WITHDRAWL')->count();
+      $total_withdrawal = Student::where('Status', '=', 'WITHDRAWL')->count();
+
+      $dismissed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'DISMISSED')->count();
+      $total_dismissed = Student::where('Status', '=', 'DISMISSED')->count();
+
+      $total[] = Student::where('Batch', '=', $value->Batch)->count();
+      $totaloftotal = Student::all()->count();
+    }
+
+    // Send data to the view using loadView function of PDF facade
+    $pdf = PDF::loadView('SummeryReport', compact(
+      'batches','active','alumni','intern','postponed','withdrawal','dismissed','total',
+      'total_active','total_alumni','total_intern','total_postponed','total_withdrawal','total_dismissed','totaloftotal'
+    ));
+    $pdf->save(storage_path().'_SummeryReport.pdf');
+    return $pdf->download('SummeryReport.pdf');
+  }
+
+  // this function is for creating the Student Details Report
+  public function studentReport_pdf($id)
+  {
+    $student = Student::findOrFail($id);
+
+    $pdf = PDF::loadView('StudentReport',compact('student'));
+    $pdf->save(storage_path().'_StudentReport.pdf');
+    return $pdf->download('StudentReport.pdf');
+  }
+
   /**
   * advanced search
   *

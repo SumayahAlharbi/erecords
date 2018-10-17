@@ -417,6 +417,8 @@ background-color: #f6f6f6;
 label[for*='2']:before { content: '\f19c'; }
 label[for*='3']:before { content: '\f20e'; }
 label[for*='4']:before { content: '\f0c6'; }
+label[for*='5']:before { content: '\f02f'; }
+
 
 .search-details  label:hover {
   color: #888;

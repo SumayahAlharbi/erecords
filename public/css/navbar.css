@@ -6,6 +6,7 @@ html, body {
   font-weight: normal;
   font-size: 16px;
 }
+
 /* Fixed navbar */
 .nav-right {
   position: absolute;
@@ -17,30 +18,32 @@ html, body {
 .navbar
 {
   display:block;
-  float: left;
+  float: right;
   margin-left: 14px;
+  text-align: right;
 }
 
 .navbar li ul {
   width: 550px;
+  background-color: #f1f1f1;
 }
+
 .navbar-logout li ul {
   width: auto;
+  text-align: right;
+  clear: both;
 }
+
 .navbar-logout li a {
-  float: right;
-  padding: 4px;
+  clear: both;
+  text-align: right;
+  padding: 4px 10px 4px 4px;
+  width: 185px;
   font-weight: bold;
   color: #0A6030;
   text-decoration: none;
 }
-.navbar li a {
-  float: right;
-  padding: 4px 8px 4px 8px;
-  font-weight: bold;
-  color: #0A6030;
-  text-decoration: none;
-}
+
 .navbar, .navbar-logout li a:hover, a:visited, a:active, a:focus {
   color: #0A6030;
 }

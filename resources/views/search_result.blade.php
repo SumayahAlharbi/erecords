@@ -23,7 +23,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
-            <a class="dropdown-item" href="{{ route('logout') }}"
+            <li><a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
             {{ __('Logout') }}
@@ -31,6 +31,8 @@
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
           </form>
+          </li>
+          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summery Report</a></li>
         </ul>
       </li>
     </ul>
@@ -51,8 +53,8 @@
   </div>
 
   <div class="search-result">
-    <a class="advanced_search" href="{{ URL::to('student/pdf') }}">Export to PDF</a>
-    <a class="advanced_search" href="{{ URL::to('student/excel') }}">Export to exel</a>
+    <a class="advanced_search" href="{{ URL::to('Student/pdf') }}">Export to PDF</a>
+    <a class="advanced_search" href="{{ URL::to('Student/excel') }}">Export to exel</a>
     <a class="advanced_search" href="{{ route('advanced_search') }}">Advanced Search</a>
     <h4>Search Result for <span style='letter-spacing:normal;'>"{{$search}}"</span>..</h4>
     @if (isset($searchResults))

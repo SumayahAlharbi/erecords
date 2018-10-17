@@ -22,7 +22,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
-            <a class="dropdown-item" href="{{ route('logout') }}"
+            <li><a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
             {{ __('Logout') }}
@@ -30,6 +30,8 @@
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
           </form>
+          </li>
+          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summery Report</a></li>
         </ul>
       </li>
     </ul>
@@ -65,6 +67,9 @@
 
       <input id="tab4" type="radio" name="tabs">
       <label for="tab4">Attachment</label>
+
+
+      <a style="text-decoration: none;" href="{{ URL::to('studentReport/pdf',$student->ID) }}"><label for="tab5">Print</label></a>
 
       <section id="content1">
         @auth <!-- if admin is logged in -->
@@ -106,7 +111,9 @@
             <tr><td>English First Name:</td><td> {{$student->FirstName}} </td></tr>
             <tr><td>English Middle Name:</td><td> {{$student->MiddleName}} </td></tr>
             <tr><td>English Last Name:</td><td> {{$student->LastName}} </td></tr>
-            <tr><td>National ID:</td><td> {{$student->NationalID}} </td><td><button type="submit" name="update_personal">Save</button></td></tr>
+            <tr><td>National ID:</td><td> {{$student->NationalID}} </td><td><button type="submit" name="update_personal">Save</button></td>
+
+          </tr>
           </table>
         </form>
         @else
