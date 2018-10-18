@@ -23,6 +23,12 @@ html, body {
   text-align: right;
 }
 
+/*
+.navbar li a{
+  height: 40px;
+}
+*/
+
 .navbar li ul {
   width: 550px;
   background-color: #f1f1f1;

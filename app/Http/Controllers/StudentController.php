@@ -133,7 +133,6 @@ class StudentController extends Controller
   public function studentReport_pdf($id)
   {
     $student = Student::findOrFail($id);
-
     $pdf = PDF::loadView('StudentReport',compact('student'));
     $pdf->save(storage_path().'_StudentReport.pdf');
     return $pdf->download('StudentReport.pdf');
