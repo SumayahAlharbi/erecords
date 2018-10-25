@@ -53,8 +53,8 @@
     </div>
 
     <div class="search-result">
-      <a class="advanced_search" href="{{ URL::to('student/pdf') }}">Export to PDF</a>
-      <a class="advanced_search" href="{{ URL::to('student/excel') }}">Export to exel</a>
+      <a class="advanced_search" href="{{ URL::to('Student/pdf') }}">Export to PDF</a>
+      <a class="advanced_search" href="{{ URL::to('Student/excel') }}">Export to exel</a>
       <a class="advanced_search" href="{{ route('advanced_search') }}">Advanced Search</a>
       @if (isset($searchResults))
       <table>
@@ -70,7 +70,7 @@
         </tr>
         @foreach($searchResults as $result)
         <tr>
-          <td><a href="{{route('student.show',$result->ID)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
+          <td><a href="{{route('student.show',$result->id)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
           <td>{{$result->FirstName}}</td>
           <td>{{$result->LastName}}</td>
           <td>{{$result->Badge}}</td>

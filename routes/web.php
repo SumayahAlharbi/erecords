@@ -30,6 +30,8 @@ Route::get('student/advanced_search_result', 'StudentController@advanced_search'
 Route::post('student/update_personal', 'StudentController@update_personal')->name('student.update_personal');
 Route::post('student/update_academic', 'StudentController@update_academic')->name('student.update_academic');
 Route::post('student/update_contact', 'StudentController@update_contact')->name('student.update_contact');
+Route::post('student/upload_attachment', 'StudentController@upload_attachment')->name('student.upload_attachment');
+
 Route::resource('/student', 'StudentController');
 Route::get('/advanced_search', function () {
   return view('advanced_search');

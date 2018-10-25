@@ -15,8 +15,15 @@ class Student extends Model
     'Status',
     'StudentNo',
     'Batch',
-    'Stream'
+    'Stream',
+    'id',
   ];
+
   public $timestamps = false;
+
+  public function attachment()
+  {
+    return $this->hasMany('App\Attachment');
+  }
 
 }

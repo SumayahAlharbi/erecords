@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
       Schema::defaultStringLength(191); //Solved by increasing StringLength
-      \Blade::setEchoFormat('e(utf8_decode(%s))'); // arabic encoding 
+      //\Blade::setEchoFormat('e(utf8_decode(%s))'); // arabic encoding
     }
 
     /**

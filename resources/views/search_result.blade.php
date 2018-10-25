@@ -71,7 +71,7 @@
       </tr>
       @foreach($searchResults as $result)
       <tr>
-        <td><a href="{{route('student.show',$result->ID)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
+        <td><a href="{{route('student.show',$result->id)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
         <td>{{$result->FirstName}}</td>
         <td>{{$result->LastName}}</td>
         <td>{{$result->Badge}}</td>

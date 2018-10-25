@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Student;
+use App\Attachment;
 use DB;
 use PDF;
 use Session;
@@ -446,10 +447,35 @@ class StudentController extends Controller
     * @param  \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-    public function store(Request $request)
+    public function upload_attachment(Request $request)
     {
-      //
+
+    $this->validate($request, [
+      'attch_title'=>'required|max:50',
+      'attch_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $input = $request->except('_token');
+    if ($file = $request->file('attch_image'))
+    {
+      $name = $file->getClientOriginalName();
+      $file->move(public_path('attachments'),$name);
+      $input['image'] = $name;
+
     }
+    //'title','image','stu_id'
+    $input['title']=$request->get('attch_title');
+    $input['student_id']=$request->get('id');
+    $attachment = Attachment::create($input);
+    if ($attachment){ // stay at attachments page and view the uploaded image
+        return back();
+    }
+    else { // stay at attachments page and display an error message (Something went wrong .. try again)
+      //return $request->all();
+    }
+    }
+
+
 
     /**
     * Display the specified resource.
@@ -460,7 +486,8 @@ class StudentController extends Controller
     public function show($id)
     {
       $student = Student::findOrFail($id);
-      return view('student.show',compact('student'));
+      $attachments = $student->attachment;
+      return view('student.show',compact('student','attachments'));
     }
 
     /**

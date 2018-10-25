@@ -389,6 +389,43 @@ background-color: #f6f6f6;
   text-align: center;
 }
 
+.form-group label {
+  text-align: left;
+  font-weight: normal;
+}
+.upload-form {
+  margin: 10px;
+}
+.upload-form input[type=text]{
+  width: 300px;
+}
+.upload-form label.col-sm-2 {
+  text-align: left;
+}
+.upload-form button[type=submit]{
+  float: left;
+  padding: 4px;
+  width: 90px;
+  background-color: #3a7f59;
+  color: #ffffff;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border: 1px solid #3a7f59;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 16px;
+  text-align: center;
+}
+#content4 img{
+  max-width:900px;
+}
+#content4 ul li p {
+margin:20px 0px 20px 0px;
+}
+#content4 ul {
+  list-style: none;
+}
 .search-details button[type=submit]:hover {
   background: #226f44;
 }
@@ -397,7 +434,7 @@ background-color: #f6f6f6;
   display: none;
 }
 
-.search-details label {
+.search-details label.tabs {
   display: inline-block;
   margin: 0 0 -1px;
   padding: 8px 20px;
@@ -407,20 +444,20 @@ background-color: #f6f6f6;
   border: 1px solid transparent;
 }
 
-.search-details label:before {
+.search-details label.tabs:before {
   font-family: fontawesome;
   font-weight: normal;
   margin-right: 10px;
 }
 
-.search-details  label[for*='1']:before { content: '\f0f0'; }
-label[for*='2']:before { content: '\f19c'; }
-label[for*='3']:before { content: '\f20e'; }
-label[for*='4']:before { content: '\f0c6'; }
-label[for*='5']:before { content: '\f02f'; }
+.search-details  label.tabs[for*='1']:before { content: '\f0f0'; }
+label.tabs[for*='2']:before { content: '\f19c'; }
+label.tabs[for*='3']:before { content: '\f20e'; }
+label.tabs[for*='4']:before { content: '\f0c6'; }
+label.tabs[for*='5']:before { content: '\f02f'; }
 
 
-.search-details  label:hover {
+.search-details  label.tabs:hover {
   color: #888;
   cursor: pointer;
 }
@@ -440,17 +477,17 @@ label[for*='5']:before { content: '\f02f'; }
 }
 
 @media screen and (max-width: 650px) {
-  label {
+  label.tabs {
     font-size: 0;
   }
-  label:before {
+  label.tabs:before {
     margin: 0;
     font-size: 18px;
   }
 }
 
 @media screen and (max-width: 400px) {
-  label {
+  label.tabs {
     padding: 15px;
   }
 }

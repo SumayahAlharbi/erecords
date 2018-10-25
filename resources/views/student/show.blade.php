@@ -23,13 +23,13 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
             <li><a class="dropdown-item" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">
-            {{ __('Logout') }}
-          </a>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
+              onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+              {{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+            </form>
           </li>
           <li><a href="{{ URL::to('summeryReport/pdf') }}">Summery Report</a></li>
         </ul>
@@ -57,25 +57,25 @@
     <main>
 
       <input id="tab1" type="radio" name="tabs" checked>
-      <label for="tab1">Personal</label>
+      <label class="tabs" for="tab1">Personal</label>
 
       <input id="tab2" type="radio" name="tabs">
-      <label for="tab2">Academic</label>
+      <label class="tabs" for="tab2">Academic</label>
 
       <input id="tab3" type="radio" name="tabs">
-      <label for="tab3">Contact</label>
+      <label class="tabs" for="tab3">Contact</label>
 
       <input id="tab4" type="radio" name="tabs">
-      <label for="tab4">Attachment</label>
+      <label class="tabs" for="tab4">Attachment</label>
 
 
-      <a style="text-decoration: none;" href="{{ URL::to('studentReport/pdf',$student->ID) }}"><label for="tab5">Print</label></a>
+      <a style="text-decoration: none;" href="{{ URL::to('studentReport/pdf',$student->id) }}"><label class="tabs" for="tab5">Print</label></a>
 
       <section id="content1">
         @auth <!-- if admin is logged in -->
         <form method="POST" action="{{ route('student.update_personal') }}" enctype="multipart/form-data">
-          {{ csrf_field() }}
-          <input type="hidden" name="id" value="{{$student->ID}}">
+          @csrf
+          <input type="hidden" name="id" value="{{$student->id}}">
           <table>
             <tr>
               <td>Arabic First Name:</td>
@@ -113,7 +113,7 @@
             <tr><td>English Last Name:</td><td> {{$student->LastName}} </td></tr>
             <tr><td>National ID:</td><td> {{$student->NationalID}} </td><td><button type="submit" name="update_personal">Save</button></td>
 
-          </tr>
+            </tr>
           </table>
         </form>
         @else
@@ -132,8 +132,8 @@
       <section id="content2">
         @auth <!-- if admin is logged in -->
         <form method="POST" action="{{ route('student.update_academic') }}" enctype="multipart/form-data">
-          {{ csrf_field() }}
-          <input type="hidden" name="id" value="{{$student->ID}}">
+          @csrf
+          <input type="hidden" name="id" value="{{$student->id}}">
           <table>
             <tr>
               <td>Badge:</td><td> {{$student->Badge}}</td>
@@ -275,8 +275,8 @@
       <section id="content3">
         @auth <!-- if admin is logged in -->
         <form method="POST" action="{{ route('student.update_contact') }}" enctype="multipart/form-data">
-          {{ csrf_field() }}
-          <input type="hidden" name="id" value="{{$student->ID}}">
+          @csrf
+          <input type="hidden" name="id" value="{{$student->id}}">
           <table>
             <tr><td>Mobile: </td><td> <input type="number" name="Mobile" value="0{{$student->Mobile}}" id="Mobile" class="form-control{{ $errors->has('Mobile') ? ' is-invalid' : '' }}" required autofocus min="0" oninput="validity.valid||(value='');"></td>
               @if ($errors->has('Mobile'))
@@ -303,9 +303,54 @@
 
       <section id="content4">
         @auth <!-- if admin is logged in -->
-        <p>View & Upload function</p>
-        @else
-        <p>View the attachment </p>
+          @if (count($attachments) > 0)
+            <h4>Attachment List</h4>
+            <ul>
+              @foreach ($attachments as $attachment)
+                <li>
+                  <p>{{$attachment->title}}</p>
+                  @if (File::exists($attachment->image))
+                    <img src="{{ asset($attachment->image) }}" alt="{{$attachment->title}}">
+                </li>
+                  @endif
+              @endforeach
+            </ul>
+            @endif
+        <br>
+        <h4>Upload New Attachment</h4>
+        <div class="upload-form">
+          <form method="POST" action="{{ route('student.upload_attachment') }}" enctype="multipart/form-data" class="form-horizontal">
+            @csrf
+
+            <input type="hidden" name="id" value="{{$student->id}}">
+
+            <div class="form-group">
+            <label for="attch_title" class="col-sm-2 control-label">Attachment Title</label>
+            <div class="col-sm-10">
+              <input type="text" name="attch_title" id="attch_title" class="form-control{{ $errors->has('attch_title') ? ' is-invalid' : '' }}" required autofocus>
+              @if ($errors->has('attch_title'))
+              <span class="invalid-feedback">
+                <strong>{{ $errors->first('attch_title') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="attch_image" class="col-sm-2 control-label">Attachment image</label>
+            <div class="col-sm-4">
+              <input type="file" name="attch_image" id="attch_image" class="form-control{{ $errors->has('attch_image') ? ' is-invalid' : '' }}" required autofocus>
+              @if ($errors->has('attch_image'))
+              <span class="invalid-feedback">
+                <strong>{{ $errors->first('attch_image') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+
+            <button type="submit" class="btn btn-default">Save</button>
+          </form>
+        </div>
         @endauth
       </section>
 
