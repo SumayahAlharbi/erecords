@@ -42,7 +42,7 @@
             @csrf
           </form>
           </li>
-          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summery Report</a></li>
+          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a></li>
         </ul>
       </li>
     </ul>

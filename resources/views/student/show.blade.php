@@ -31,7 +31,7 @@
               @csrf
             </form>
           </li>
-          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summery Report</a></li>
+          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a></li>
         </ul>
       </li>
     </ul>
@@ -303,20 +303,7 @@
 
       <section id="content4">
         @auth <!-- if admin is logged in -->
-          @if (count($attachments) > 0)
-            <h4>Attachment List</h4>
-            <ul>
-              @foreach ($attachments as $attachment)
-                <li>
-                  <p>{{$attachment->title}}</p>
-                  @if (File::exists($attachment->image))
-                    <img src="{{ asset($attachment->image) }}" alt="{{$attachment->title}}">
-                </li>
-                  @endif
-              @endforeach
-            </ul>
-            @endif
-        <br>
+
         <h4>Upload New Attachment</h4>
         <div class="upload-form">
           <form method="POST" action="{{ route('student.upload_attachment') }}" enctype="multipart/form-data" class="form-horizontal">
@@ -351,6 +338,25 @@
             <button type="submit" class="btn btn-default">Save</button>
           </form>
         </div>
+
+        <br>
+        <br>
+        <br>
+
+          @if (count($attachments) > 0)
+            <h4>Attachment List</h4>
+            <ul>
+              @foreach ($attachments as $attachment)
+                <li>
+                  <p>{{$attachment->title}}</p>
+                  @if (File::exists($attachment->image))
+                    <img src="{{ asset($attachment->image) }}" alt="{{$attachment->title}}">
+                </li>
+                  @endif
+              @endforeach
+            </ul>
+            @endif
+
         @endauth
       </section>
 

@@ -395,6 +395,7 @@ background-color: #f6f6f6;
 }
 .upload-form {
   margin: 10px;
+  clear: both;
 }
 .upload-form input[type=text]{
   width: 300px;
