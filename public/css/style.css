@@ -418,11 +418,8 @@ background-color: #f6f6f6;
   font-size: 16px;
   text-align: center;
 }
-#content4 img{
-  max-width:900px;
-}
-#content4 ul li p {
-margin:20px 0px 20px 0px;
+#content4 ul li {
+margin:10px 0px 10px 0px;
 }
 #content4 ul {
   list-style: none;

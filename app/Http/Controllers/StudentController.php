@@ -452,22 +452,22 @@ class StudentController extends Controller
 
     $this->validate($request, [
       'attch_title'=>'required|max:50',
-      'attch_image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+      'attachment'=>'required|mimes:doc,pdf,docx,jpeg,png,jpg|max:2000',// 2MB
     ]);
 
     $input = $request->except('_token');
-    if ($file = $request->file('attch_image'))
+    if ($file = $request->file('attachment'))
     {
       $name = $file->getClientOriginalName();
       $file->move(public_path('attachments'),$name);
-      $input['image'] = $name;
+      $input['file'] = $name;
 
     }
     //'title','image','stu_id'
     $input['title']=$request->get('attch_title');
     $input['student_id']=$request->get('id');
     $attachment = Attachment::create($input);
-    if ($attachment){ // stay at attachments page and view the uploaded image
+    if ($attachment){ // stay at attachments page and disply a link to the uploaded file
         return back();
     }
     else { // stay at attachments page and display an error message (Something went wrong .. try again)

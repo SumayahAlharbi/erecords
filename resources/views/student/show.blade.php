@@ -324,12 +324,13 @@
           </div>
 
           <div class="form-group">
-            <label for="attch_image" class="col-sm-2 control-label">Attachment image</label>
+            <label for="attachment" class="col-sm-2 control-label">Attachment File</label>
             <div class="col-sm-4">
-              <input type="file" name="attch_image" id="attch_image" class="form-control{{ $errors->has('attch_image') ? ' is-invalid' : '' }}" required autofocus>
-              @if ($errors->has('attch_image'))
+              <input type="file" name="attachment" id="attachment" class="form-control{{ $errors->has('attachment') ? ' is-invalid' : '' }}" required autofocus>
+              <span>image, pdf and word document</span>
+              @if ($errors->has('attachment'))
               <span class="invalid-feedback">
-                <strong>{{ $errors->first('attch_image') }}</strong>
+                <strong>{{ $errors->first('attachment') }}</strong>
               </span>
               @endif
             </div>
@@ -343,16 +344,20 @@
         <br>
         <br>
 
-          @if (count($attachments) > 0)
-            <h4>Attachment List</h4>
+        @if (count($attachments) > 0)
+          <h4>Attachment List</h4>
             <ul>
               @foreach ($attachments as $attachment)
                 <li>
-                  <p>{{$attachment->title}}</p>
-                  @if (File::exists($attachment->image))
-                    <img src="{{ asset($attachment->image) }}" alt="{{$attachment->title}}">
+                  <!--<p>{{$attachment->title}}</p>
+                    @if (File::exists($attachment->image))
+                      <img src="{{ asset($attachment->image) }}" alt="{{$attachment->title}}">
+                    @endif
+                  -->
+                  <a href="{{ url('/attachments/' . $attachment->file) }}" target="_blank">{{$attachment->title}}</a>
+
                 </li>
-                  @endif
+
               @endforeach
             </ul>
             @endif
