@@ -32,7 +32,9 @@
             @csrf
           </form>
           </li>
+          @role('manager')
           <li><a href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a></li>
+          @endrole
         </ul>
       </li>
     </ul>
@@ -53,8 +55,10 @@
   </div>
 
   <div class="search-result">
+    @role('manager')
     <a class="advanced_search" href="{{ URL::to('Student/pdf') }}">Export to PDF</a>
     <a class="advanced_search" href="{{ URL::to('Student/excel') }}">Export to exel</a>
+    @endrole
     <a class="advanced_search" href="{{ route('advanced_search') }}">Advanced Search</a>
     <h4>Search Result for <span style='letter-spacing:normal;'>"{{$search}}"</span>..</h4>
     @if (isset($searchResults))

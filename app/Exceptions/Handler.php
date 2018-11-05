@@ -48,6 +48,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // if user try to access non authorized page
+        if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+          return redirect('403error');
+        }
+
         return parent::render($request, $exception);
     }
 

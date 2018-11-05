@@ -42,7 +42,9 @@
             @csrf
           </form>
           </li>
+          @role('manager')
           <li><a href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a></li>
+          @endrole
         </ul>
       </li>
     </ul>

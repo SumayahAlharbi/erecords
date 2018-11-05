@@ -31,7 +31,9 @@
               @csrf
             </form>
           </li>
+          @role('manager')
           <li><a href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a></li>
+          @endrole
         </ul>
       </li>
     </ul>
@@ -68,11 +70,12 @@
       <input id="tab4" type="radio" name="tabs">
       <label class="tabs" for="tab4">Attachment</label>
 
-
+      @role('manager')
       <a style="text-decoration: none;" href="{{ URL::to('studentReport/pdf',$student->id) }}"><label class="tabs" for="tab5">Print</label></a>
+      @endrole
 
       <section id="content1">
-        @auth <!-- if admin is logged in -->
+        @role('manager')
         <form method="POST" action="{{ route('student.update_personal') }}" enctype="multipart/form-data">
           @csrf
           <input type="hidden" name="id" value="{{$student->id}}">
@@ -111,9 +114,7 @@
             <tr><td>English First Name:</td><td> {{$student->FirstName}} </td></tr>
             <tr><td>English Middle Name:</td><td> {{$student->MiddleName}} </td></tr>
             <tr><td>English Last Name:</td><td> {{$student->LastName}} </td></tr>
-            <tr><td>National ID:</td><td> {{$student->NationalID}} </td><td><button type="submit" name="update_personal">Save</button></td>
-
-            </tr>
+            <tr><td>National ID:</td><td> {{$student->NationalID}} </td><td><button type="submit" name="update_personal">Save</button></td></tr>
           </table>
         </form>
         @else
@@ -126,11 +127,12 @@
           <tr><td>English Last Name:</td><td> {{$student->LastName}}</td></tr>
           <tr><td>National ID:</td><td> {{$student->NationalID}}</td></tr>
         </table>
-        @endauth
+
+        @endrole
       </section>
 
       <section id="content2">
-        @auth <!-- if admin is logged in -->
+        @role('manager')
         <form method="POST" action="{{ route('student.update_academic') }}" enctype="multipart/form-data">
           @csrf
           <input type="hidden" name="id" value="{{$student->id}}">
@@ -235,7 +237,7 @@
           </tr>
           <tr>
             <td>Stream: </td><td>{{$student->Stream}}</td>
-            <td>Last Activation Date:</td><td> {{$student->LastActivationDate}}</td>
+            <td>Last Activation Date:</td><td> {{ \Carbon\Carbon::parse($student->LastActivationDate)->format('d-m-Y')}}</td>
           </tr>
           <tr>
             <td>1st Postpone:</td><td> {{$student->FirstPostpone}}</td>
@@ -250,30 +252,32 @@
             <td>3rd Block Drop: </td><td>{{$student->	ThirdBlockDrop}}</td>
           </tr>
           <tr>
-            <td>1st Academic Violation:</td><td> {{$student->FirstAcademicViolation}}</td>
-            <td>1st Attempt Attendance Violation: </td><td>{{$student->FirstAttemptAttendanceViolation}}</td>
+            <td>1st Academic Violation:</td><td> {{ \Carbon\Carbon::parse($student->FirstAcademicViolation)->format('d-m-Y')}}</td>
+            <td>1st Attempt Attendance Violation: </td><td>{{ \Carbon\Carbon::parse($student->FirstAttemptAttendanceViolation)->format('d-m-Y')}}</td>
           </tr>
           <tr>
-            <td>2nd Academic Violation:</td><td> {{$student->SecondAcademicViolation}}</td>
-            <td>2nd Attempt Attendance Violation: </td><td>{{$student->SecondAttemptAttendanceViolation}}</td>
+            <td>2nd Academic Violation:</td><td> {{ \Carbon\Carbon::parse($student->SecondAcademicViolation)->format('d-m-Y')}}</td>
+            <td>2nd Attempt Attendance Violation: </td><td>{{ \Carbon\Carbon::parse($student->SecondAttemptAttendanceViolation)->format('d-m-Y')}}</td>
           </tr>
           <tr>
-            <td>3rd Academic Violation:</td><td> {{$student->ThirdAcademicViolation}}</td>
-            <td>3rd Attempt Attendance Violation: </td><td>{{$student->ThirdAttemptAttendanceViolation}}</td>
+            <td>3rd Academic Violation:</td><td> {{ \Carbon\Carbon::parse($student->ThirdAcademicViolation)->format('d-m-Y')}}</td>
+            <td>3rd Attempt Attendance Violation: </td><td>{{ \Carbon\Carbon::parse($student->ThirdAttemptAttendanceViolation)->format('d-m-Y')}}</td>
           </tr>
           <tr>
-            <td>Dismissed (Date):</td><td> {{$student->Dismissed}}</td>
-            <td>Withdrawal:</td><td> {{$student->Withdrawal}}</td>
+            <td>Dismissed (Date):</td><td> {{ \Carbon\Carbon::parse($student->Dismissed)->format('d-m-Y')}}</td>
+            <td>Withdrawal:</td><td> {{ \Carbon\Carbon::parse($student->Withdrawal)->format('d-m-Y')}}</td>
           </tr>
           <tr>
             <td>Graduate Expectations Year: </td><td>{{$student->GraduateExpectationsYear}}</td>
           </tr>
         </table>
-        @endauth
+
+        @endrole
       </section>
 
       <section id="content3">
-        @auth <!-- if admin is logged in -->
+        @role('manager')
+
         <form method="POST" action="{{ route('student.update_contact') }}" enctype="multipart/form-data">
           @csrf
           <input type="hidden" name="id" value="{{$student->id}}">
@@ -298,11 +302,12 @@
           <tr><td>NGHA Email:</td><td> {{$student->	NGHAEmail}}</td></tr>
           <tr><td>Personal Email:</td><td> {{$student->PersonalEmail}}</td></tr>
         </table>
-        @endauth
+
+        @endrole
       </section>
 
       <section id="content4">
-        @auth <!-- if admin is logged in -->
+        @role('manager')
 
         <h4>Upload New Attachment</h4>
         <div class="upload-form">
@@ -344,6 +349,8 @@
         <br>
         <br>
 
+        @endrole
+
         @if (count($attachments) > 0)
           <h4>Attachment List</h4>
             <ul>
@@ -361,13 +368,9 @@
               @endforeach
             </ul>
             @endif
-
-        @endauth
       </section>
-
     </main>
   </div>
-
 </div>
 </body>
 </html>

@@ -3,15 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Traits\HasRoles;
+//use Spatie\Permission\Traits\HasRoles;
 
 class Student extends Model
 {
-  use HasRoles;
 
-  protected $guard_name = 'web'; // or whatever guard you want to use
-   
   public $table='students';
+
   protected $fillable =[
     'FirstName',
     'LastName',
@@ -26,8 +24,7 @@ class Student extends Model
 
   public $timestamps = false;
 
-  public function attachment()
-  {
+  public function attachment(){
     return $this->hasMany('App\Attachment');
   }
 

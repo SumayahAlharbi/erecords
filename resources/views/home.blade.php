@@ -157,7 +157,9 @@
                 @csrf
               </form>
               </li>
+              @role('manager')
               <li><a href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a></li>
+              @endrole
             </ul>
           </li>
         </ul>
@@ -166,14 +168,16 @@
     </div>
 
 
-    @if (Auth::check())
+    <!--@if (Auth::check())-->
+    @role('manager|officer')
     <div class='search-center'>
       <form method="get" action="{{ route('student.search_result') }}" enctype="multipart/form-data" class="search">
         <input type="text" placeholder="Search.." name="keyword">
         <button type="submit"><i class="fa fa-search"></i></button>
       </form>
     </div>
-    @endif
+    @endrole
+    <!--@endif-->
     <div class="flex-center position-ref full-height">
       <div class="content">
         <img src={{ asset('logo/comj.jpg')}} alt='KSAU-HS' height="720" width="1280"/>
