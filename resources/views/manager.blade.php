@@ -31,30 +31,7 @@ a.button:active {
         <div class="col-md-8">
 
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Admin Dashboard</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('role.create') }}">Roles</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Permissions
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('permission.create') }}">Add Permission</a>
-                    <a class="dropdown-item" href="{{ route('permission.assign') }}">Assign Permission to Role</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <a class="navbar-brand" href="#">Manager Dashboard</a>
           </nav>
 
           <br>
@@ -83,7 +60,7 @@ a.button:active {
                   </ol>
                   </td>
                   <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">
-                    <a href="{{ URL::to('/userRoles', $user->id)}}" class="button">Edit</a>
+                    <a href="{{ URL::to('/manager/userRoles', $user->id)}}" class="button">Edit</a>
                   </td>
                 </tr>
 

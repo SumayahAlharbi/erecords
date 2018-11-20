@@ -151,7 +151,7 @@ class StudentController extends Controller
 
     $query = DB::table('students')->select('*');
 
-    // text
+
     $fname= $request->get('FirstName');
     session(['fname'=>$fname]); //used to create excel sheet
     $mname= $request->get('MiddleName');
@@ -215,6 +215,8 @@ class StudentController extends Controller
     session(['ThirdAttemptAttendanceViolation'=>$ThirdAttemptAttendanceViolation]); //used to create excel sheet
     $Withdrawal= $request->get('Withdrawal');
     session(['Withdrawal'=>$Withdrawal]); //used to create excel sheet
+
+    $DelayedGraduation= $request->get('delayedGraduation');
 
     if ($fname) {
       $query->where('FirstName', '=', $fname);
@@ -332,6 +334,10 @@ class StudentController extends Controller
       $query->where('Withdrawal', '=', $Withdrawal);
     }
 
+    if ($DelayedGraduation){
+    $query->whereRaw('Batch != GraduationBatch');
+    }
+
     //adding session for exporting the result and removing old session
     session(['SR'=>$query->get()]);
     Session::forget('search');
@@ -378,18 +384,12 @@ class StudentController extends Controller
     {
       // Validate the form data
       $this->validate($request, [
-        'Batch' => 'required|numeric|min:1',
-        'Stream' => 'required|numeric|min:1',
-        'FirstAcademicViolation' => 'required',
-        'FirstAttemptAttendanceViolation' => 'required',
-        'SecondAcademicViolation' => 'required',
-        'SecondAttemptAttendanceViolation' => 'required',
-        'ThirdAcademicViolation' => 'required',
-        'ThirdAttemptAttendanceViolation' => 'required',
+        'GraduationBatch' => 'required|numeric|min:1',
+        'Stream' => 'required|numeric|min:1'
       ]);
 
       $id = $request->get('id');
-      $Batch = $request->get('Batch');
+      $GraduationBatch = $request->get('GraduationBatch');
       $Stream = $request->get('Stream');
       $FirstAcademicViolation = $request->get('FirstAcademicViolation');
       $FirstAttemptAttendanceViolation = $request->get('FirstAttemptAttendanceViolation');
@@ -398,8 +398,48 @@ class StudentController extends Controller
       $ThirdAcademicViolation = $request->get('ThirdAcademicViolation');
       $ThirdAttemptAttendanceViolation = $request->get('ThirdAttemptAttendanceViolation');
 
+      if ($GraduationBatch){
+        $query = Student::where('id', '=', $id)->update(
+          ['GraduationBatch' => $GraduationBatch]);
+      }
+
+      if ($Stream){
+        $query = Student::where('id', '=', $id)->update(
+          ['Stream' => $Stream]);
+      }
+
+      if ($FirstAcademicViolation){
+        $query = Student::where('id', '=', $id)->update(
+          ['FirstAcademicViolation' => $FirstAcademicViolation]);
+      }
+
+      if ($FirstAttemptAttendanceViolation){
+        $query = Student::where('id', '=', $id)->update(
+          ['FirstAttemptAttendanceViolation' => $FirstAttemptAttendanceViolation]);
+      }
+
+      if ($SecondAcademicViolation){
+        $query = Student::where('id', '=', $id)->update(
+          ['SecondAcademicViolation' => $SecondAcademicViolation]);
+      }
+
+      if ($SecondAttemptAttendanceViolation){
+        $query = Student::where('id', '=', $id)->update(
+          ['SecondAttemptAttendanceViolation' => $SecondAttemptAttendanceViolation]);
+      }
+
+      if ($ThirdAcademicViolation){
+        $query = Student::where('id', '=', $id)->update(
+          ['ThirdAcademicViolation' => $ThirdAcademicViolation]);
+      }
+
+      if ($ThirdAttemptAttendanceViolation){
+        $query = Student::where('id', '=', $id)->update(
+          ['ThirdAttemptAttendanceViolation' => $ThirdAttemptAttendanceViolation]);
+      }
+      /*
       $query = Student::where('id', '=', $id)->update(
-        ['Batch' => $Batch ,
+        ['GraduationBatch' => $GraduationBatch ,
         'Stream' =>  $Stream,
         'FirstAcademicViolation' =>  $FirstAcademicViolation,
         'FirstAttemptAttendanceViolation' =>  $FirstAttemptAttendanceViolation,
@@ -408,8 +448,8 @@ class StudentController extends Controller
         'ThirdAcademicViolation' =>  $ThirdAcademicViolation,
         'ThirdAttemptAttendanceViolation' =>  $ThirdAttemptAttendanceViolation
       ]);
-
-      if ($query) {return back();}
+      */
+      return back();
     }
 
     /**

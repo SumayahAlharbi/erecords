@@ -26,7 +26,7 @@ Route::get('403error', function () {
   return view('403error');
 });
 
-Auth::routes();
+
 
 Route::group(['middleware' => ['role:officer|manager']], function ()
 {
@@ -53,4 +53,26 @@ Route::get('/pdfview', function () {
 });
 Route::get('summeryReport/pdf','StudentController@summeryReport_pdf');
 Route::get('studentReport/pdf/{id}','StudentController@studentReport_pdf');
+
+//roles and permissions
+Route::get('/manager','UserController@index')->name('manager.home'); //manger dashboard
+Route::get('/manager/userRoles/{id}','UserController@showUserRoles'); // show user roles form
+Route::get('user/{id}','UserController@update')->name('user.update'); // assign user to roles
 });
+
+Route::group(['middleware' => ['role:admin']], function ()
+{
+Route::resource('/role', 'RoleController');
+Route::resource('/permission', 'PermissionController');
+Route::get('/admin','AdminController@index')->name('admin.home');
+
+Route::get('/userRoles/{id}','RoleController@showUserRoles');// show user role form
+
+Route::get('/permission_assign','PermissionController@showRolePermission')->name('permission.assign'); // show the form of assign permission to role -1-
+Route::get('dynamic_dependent/ajax/{id}', 'PermissionController@dynamic_dependent_ajax'); // show list of permissions for the selected role -2-
+Route::get('/permission/assign','PermissionController@update')->name('permission.update'); // assign permission to role -3-
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

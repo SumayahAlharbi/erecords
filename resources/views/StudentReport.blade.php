@@ -69,9 +69,10 @@
           <td style="width:16%;padding: 3px;text-align: left;">{{$student->MiddleName}}</td>
           <td style="width:16%;padding: 3px;text-align: left;">{{$student->LastName}}</td></tr>
           <tr><th style="width:16%;padding: 3px;text-align: left;">Arabic Name:</th>
-            <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->ArabicFirstName,ENT_QUOTES, "UTF-8");?></div></td>
+            <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->ArabicLastName,ENT_QUOTES, "UTF-8");?></div></td>
+
             <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->ArabicMiddleName,ENT_QUOTES, "UTF-8");?></div></td>
-            <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->ArabicLastName,ENT_QUOTES, "UTF-8");?></div></td></tr>
+            <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->ArabicFirstName,ENT_QUOTES, "UTF-8");?></div></td></tr>
             <tr><th style="width:25%;padding: 3px;text-align: left;">Student No:</th>
               <td style="width:25%;padding: 3px;text-align: left;">{{$student->StudentNo}}</td>
               <th style="width:25%;padding: 3px;text-align: left;">Status:</th>
@@ -91,7 +92,7 @@
                   </tbody>
                 </table>
               </fieldset>
-            
+
               <br>
 
               <fieldset style="width:45%;float:left;text-align:left;">

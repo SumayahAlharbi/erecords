@@ -64,7 +64,7 @@
 </table>
 <br>
 <br>
-<p>Date: {{ date("l, F m, Y") }}</p>
+<p>Date: {{ date("l, F d, Y") }}</p>
 <br>
 <br>
 <table style="width:100%">

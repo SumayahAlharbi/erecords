@@ -32,9 +32,6 @@
             @csrf
           </form>
           </li>
-          @role('manager')
-          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a></li>
-          @endrole
         </ul>
       </li>
     </ul>
@@ -56,6 +53,7 @@
 
     <div class="search-result">
       @role('manager')
+      <a class="advanced_search" href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a>
       <a class="advanced_search" href="{{ URL::to('Student/pdf') }}">Export to PDF</a>
       <a class="advanced_search" href="{{ URL::to('Student/excel') }}">Export to exel</a>
       @endrole

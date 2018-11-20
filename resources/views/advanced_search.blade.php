@@ -42,9 +42,6 @@
             @csrf
           </form>
           </li>
-          @role('manager')
-          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a></li>
-          @endrole
         </ul>
       </li>
     </ul>
@@ -240,6 +237,12 @@
           <option value="2030">2030</option>
         </select>
       </div>
+
+      <div class="form-group">
+        <label for="delayedGraduation">Stumbling Student</label>
+        <input type="checkbox" name="delayedGraduation">
+      </div>
+
       <br>
       <button type="submit" class="btn btn-default">Search</button>
     </form>

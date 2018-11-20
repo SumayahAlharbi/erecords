@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Role;
 
 class AdminController extends Controller
 {
@@ -13,7 +15,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:admin');
+
     }
 
     /**
@@ -23,6 +25,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin');
+      $users = User::with('roles')->get();
+      return view('admin', compact('users'));
     }
+
 }

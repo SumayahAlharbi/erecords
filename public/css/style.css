@@ -25,6 +25,10 @@ html, body {
   position: relative;
 }
 
+form .invalid-feedback {
+  color: red;
+}
+
 .search-center {
   position: absolute;
   left: 50%;
@@ -371,10 +375,14 @@ background-color: #f6f6f6;
   padding: 2px;
   font-size: 16px;
   float: left;
+
+}
+.search-details input[type=date] {
+height: 30px;
 }
 
 .search-details button[type=submit]{
-  float: left;
+  float: right;
   padding: 4px;
   width: 90px;
   background-color: #3a7f59;
@@ -518,6 +526,18 @@ label.tabs[for*='5']:before { content: '\f02f'; }
   width: 250px;
   clear: both;
 }
+
+.search-form input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  padding: 4px;
+  margin-top: 6px;
+}
+
 .search-form .form-group {
   width: 250px;
   margin-right: 20px;

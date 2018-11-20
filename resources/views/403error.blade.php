@@ -14,9 +14,10 @@
 </head>
 <body>
   <div class='header'>
-    <a href="{{ route('home') }}"><img src={{ asset('logo/comj-logo.png')}} alt='COMJ Logo' height="87" width="385"></a>
+    <a href="{{ URL('/') }}"><img src={{ asset('logo/comj-logo.png')}} alt='COMJ Logo' height="87" width="385"></a>
   </div>
 
+  @auth
   <div class="nav-right">
     <nav class="navbar-logout" role="navigation">
       <ul class="nav navbar-nav navbar-right">
@@ -37,6 +38,7 @@
     </ul>
   </nav>
 </div>
+@endauth
 
 
     <div class="flex-center position-ref full-height">

@@ -31,9 +31,6 @@
               @csrf
             </form>
           </li>
-          @role('manager')
-          <li><a href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a></li>
-          @endrole
         </ul>
       </li>
     </ul>
@@ -103,7 +100,7 @@
             </tr>
             <tr><td>Arabic Last Name:</td>
               <td>
-                <input type="text" name="ArabicLastName" id="ArabicLastName" class="form-control{{ $errors->has('ArabicLastName') ? ' is-invalid' : '' }}" value="{{$student->ArabicLastName}}" required autofocus>
+                <input type="text" name="ArabicLastName" id="ArabicLastName" class="form-control{{ $errors->has('ArabicLastName') ? ' is-invalid' : '' }}" value="{{$student->ArabicLastName}}">
               </td>
               @if ($errors->has('ArabicLastName'))
               <span class="invalid-feedback" role="alert">
@@ -139,25 +136,30 @@
           <table>
             <tr>
               <td>Badge:</td><td> {{$student->Badge}}</td>
-              <td>Batch:</td><td><input type="number" name="Batch" value="{{$student->Batch}}" id="Batch" class="form-control{{ $errors->has('Batch') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');"></td>
-              @if ($errors->has('Batch'))
+              <td>Status:</td><td> {{$student->Status}}</td>
+              <tr>
+              <td>Admission Batch:</td><td>{{$student->Batch}}</td>
+                <td>Graduation Batch:</td>
+                <td><input type="text" name="GraduationBatch" value="{{$student->GraduationBatch}}" id="GraduationBatch" class="form-control{{ $errors->has('GraduationBatch') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');"></td>
+              @if ($errors->has('GraduationBatch'))
               <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('Batch') }}</strong>
+                <strong>{{ $errors->first('GraduationBatch') }}</strong>
               </span>
               @endif
             </tr>
             <tr>
-              <td>Status:</td><td> {{$student->Status}}</td>
               <td>Student No:</td><td> {{$student->StudentNo}}</td>
-            </tr>
-            <tr>
-              <td>Stream: </td><td><input type="number" name="Stream" value="{{$student->Stream}}" id="Stream" class="form-control{{ $errors->has('Stream') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');"></td>
+
+              <td>Stream: </td><td><input type="text" name="Stream" value="{{$student->Stream}}" id="Stream"class="form-control{{ $errors->has('Stream') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');"></td>
               @if ($errors->has('Stream'))
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('Stream') }}</strong>
               </span>
               @endif
-              <td>Last Activation Date:</td><td> {{$student->LastActivationDate}}</td>
+              </tr>
+              <tr>
+                <td>Graduate Expectations Year:</td><td> {{$student->GraduateExpectationsYear}}</td>
+                <td>Last Activation Date:</td><td> {{$student->LastActivationDate}}</td>
             </tr>
             <tr>
               <td>1st Postpone:</td><td> {{$student->FirstPostpone}}</td>
@@ -172,58 +174,23 @@
               <td>3rd Block Drop: </td><td>{{$student->	ThirdBlockDrop}}</td>
             </tr>
             <tr>
-              <td>1st Academic Violation:</td><td><input type="date" name="FirstAcademicViolation" value="{{$student->FirstAcademicViolation}}" id="FirstAcademicViolation" class="form-control{{ $errors->has('FirstAcademicViolation') ? ' is-invalid' : '' }}" required autofocus></td>
-              @if ($errors->has('FirstAcademicViolation'))
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('FirstAcademicViolation') }}</strong>
-              </span>
-              @endif
-              <td>1st Attempt Attendance Violation: </td><td><input type="date" name="FirstAttemptAttendanceViolation" value="{{$student->FirstAttemptAttendanceViolation}}" id="FirstAttemptAttendanceViolation" class="form-control{{ $errors->has('FirstAttemptAttendanceViolation') ? ' is-invalid' : '' }}" required autofocus></td>
-              @if ($errors->has('FirstAttemptAttendanceViolation'))
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('FirstAttemptAttendanceViolation') }}</strong>
-              </span>
-              @endif
+              <td>1st Academic Violation:</td><td><input type="date" name="FirstAcademicViolation" value="{{$student->FirstAcademicViolation}}" id="FirstAcademicViolation"></td>
+              <td>1st Attempt Attendance Violation: </td><td><input type="date" name="FirstAttemptAttendanceViolation" value="{{$student->FirstAttemptAttendanceViolation}}" id="FirstAttemptAttendanceViolation"></td>
             </tr>
             <tr>
-              <td>2nd Academic Violation:</td><td><input type="date" name="SecondAcademicViolation" value="{{$student->SecondAcademicViolation}}" id="SecondAcademicViolation" class="form-control{{ $errors->has('SecondAcademicViolation') ? ' is-invalid' : '' }}" required autofocus></td>
-              @if ($errors->has('SecondAcademicViolation'))
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('SecondAcademicViolation') }}</strong>
-              </span>
-              @endif
-              <td>2nd Attempt Attendance Violation: </td><td><input type="date" name="SecondAttemptAttendanceViolation" value="{{$student->SecondAttemptAttendanceViolation}}" id="SecondAttemptAttendanceViolation" class="form-control{{ $errors->has('SecondAttemptAttendanceViolation') ? ' is-invalid' : '' }}" required autofocus></td>
-              @if ($errors->has('SecondAttemptAttendanceViolation'))
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('SecondAttemptAttendanceViolation') }}</strong>
-              </span>
-              @endif
+              <td>2nd Academic Violation:</td><td><input type="date" name="SecondAcademicViolation" value="{{$student->SecondAcademicViolation}}" id="SecondAcademicViolation" ></td>
+              <td>2nd Attempt Attendance Violation: </td><td><input type="date" name="SecondAttemptAttendanceViolation" value="{{$student->SecondAttemptAttendanceViolation}}" id="SecondAttemptAttendanceViolation" ></td>
             </tr>
             <tr>
-              <td>3rd Academic Violation:</td><td><input type="date" name="ThirdAcademicViolation" value="{{$student->ThirdAcademicViolation}}" id="ThirdAcademicViolation" class="form-control{{ $errors->has('ThirdAcademicViolation') ? ' is-invalid' : '' }}" required autofocus></td>
-              @if ($errors->has('ThirdAcademicViolation'))
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('ThirdAcademicViolation') }}</strong>
-              </span>
-              @endif
-              <td>3rd Attempt Attendance Violation: </td><td><input type="date" name="ThirdAttemptAttendanceViolation" value="{{$student->ThirdAttemptAttendanceViolation}}" id="ThirdAttemptAttendanceViolation" class="form-control{{ $errors->has('ThirdAttemptAttendanceViolation') ? ' is-invalid' : '' }}" required autofocus></td>
-              @if ($errors->has('ThirdAttemptAttendanceViolation'))
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('ThirdAttemptAttendanceViolation') }}</strong>
-              </span>
-              @endif
+              <td>3rd Academic Violation:</td><td><input type="date" name="ThirdAcademicViolation" value="{{$student->ThirdAcademicViolation}}" id="ThirdAcademicViolation" ></td>
+              <td>3rd Attempt Attendance Violation: </td><td><input type="date" name="ThirdAttemptAttendanceViolation" value="{{$student->ThirdAttemptAttendanceViolation}}" id="ThirdAttemptAttendanceViolation" ></td>
             </tr>
             <tr>
               <td>Dismissed (Date):</td><td> {{$student->Dismissed}}</td>
               <td>Withdrawal:</td><td> {{$student->Withdrawal}}</td>
             </tr>
-            <tr>
-              <td>Graduate Expectations Year:</td><td> {{$student->GraduateExpectationsYear}}</td>
-              <td></td>
-              <td></td>
-              <td><button type="submit" name="update_academic">Save</button></td>
-            </tr>
           </table>
+          <button type="submit" name="update_academic">Save</button>
         </form>
         @else
         <table>
