@@ -22,7 +22,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
-          @role('manager')
+          @role('male-manager|female-manager')
           <li><a href="{{ route('manager.home') }}">Manager Dashboard</a></li>
           @endrole
           @role('admin')
@@ -73,12 +73,12 @@
       <input id="tab4" type="radio" name="tabs">
       <label class="tabs" for="tab4">Attachment</label>
 
-      @role('manager')
+      @role('male-manager|female-manager')
       <a style="text-decoration: none;" href="{{ URL::to('studentReport/pdf',$student->id) }}"><label class="tabs" for="tab5">Print</label></a>
       @endrole
 
       <section id="content1">
-        @role('manager')
+        @role('male-manager|female-manager')
         <form method="POST" action="{{ route('student.update_personal') }}" enctype="multipart/form-data">
           @csrf
           <input type="hidden" name="id" value="{{$student->id}}">
@@ -135,7 +135,7 @@
       </section>
 
       <section id="content2">
-        @role('manager')
+        @role('male-manager|female-manager')
         <form method="POST" action="{{ route('student.update_academic') }}" enctype="multipart/form-data">
           @csrf
           <input type="hidden" name="id" value="{{$student->id}}">
@@ -180,16 +180,16 @@
               <td>3rd Block Drop: </td><td>{{$student->	ThirdBlockDrop}}</td>
             </tr>
             <tr>
-              <td>1st Academic Violation:</td><td><input type="date" name="FirstAcademicViolation" value="{{$student->FirstAcademicViolation}}" id="FirstAcademicViolation"></td>
-              <td>1st Attempt Attendance Violation: </td><td><input type="date" name="FirstAttemptAttendanceViolation" value="{{$student->FirstAttemptAttendanceViolation}}" id="FirstAttemptAttendanceViolation"></td>
+              <td>1st Academic Violation:</td><td><input type="text" name="FirstAcademicViolation" value="{{$student->FirstAcademicViolation}}" id="FirstAcademicViolation"></td>
+              <td>1st Attempt Attendance Violation: </td><td><input type="text" name="FirstAttemptAttendanceViolation" value="{{$student->FirstAttemptAttendanceViolation}}" id="FirstAttemptAttendanceViolation"></td>
             </tr>
             <tr>
-              <td>2nd Academic Violation:</td><td><input type="date" name="SecondAcademicViolation" value="{{$student->SecondAcademicViolation}}" id="SecondAcademicViolation" ></td>
-              <td>2nd Attempt Attendance Violation: </td><td><input type="date" name="SecondAttemptAttendanceViolation" value="{{$student->SecondAttemptAttendanceViolation}}" id="SecondAttemptAttendanceViolation" ></td>
+              <td>2nd Academic Violation:</td><td><input type="text" name="SecondAcademicViolation" value="{{$student->SecondAcademicViolation}}" id="SecondAcademicViolation" ></td>
+              <td>2nd Attempt Attendance Violation: </td><td><input type="text" name="SecondAttemptAttendanceViolation" value="{{$student->SecondAttemptAttendanceViolation}}" id="SecondAttemptAttendanceViolation" ></td>
             </tr>
             <tr>
-              <td>3rd Academic Violation:</td><td><input type="date" name="ThirdAcademicViolation" value="{{$student->ThirdAcademicViolation}}" id="ThirdAcademicViolation" ></td>
-              <td>3rd Attempt Attendance Violation: </td><td><input type="date" name="ThirdAttemptAttendanceViolation" value="{{$student->ThirdAttemptAttendanceViolation}}" id="ThirdAttemptAttendanceViolation" ></td>
+              <td>3rd Academic Violation:</td><td><input type="text" name="ThirdAcademicViolation" value="{{$student->ThirdAcademicViolation}}" id="ThirdAcademicViolation" ></td>
+              <td>3rd Attempt Attendance Violation: </td><td><input type="text" name="ThirdAttemptAttendanceViolation" value="{{$student->ThirdAttemptAttendanceViolation}}" id="ThirdAttemptAttendanceViolation" ></td>
             </tr>
             <tr>
               <td>Dismissed (Date):</td><td> {{$student->Dismissed}}</td>
@@ -210,7 +210,8 @@
           </tr>
           <tr>
             <td>Stream: </td><td>{{$student->Stream}}</td>
-            <td>Last Activation Date:</td><td> {{ \Carbon\Carbon::parse($student->LastActivationDate)->format('d-m-Y')}}</td>
+            <!--<td>Last Activation Date:</td><td> {{ \Carbon\Carbon::parse($student->LastActivationDate)->format('d-m-Y')}}</td>-->
+            <td>Last Activation Date:</td><td> {{$student->LastActivationDate}}</td>
           </tr>
           <tr>
             <td>1st Postpone:</td><td> {{$student->FirstPostpone}}</td>
@@ -225,20 +226,20 @@
             <td>3rd Block Drop: </td><td>{{$student->	ThirdBlockDrop}}</td>
           </tr>
           <tr>
-            <td>1st Academic Violation:</td><td> {{ \Carbon\Carbon::parse($student->FirstAcademicViolation)->format('d-m-Y')}}</td>
-            <td>1st Attempt Attendance Violation: </td><td>{{ \Carbon\Carbon::parse($student->FirstAttemptAttendanceViolation)->format('d-m-Y')}}</td>
+            <td>1st Academic Violation:</td><td> {{$student->FirstAcademicViolation}}</td>
+            <td>1st Attempt Attendance Violation: </td><td>{{$student->FirstAttemptAttendanceViolation}}</td>
           </tr>
           <tr>
-            <td>2nd Academic Violation:</td><td> {{ \Carbon\Carbon::parse($student->SecondAcademicViolation)->format('d-m-Y')}}</td>
-            <td>2nd Attempt Attendance Violation: </td><td>{{ \Carbon\Carbon::parse($student->SecondAttemptAttendanceViolation)->format('d-m-Y')}}</td>
+            <td>2nd Academic Violation:</td><td> {{$student->SecondAcademicViolation}}</td>
+            <td>2nd Attempt Attendance Violation: </td><td>{{$student->SecondAttemptAttendanceViolation}}</td>
           </tr>
           <tr>
-            <td>3rd Academic Violation:</td><td> {{ \Carbon\Carbon::parse($student->ThirdAcademicViolation)->format('d-m-Y')}}</td>
-            <td>3rd Attempt Attendance Violation: </td><td>{{ \Carbon\Carbon::parse($student->ThirdAttemptAttendanceViolation)->format('d-m-Y')}}</td>
+            <td>3rd Academic Violation:</td><td> {{$student->ThirdAcademicViolation}}</td>
+            <td>3rd Attempt Attendance Violation: </td><td>{{$student->ThirdAttemptAttendanceViolation}}</td>
           </tr>
           <tr>
-            <td>Dismissed (Date):</td><td> {{ \Carbon\Carbon::parse($student->Dismissed)->format('d-m-Y')}}</td>
-            <td>Withdrawal:</td><td> {{ \Carbon\Carbon::parse($student->Withdrawal)->format('d-m-Y')}}</td>
+            <td>Dismissed (Date):</td><td> {{ $student->Dismissed}}</td>
+            <td>Withdrawal:</td><td> {{$student->Withdrawal}}</td>
           </tr>
           <tr>
             <td>Graduate Expectations Year: </td><td>{{$student->GraduateExpectationsYear}}</td>
@@ -249,7 +250,7 @@
       </section>
 
       <section id="content3">
-        @role('manager')
+        @role('male-manager|female-manager')
 
         <form method="POST" action="{{ route('student.update_contact') }}" enctype="multipart/form-data">
           @csrf
@@ -280,7 +281,7 @@
       </section>
 
       <section id="content4">
-        @role('manager')
+        @role('male-manager|female-manager')
 
         <h4>Upload New Attachment</h4>
         <div class="upload-form">

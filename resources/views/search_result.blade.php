@@ -23,7 +23,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
-          @role('manager')
+          @role('male-manager|female-manager')
           <li><a href="{{ route('manager.home') }}">Manager Dashboard</a></li>
           @endrole
           @role('admin')
@@ -58,7 +58,7 @@
   </div>
 
   <div class="search-result">
-    @role('manager')
+    @role('male-manager|female-manager|admin')
     <a class="advanced_search" href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a>
     <a class="advanced_search" href="{{ URL::to('Student/pdf') }}">Export to PDF</a>
     <a class="advanced_search" href="{{ URL::to('Student/excel') }}">Export to exel</a>

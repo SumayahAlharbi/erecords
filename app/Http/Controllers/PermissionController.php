@@ -73,7 +73,7 @@ class PermissionController extends Controller
     $input['name']=$request->get('name');
     $input['guard_name']='web';
     Permission::create($input);
-    return redirect('/permission');
+    return redirect('/permission/create');
   }
 
   /**

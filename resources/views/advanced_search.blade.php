@@ -32,8 +32,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
-          <<ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
-          @role('manager')
+          <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
+          @role('male-manager|female-manager')
           <li><a href="{{ route('manager.home') }}">Manager Dashboard</a></li>
           @endrole
           @role('admin')
@@ -245,7 +245,7 @@
       </div>
 
       <div class="form-group">
-        <label for="delayedGraduation">Stumbling Student</label>
+        <label for="delayedGraduation">Delayed Graduation Student</label>
         <input type="checkbox" name="delayedGraduation">
       </div>
 

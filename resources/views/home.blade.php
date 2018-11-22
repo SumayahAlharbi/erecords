@@ -148,7 +148,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
               <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
-              @role('manager')
+              @role('male-manager|female-manager')
               <li><a href="{{ route('manager.home') }}">Manager Dashboard</a></li>
               @endrole
               @role('admin')
@@ -172,7 +172,7 @@
 
 
     <!--@if (Auth::check())-->
-    @role('manager|officer')
+    @role('male-manager|male-officer|female-officer|female-manager|admin')
     <div class='search-center'>
       <form method="get" action="{{ route('student.search_result') }}" enctype="multipart/form-data" class="search">
         <input type="text" placeholder="Search.." name="keyword">

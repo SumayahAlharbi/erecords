@@ -50,6 +50,7 @@ class CreateStudentsTable extends Migration {
 			$table->string('ThirdAttemptAttendanceViolation');
 			$table->string('SecondBlockDrop');
 			$table->string('ThirdBlockDrop');
+			$table->string('Gender');
 		});
 	}
 
