@@ -12,7 +12,11 @@ class Student extends Model
 
   protected $fillable =[
     'FirstName',
+    'MiddleName',
     'LastName',
+    'ArabicFirstName',
+    'ArabicMiddleName',
+    'ArabicLastName',
     'Badge',
     'NationalID',
     'Status',

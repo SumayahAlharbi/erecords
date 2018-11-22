@@ -39,11 +39,11 @@ a.button:active {
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('activity.log') }}">User Activity Log</a>
+                  <a class="nav-link" href="{{ route('manager.home') }}">Home</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">User Activity Log<span class="sr-only">(current)</span></a>
                 </li>
               </ul>
             </div>
@@ -56,31 +56,30 @@ a.button:active {
               <table Style="width:100%; border-collapse: collapse; border: 1px solid black;">
                 <tr>
                   <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">ID</th>
-                  <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Name</th>
-                  <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Email</th>
-                  <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Roles</th>
-                  <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Actions</th>
+                  <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Log Name</th>
+                  <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Date</th>
+                  <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px;">Description</th>
+                  <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Before</th>
+                  <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">User</th>
                 </tr>
 
-                @foreach($users as $user)
+                @foreach($activities as $activity)
                 <tr>
-                  <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">{{$user->id}}</td>
-                  <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">{{ucwords($user->name)}}</td>
-                  <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">{{ucwords($user->email)}}</td>
+                  <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">{{$activity->id}}</td>
+                  <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">{{$activity->log_name}}</td>
+                  <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">{{$activity->created_at->diffForHumans()}}
+                    <span style="display:block;">{{$activity->created_at}}</span></td>
+                  <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px;">{{$activity->description}}</td>
                   <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">
-                    <ol style="text-align:left;padding-top:14px;">
-                    @foreach($user->roles as $role)
-                    <li>{{ ucwords($role->name)}}</li>
+
+                    @foreach($activity->properties as $index => $result)
+                    <span style="display:block;">{{ $index}}: {{$result}}</span>
                     @endforeach
-                  </ol>
+
                   </td>
-                  <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">
-                    <a href="{{ URL::to('/manager/userRoles', $user->id)}}" class="button">Edit</a>
-                  </td>
+                  <td Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">{{$activity->causer->name}}</td>
                 </tr>
-
                 @endforeach
-
               </table>
 
             </div>

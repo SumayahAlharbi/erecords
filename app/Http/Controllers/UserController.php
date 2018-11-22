@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Role;
 use App\User;
 use DB;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
@@ -31,6 +32,19 @@ class UserController extends Controller
     }
 
     /**
+     * Show the activity log.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function activity_log()
+    {
+      //$lastLoggedActivity = Activity::all()->last();// only one
+
+      $activities = Activity::all(); // all in db
+      return view('activity_log',compact('activities'));
+    }
+
+    /**
     * Show the form for creating a new resource.
     * @param  int  $id
     * @return \Illuminate\Http\Response
@@ -51,7 +65,7 @@ class UserController extends Controller
       })
       ->get();
 
-      return view('managerAssign',compact('user','roles'));
+      return view('manager_assign',compact('user','roles'));
     }
 
     /**

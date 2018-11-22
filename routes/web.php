@@ -58,6 +58,8 @@ Route::get('studentReport/pdf/{id}','StudentController@studentReport_pdf');
 Route::get('/manager','UserController@index')->name('manager.home'); //manger dashboard
 Route::get('/manager/userRoles/{id}','UserController@showUserRoles'); // show user roles form
 Route::get('user/{id}','UserController@update')->name('user.update'); // assign user to roles
+
+Route::get('/manager/activityLog','UserController@activity_log')->name('activity.log');
 });
 
 Route::group(['middleware' => ['role:admin']], function ()

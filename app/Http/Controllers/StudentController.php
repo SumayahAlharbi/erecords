@@ -8,6 +8,7 @@ use App\Attachment;
 use DB;
 use PDF;
 use Session;
+use Spatie\Activitylog\Models\Activity;
 
 class StudentController extends Controller
 {
@@ -366,12 +367,27 @@ class StudentController extends Controller
     $ArabicMiddleName = $request->get('ArabicMiddleName');
     $ArabicLastName = $request->get('ArabicLastName');
 
+    //$student = new Student();
+    $student = Student::where('id', '=', $id)->first();
+
     $query = Student::where('id', '=', $id)->update(
       ['ArabicFirstName' => $ArabicFirstName ,
       'ArabicMiddleName' => $ArabicMiddleName ,
       'ArabicLastName' => $ArabicLastName]);
 
-      if ($query) {return back();}
+      if ($query) {
+        // log this activity
+        activity()
+        ->performedOn($student)
+        ->causedBy(auth()->user())
+        ->useLog('Update')
+        ->withProperties(['ArabicFirstName' => $student->ArabicFirstName,
+        'ArabicMiddleName'=> $student->ArabicMiddleName,
+        'ArabicLastName'=> $student->ArabicLastName])
+        ->log('Update Student Personal Info, Student id: '.$id);
+
+        return back();
+      }
     }
 
     /**
@@ -398,57 +414,128 @@ class StudentController extends Controller
       $ThirdAcademicViolation = $request->get('ThirdAcademicViolation');
       $ThirdAttemptAttendanceViolation = $request->get('ThirdAttemptAttendanceViolation');
 
+      //$student = new Student();
+      $student = Student::where('id', '=', $id)->first();
+
       if ($GraduationBatch){
         $query = Student::where('id', '=', $id)->update(
           ['GraduationBatch' => $GraduationBatch]);
+          if ($query)
+          {
+            activity()
+            ->performedOn($student)
+            ->causedBy(auth()->user())
+            ->useLog('Update')
+            ->withProperties(['GraduationBatch' => $student->GraduationBatch])
+            ->log('Update Student Academic Info, Student id: '.$id);
+          }
       }
 
       if ($Stream){
         $query = Student::where('id', '=', $id)->update(
           ['Stream' => $Stream]);
+
+          if ($query)
+          {
+          activity()
+          ->performedOn($student)
+          ->causedBy(auth()->user())
+          ->useLog('Update')
+          ->withProperties(['Stream' => $student->Stream])
+          ->log('Update Student Academic Info, Student id: '.$id);
+        }
       }
 
       if ($FirstAcademicViolation){
         $query = Student::where('id', '=', $id)->update(
           ['FirstAcademicViolation' => $FirstAcademicViolation]);
+
+          if ($query)
+          {
+          activity()
+          ->performedOn($student)
+          ->causedBy(auth()->user())
+          ->useLog('Update')
+          ->withProperties(['FirstAcademicViolation' => $student->FirstAcademicViolation])
+          ->log('Update Student Academic Info, Student id: '.$id);
+        }
       }
 
       if ($FirstAttemptAttendanceViolation){
         $query = Student::where('id', '=', $id)->update(
           ['FirstAttemptAttendanceViolation' => $FirstAttemptAttendanceViolation]);
+
+          if ($query)
+          {
+          activity()
+          ->performedOn($student)
+          ->causedBy(auth()->user())
+          ->useLog('Update')
+          ->withProperties(['FirstAttemptAttendanceViolation' => $student->FirstAttemptAttendanceViolation])
+          ->log('Update Student Academic Info, Student id: '.$id);
+        }
       }
 
       if ($SecondAcademicViolation){
         $query = Student::where('id', '=', $id)->update(
           ['SecondAcademicViolation' => $SecondAcademicViolation]);
+
+          if ($query)
+          {
+          activity()
+          ->performedOn($student)
+          ->causedBy(auth()->user())
+          ->useLog('Update')
+          ->withProperties(['SecondAcademicViolation' => $student->SecondAcademicViolation])
+          ->log('Update Student Academic Info, Student id: '.$id);
+        }
       }
 
       if ($SecondAttemptAttendanceViolation){
         $query = Student::where('id', '=', $id)->update(
           ['SecondAttemptAttendanceViolation' => $SecondAttemptAttendanceViolation]);
+
+          if ($query)
+          {
+          activity()
+          ->performedOn($student)
+          ->causedBy(auth()->user())
+          ->useLog('Update')
+          ->withProperties(['SecondAttemptAttendanceViolation' => $student->SecondAttemptAttendanceViolation])
+          ->log('Update Student Academic Info, Student id: '.$id);
+        }
       }
 
       if ($ThirdAcademicViolation){
         $query = Student::where('id', '=', $id)->update(
           ['ThirdAcademicViolation' => $ThirdAcademicViolation]);
+
+          if ($query)
+          {
+          activity()
+          ->performedOn($student)
+          ->causedBy(auth()->user())
+          ->useLog('Update')
+          ->withProperties(['ThirdAcademicViolation' => $student->ThirdAcademicViolation])
+          ->log('Update Student Academic Info, Student id: '.$id);
+        }
       }
 
       if ($ThirdAttemptAttendanceViolation){
         $query = Student::where('id', '=', $id)->update(
           ['ThirdAttemptAttendanceViolation' => $ThirdAttemptAttendanceViolation]);
+
+          if ($query)
+          {
+          activity()
+          ->performedOn($student)
+          ->causedBy(auth()->user())
+          ->useLog('Update')
+          ->withProperties(['ThirdAttemptAttendanceViolation' => $student->ThirdAttemptAttendanceViolation])
+          ->log('Update Student Academic Info, Student id: '.$id);
+        }
       }
-      /*
-      $query = Student::where('id', '=', $id)->update(
-        ['GraduationBatch' => $GraduationBatch ,
-        'Stream' =>  $Stream,
-        'FirstAcademicViolation' =>  $FirstAcademicViolation,
-        'FirstAttemptAttendanceViolation' =>  $FirstAttemptAttendanceViolation,
-        'SecondAcademicViolation' =>  $SecondAcademicViolation,
-        'SecondAttemptAttendanceViolation' =>  $SecondAttemptAttendanceViolation,
-        'ThirdAcademicViolation' =>  $ThirdAcademicViolation,
-        'ThirdAttemptAttendanceViolation' =>  $ThirdAttemptAttendanceViolation
-      ]);
-      */
+
       return back();
     }
 
@@ -466,9 +553,21 @@ class StudentController extends Controller
       ]);
 
       $id = $request->get('id');
+      $student = Student::where('id', '=', $id)->first();
+      
       $Mobile = $request->get('Mobile');
       $query = Student::where('id', '=', $id)->update(['Mobile' => $Mobile]);
-      if ($query) {return back();}
+      if ($query) {
+
+        activity()
+        ->performedOn($student)
+        ->causedBy(auth()->user())
+        ->useLog('Update')
+        ->withProperties(['Mobile' => $student->Mobile])
+        ->log('Update Student Mobile Number, Student id: '.$id);
+        return back();
+
+      }
     }
 
     /**

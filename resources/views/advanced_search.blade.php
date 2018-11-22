@@ -32,16 +32,22 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
-          <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
-            <li><a class="dropdown-item" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">
-            {{ __('Logout') }}
-          </a>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-          </li>
+          <<ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
+          @role('manager')
+          <li><a href="{{ route('manager.home') }}">Manager Dashboard</a></li>
+          @endrole
+          @role('admin')
+          <li><a href="{{ route('admin.home') }}">Admin Dashboard</a></li>
+          @endrole
+          <li><a class="dropdown-item" href="{{ route('logout') }}"
+          onclick="event.preventDefault();
+          document.getElementById('logout-form').submit();">
+          {{ __('Logout') }}
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
+        </li>
         </ul>
       </li>
     </ul>

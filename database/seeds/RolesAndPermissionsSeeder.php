@@ -28,8 +28,6 @@ class RolesAndPermissionsSeeder extends Seeder
 
          // create roles and assign created permissions
 
-         $role = Role::create(['name' => 'guest']); // guest user has no permissions
-
          $role = Role::create(['name' => 'officer']);
          $role->givePermissionTo(['Search all students','View student profile']);
 
@@ -39,11 +37,9 @@ class RolesAndPermissionsSeeder extends Seeder
          // assign users to roles and permissions
          $user_manager = \App\User::find(1);
          $user_officer = \App\User::find(2);
-         $user_guest = \App\User::find(3);
 
          $user_manager->assignRole('manager');
          $user_officer->assignRole('officer');
-         $user_guest->assignRole('guest');
 
          $user_manager->givePermissionTo(Permission::all());
          $user_officer->givePermissionTo(['Search all students','View student profile']);
