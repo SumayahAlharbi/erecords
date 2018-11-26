@@ -56,10 +56,14 @@ class StudentController extends Controller
   {
     if (Session::has('SR')) {
       $searchResults =session('SR')->all();
-      //return view('ExportPDFSearch',compact('searchResults'));
+      /*return view('ExportPDFSearch',compact('searchResults'));
       $pdf = PDF::loadView('ExportPDFSearch',compact('searchResults'));
       $pdf->save(storage_path().'_erecords.pdf');
       return $pdf->download('erecords.pdf');
+      */
+      $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults'));
+      $pdf->save(public_path('/mpdf-temp/').'export_students.pdf');
+      return $pdf->download('export_students.pdf');
     }
     else
     {
@@ -75,11 +79,15 @@ class StudentController extends Controller
       ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
       ->get();
 
-      // Send data to the view using loadView function of PDF facade
+      /* Send data to the view using loadView function of PDF facade
       $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
       $pdf->save(storage_path().'_erecords.pdf');
       //session->forget('search');
       return $pdf->download('erecords.pdf');
+      */
+      $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
+      $pdf->save(public_path('/mpdf-temp/').'export_students.pdf');
+      return $pdf->download('export_students.pdf');
     }
   }
 
@@ -127,8 +135,12 @@ class StudentController extends Controller
       'batches','active','alumni','intern','postponed','withdrawal','dismissed','total',
       'total_active','total_alumni','total_intern','total_postponed','total_withdrawal','total_dismissed','totaloftotal'
     ));
-    $pdf->save(storage_path().'_SummeryReport.pdf');
+
+    $pdf->save(public_path('/mpdf-temp/').'SummeryReport.pdf');
     return $pdf->download('SummeryReport.pdf');
+
+    //$pdf->save(storage_path().'_SummeryReport.pdf');
+    //return $pdf->download('SummeryReport.pdf');
   }
 
   // this function is for creating the Student Details Report
@@ -136,8 +148,10 @@ class StudentController extends Controller
   {
     $student = Student::findOrFail($id);
     $pdf = PDF::loadView('StudentReport',compact('student'));
-    $pdf->save(storage_path().'_StudentReport.pdf');
+    $pdf->save(public_path('/mpdf-temp/').'StudentReport.pdf');
     return $pdf->download('StudentReport.pdf');
+    //$pdf->save(storage_path().'_StudentReport.pdf');
+    //return $pdf->download('StudentReport.pdf');
   }
 
   /**
@@ -554,7 +568,7 @@ class StudentController extends Controller
 
       $id = $request->get('id');
       $student = Student::where('id', '=', $id)->first();
-      
+
       $Mobile = $request->get('Mobile');
       $query = Student::where('id', '=', $id)->update(['Mobile' => $Mobile]);
       if ($query) {
