@@ -34,10 +34,10 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
           @role('male-manager|female-manager')
-          <li><a href="{{ route('manager.home') }}">Manager Dashboard</a></li>
+          <li><a href="{{ route('manager.home') }}" target="_blank">Manager Dashboard</a></li>
           @endrole
           @role('admin')
-          <li><a href="{{ route('admin.home') }}">Admin Dashboard</a></li>
+          <li><a href="{{ route('admin.home') }}" target="_blank">Admin Dashboard</a></li>
           @endrole
           <li><a class="dropdown-item" href="{{ route('logout') }}"
           onclick="event.preventDefault();
@@ -92,32 +92,27 @@
         <label for="Batch">Batch</label>
         <select class="form-control selectpicker" id="Batch" name="Batch[]" multiple="multiple">
           <option value=""></option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
+          @foreach($batches as $batche)
+          <option value="{{$batche->Batch}}">{{$batche->Batch}}</option>
+          @endforeach
         </select>
       </div>
       <div class="form-group">
         <label for="Status">Status</label>
         <select class="form-control selectpicker" id="Status" name="Status[]" multiple="multiple">
           <option value=""></option>
-          <option value="ALUMNI">ALUMNI</option>
-          <option value="INTERN">INTERN</option>
-          <option value="ACTIVE">ACTIVE</option>
-          <option value="POSTPONED">POSTPONED</option>
-          <option value="DISMISSED">DISMISSED</option>
-          <option value="WITHDRAWL">WITHDRAWL</option>
+          @foreach($status as $value)
+          <option value="{{$value->Status}}">{{$value->Status}}</option>
+          @endforeach
         </select>
       </div>
       <div class="form-group">
         <label for="Stream">Stream</label>
         <select class="form-control selectpicker" id="Stream" name="Stream[]" multiple="multiple">
           <option value=""></option>
-          <option value="1">1</option>
-          <option value="2">2</option>
+          @foreach($streams as $stream)
+          <option value="{{$stream->Stream}}">{{$stream->Stream}}</option>
+          @endforeach
         </select>
       </div>
       <div class="form-group">

@@ -9,6 +9,7 @@ use DB;
 use PDF;
 use Session;
 use Spatie\Activitylog\Models\Activity;
+use Auth;
 
 class StudentController extends Controller
 {
@@ -38,15 +39,55 @@ class StudentController extends Controller
     session(['search'=>$search]);
     Session::forget('SR');
 
-    $searchResults = Student::where('Badge', '=', $search)
-    ->orWhere('NationalID', '=', $search)
-    ->orWhere('Batch', 'LIKE', '%'.$search.'%')
-    ->orWhere('Stream', 'LIKE', '%'.$search.'%')
-    ->orWhere('Status', 'LIKE', '%'.$search.'%')
-    ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
-    ->orWhere('LastName', 'LIKE', '%'.$search.'%')
-    ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
-    ->paginate(5);
+    //check current user role
+    $current_user_role = Auth::user()->roles->first()->name;
+
+    switch ($current_user_role) {
+      case 'admin': // all students
+      $searchResults = Student::where('Badge', '=', $search)
+      ->orWhere('NationalID', '=', $search)
+      ->orWhere('Batch', 'LIKE', '%'.$search.'%')
+      ->orWhere('Stream', 'LIKE', '%'.$search.'%')
+      ->orWhere('Status', 'LIKE', '%'.$search.'%')
+      ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
+      ->orWhere('LastName', 'LIKE', '%'.$search.'%')
+      ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
+      ->paginate(5);
+      break;
+
+      case 'male-manager':
+      case 'male-officer': // all male students
+      $searchResults = Student::where('Gender', '=', 'm')
+      ->where(function($query)use ($search)
+      {
+        $query->Where('Badge', '=', $search)
+        ->orWhere('NationalID', '=', $search)
+        ->orWhere('Batch', 'LIKE', '%'.$search.'%')
+        ->orWhere('Stream', 'LIKE', '%'.$search.'%')
+        ->orWhere('Status', 'LIKE', '%'.$search.'%')
+        ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
+        ->orWhere('LastName', 'LIKE', '%'.$search.'%')
+        ->orWhere('StudentNo', 'LIKE', '%'.$search.'%');
+      })->paginate(5);
+      break;
+
+      case 'female-manager':
+      case 'female-officer':  // all female students
+      $searchResults = Student::where('Gender', '=', 'f')
+      ->where(function($query)use ($search)
+      {
+        $query->Where('Badge', '=', $search)
+        ->orWhere('NationalID', '=', $search)
+        ->orWhere('Batch', 'LIKE', '%'.$search.'%')
+        ->orWhere('Stream', 'LIKE', '%'.$search.'%')
+        ->orWhere('Status', 'LIKE', '%'.$search.'%')
+        ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
+        ->orWhere('LastName', 'LIKE', '%'.$search.'%')
+        ->orWhere('StudentNo', 'LIKE', '%'.$search.'%');
+      })->paginate(5);
+      break;
+    };
+
     return view('search_result',compact('searchResults','search'));
   }
 
@@ -96,48 +137,144 @@ class StudentController extends Controller
   public function summeryReport_pdf()
   {
 
-    $batches = Student::distinct()->get(['Batch']);
+    //check current user role
+    $current_user_role = Auth::user()->roles->first()->name;
 
-    $active = [];
-    $alumni=[];
-    $intern=[];
-    $postponed=[];
-    $withdrawal=[];
-    $dismissed=[];
-    $total=[];
+    switch ($current_user_role) {
+      case 'admin':
+      $batches = Student::distinct()->get(['Batch']);
 
-    foreach ($batches as $key => $value) {
-      $active[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ACTIVE')->count();
-      $total_active = Student::where('Status', '=', 'ACTIVE')->count();
+      $active = [];
+      $alumni=[];
+      $intern=[];
+      $postponed=[];
+      $withdrawal=[];
+      $dismissed=[];
+      $total=[];
 
-      $alumni[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ALUMNI')->count();
-      $total_alumni = Student::where('Status', '=', 'ALUMNI')->count();
+      foreach ($batches as $key => $value) {
+        $active[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ACTIVE')->count();
+        $total_active = Student::where('Status', '=', 'ACTIVE')->count();
+
+        $alumni[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ALUMNI')->count();
+        $total_alumni = Student::where('Status', '=', 'ALUMNI')->count();
 
 
-      $intern[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'INTERN')->count();
-      $total_intern = Student::where('Status', '=', 'INTERN')->count();
+        $intern[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'INTERN')->count();
+        $total_intern = Student::where('Status', '=', 'INTERN')->count();
 
-      $postponed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'POSTPONED')->count();
-      $total_postponed = Student::where('Status', '=', 'POSTPONED')->count();
+        $postponed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'POSTPONED')->count();
+        $total_postponed = Student::where('Status', '=', 'POSTPONED')->count();
 
-      $withdrawal[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'WITHDRAWL')->count();
-      $total_withdrawal = Student::where('Status', '=', 'WITHDRAWL')->count();
+        $withdrawal[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'WITHDRAWL')->count();
+        $total_withdrawal = Student::where('Status', '=', 'WITHDRAWL')->count();
 
-      $dismissed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'DISMISSED')->count();
-      $total_dismissed = Student::where('Status', '=', 'DISMISSED')->count();
+        $dismissed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'DISMISSED')->count();
+        $total_dismissed = Student::where('Status', '=', 'DISMISSED')->count();
 
-      $total[] = Student::where('Batch', '=', $value->Batch)->count();
-      $totaloftotal = Student::all()->count();
+        $total[] = Student::where('Batch', '=', $value->Batch)->count();
+        $totaloftotal = Student::all()->count();
+      }
+
+      // Send data to the view using loadView function of PDF facade
+      $pdf = PDF::loadView('SummeryReport', compact(
+        'batches','active','alumni','intern','postponed','withdrawal','dismissed','total',
+        'total_active','total_alumni','total_intern','total_postponed','total_withdrawal','total_dismissed','totaloftotal'
+      ));
+      $pdf->save(public_path('/mpdf-temp/').'SummeryReport.pdf');
+      return $pdf->download('SummeryReport.pdf');
+      break;
+
+      case 'male-manager':
+      case 'male-officer':
+      $batches = Student::distinct()->select('Batch')->where('Gender', '=', 'm')->get();
+
+      $active = [];
+      $alumni=[];
+      $intern=[];
+      $postponed=[];
+      $withdrawal=[];
+      $dismissed=[];
+      $total=[];
+
+      foreach ($batches as $key => $value) {
+        $active[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ACTIVE')->where('Gender', '=', 'm')->count();
+        $total_active = Student::where('Status', '=', 'ACTIVE')->where('Gender', '=', 'm')->count();
+
+        $alumni[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ALUMNI')->where('Gender', '=', 'm')->count();
+        $total_alumni = Student::where('Status', '=', 'ALUMNI')->where('Gender', '=', 'm')->count();
+
+
+        $intern[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'INTERN')->where('Gender', '=', 'm')->count();
+        $total_intern = Student::where('Status', '=', 'INTERN')->where('Gender', '=', 'm')->count();
+
+        $postponed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'POSTPONED')->where('Gender', '=', 'm')->count();
+        $total_postponed = Student::where('Status', '=', 'POSTPONED')->where('Gender', '=', 'm')->count();
+
+        $withdrawal[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'WITHDRAWL')->where('Gender', '=', 'm')->count();
+        $total_withdrawal = Student::where('Status', '=', 'WITHDRAWL')->where('Gender', '=', 'm')->count();
+
+        $dismissed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'DISMISSED')->where('Gender', '=', 'm')->count();
+        $total_dismissed = Student::where('Status', '=', 'DISMISSED')->where('Gender', '=', 'm')->count();
+
+        $total[] = Student::where('Batch', '=', $value->Batch)->where('Gender', '=', 'm')->count();
+        $totaloftotal = Student::all()->where('Gender', '=', 'm')->count();
+      }
+
+      // Send data to the view using loadView function of PDF facade
+      $pdf = PDF::loadView('SummeryReport', compact(
+        'batches','active','alumni','intern','postponed','withdrawal','dismissed','total',
+        'total_active','total_alumni','total_intern','total_postponed','total_withdrawal','total_dismissed','totaloftotal'
+      ));
+      $pdf->save(public_path('/mpdf-temp/').'SummeryReport.pdf');
+      return $pdf->download('SummeryReport.pdf');
+      break;
+
+      case 'female-manager':
+      case 'female-officer':
+      $batches = Student::distinct()->select('Batch')->where('Gender', '=', 'f')->get();
+
+      $active = [];
+      $alumni=[];
+      $intern=[];
+      $postponed=[];
+      $withdrawal=[];
+      $dismissed=[];
+      $total=[];
+
+      foreach ($batches as $key => $value) {
+        $active[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ACTIVE')->where('Gender', '=', 'f')->count();
+        $total_active = Student::where('Status', '=', 'ACTIVE')->where('Gender', '=', 'f')->count();
+
+        $alumni[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'ALUMNI')->where('Gender', '=', 'f')->count();
+        $total_alumni = Student::where('Status', '=', 'ALUMNI')->where('Gender', '=', 'f')->count();
+
+
+        $intern[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'INTERN')->where('Gender', '=', 'f')->count();
+        $total_intern = Student::where('Status', '=', 'INTERN')->where('Gender', '=', 'f')->count();
+
+        $postponed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'POSTPONED')->where('Gender', '=', 'f')->count();
+        $total_postponed = Student::where('Status', '=', 'POSTPONED')->where('Gender', '=', 'f')->count();
+
+        $withdrawal[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'WITHDRAWL')->where('Gender', '=', 'f')->count();
+        $total_withdrawal = Student::where('Status', '=', 'WITHDRAWL')->where('Gender', '=', 'f')->count();
+
+        $dismissed[] = Student::where('Batch', '=', $value->Batch)->where('Status', '=', 'DISMISSED')->where('Gender', '=', 'f')->count();
+        $total_dismissed = Student::where('Status', '=', 'DISMISSED')->where('Gender', '=', 'f')->count();
+
+        $total[] = Student::where('Batch', '=', $value->Batch)->where('Gender', '=', 'f')->count();
+        $totaloftotal = Student::all()->where('Gender', '=', 'f')->count();
+      }
+
+      // Send data to the view using loadView function of PDF facade
+      $pdf = PDF::loadView('SummeryReport', compact(
+        'batches','active','alumni','intern','postponed','withdrawal','dismissed','total',
+        'total_active','total_alumni','total_intern','total_postponed','total_withdrawal','total_dismissed','totaloftotal'
+      ));
+      $pdf->save(public_path('/mpdf-temp/').'SummeryReport.pdf');
+      return $pdf->download('SummeryReport.pdf');
+      break;
     }
-
-    // Send data to the view using loadView function of PDF facade
-    $pdf = PDF::loadView('SummeryReport', compact(
-      'batches','active','alumni','intern','postponed','withdrawal','dismissed','total',
-      'total_active','total_alumni','total_intern','total_postponed','total_withdrawal','total_dismissed','totaloftotal'
-    ));
-
-    $pdf->save(public_path('/mpdf-temp/').'SummeryReport.pdf');
-    return $pdf->download('SummeryReport.pdf');
 
     //$pdf->save(storage_path().'_SummeryReport.pdf');
     //return $pdf->download('SummeryReport.pdf');
@@ -154,6 +291,15 @@ class StudentController extends Controller
     //return $pdf->download('StudentReport.pdf');
   }
 
+  public function advanced_search_form ()
+  {
+    $batches = Student::distinct()->select('Batch')->get();
+    $streams = Student::distinct()->select('Stream')->get();
+    $status = Student::distinct()->select('Status')->get();
+
+    return view('advanced_search', compact('batches','streams','status'));
+  }
+
   /**
   * advanced search
   *
@@ -164,16 +310,12 @@ class StudentController extends Controller
   public function advanced_search(Request $request)
   {
 
-    $query = DB::table('students')->select('*');
-
-
     $fname= $request->get('FirstName');
     session(['fname'=>$fname]); //used to create excel sheet
     $mname= $request->get('MiddleName');
     session(['mname'=>$mname]); //used to create excel sheet
     $lname= $request->get('LastName');
     session(['lname'=>$lname]); //used to create excel sheet
-
 
     $NationalID= $request->get('NationalID');
     session(['NationalID'=>$NationalID]); //used to create excel sheet
@@ -199,7 +341,6 @@ class StudentController extends Controller
     $Stream = $request->get('Stream');
     session(['Stream'=>$Stream]); //used to create excel sheet
 
-    // dates
     $LastActivationDate= $request->get('LastActivationDate');
     session(['LastActivationDate'=>$LastActivationDate]); //used to create excel sheet
     $Dismissed= $request->get('Dismissed');
@@ -230,134 +371,399 @@ class StudentController extends Controller
     session(['ThirdAttemptAttendanceViolation'=>$ThirdAttemptAttendanceViolation]); //used to create excel sheet
     $Withdrawal= $request->get('Withdrawal');
     session(['Withdrawal'=>$Withdrawal]); //used to create excel sheet
-
     $DelayedGraduation= $request->get('delayedGraduation');
+    session(['DelayedGraduation'=>$DelayedGraduation]); //used to create excel sheet
 
-    if ($fname) {
-      $query->where('FirstName', '=', $fname);
+    //check current user role
+    $current_user_role = Auth::user()->roles->first()->name;
+
+    switch ($current_user_role) {
+      case 'admin': // same old code
+      $query = DB::table('students')->select('*');
+      if ($fname) {
+        $query->where('FirstName', 'LIKE', '%'.$fname.'%');
+      }
+
+      if ($mname) {
+        $query->where('MiddleName', 'LIKE', '%'.$mname.'%');
+      }
+
+      if ($lname) {
+        $query->where('LastName', 'LIKE', '%'.$lname.'%');
+      }
+
+      if ($NationalID) {
+        $query->where('NationalID', 'LIKE', '%'.$NationalID.'%');
+      }
+
+      if ($Badge) {
+        $query->where('Badge', 'LIKE', '%'.$Badge.'%');
+      }
+
+      if ($Status) {
+        $query->whereIn('Status', $Status);
+      }
+
+      if ($Stream) {
+        $query->whereIn('Stream', $Stream);
+      }
+
+      if ($Batch) {
+        $query->whereIn('Batch', $Batch);
+      }
+
+      if ($StudentNo) {
+        $query->where('StudentNo', 'LIKE', '%'.$StudentNo.'%');
+      }
+
+      if ($Mobile) {
+        $query->where('Mobile', 'LIKE', '%'.$Mobile.'%');
+      }
+
+      if ($KSAUHSEmail) {
+        $query->where('KSAUHSEmail', 'LIKE', '%'.$KSAUHSEmail.'%');
+      }
+
+      if ($NGHAEmail) {
+        $query->where('NGHAEmail', 'LIKE', '%'.$NGHAEmail.'%');
+      }
+
+      if ($PersonalEmail) {
+        $query->where('PersonalEmail', 'LIKE', '%'.$PersonalEmail.'%');
+      }
+
+      if ($GraduateExpectationsYear) {
+        $query->whereIn('GraduateExpectationsYear',$GraduateExpectationsYear);
+      }
+
+      if ($LastActivationDate) {
+        $query->where('LastActivationDate', '=', $LastActivationDate.'%');
+      }
+
+      if ($Dismissed) {
+        $query->where('Dismissed', 'LIKE', '%'.$Dismissed.'%');
+      }
+
+      if ($FirstBlockDrop) {
+        $query->where('FirstBlockDrop', 'LIKE', '%'.$FirstBlockDrop.'%');
+      }
+
+      if ($FirstPostpone) {
+        $query->where('FirstPostpone', 'LIKE', '%'.$FirstPostpone.'%');
+      }
+
+      if ($FirstAcademicViolation) {
+        $query->where('FirstAcademicViolation', 'LIKE', '%'.$FirstAcademicViolation.'%');
+      }
+
+      if ($SecondBlockDrop) {
+        $query->where('SecondBlockDrop', 'LIKE', '%'.$SecondBlockDrop.'%');
+      }
+
+      if ($SecondPostpone) {
+        $query->where('SecondPostpone', 'LIKE', '%'.$SecondPostpone.'%');
+      }
+
+      if ($SecondAcademicViolation) {
+        $query->where('SecondAcademicViolation', 'LIKE', '%'.$SecondAcademicViolation.'%');
+      }
+
+      if ($ThirdBlockDrop) {
+        $query->where('ThirdBlockDrop', 'LIKE', '%'.'LIKE', '%'.$ThirdBlockDrop.'%');
+      }
+
+      if ($ThirdPostpone) {
+        $query->where('ThirdPostpone', 'LIKE', '%'.$ThirdPostpone.'%');
+      }
+
+      if ($ThirdAcademicViolation) {
+        $query->where('ThirdAcademicViolation', 'LIKE', '%'.$ThirdAcademicViolation.'%');
+      }
+
+      if ($FirstAttemptAttendanceViolation) {
+        $query->where('FirstAttemptAttendanceViolation', 'LIKE', '%'.$FirstAttemptAttendanceViolation.'%');
+      }
+
+      if ($SecondAttemptAttendanceViolation) {
+        $query->where('SecondAttemptAttendanceViolation', 'LIKE', '%'.$SecondAttemptAttendanceViolation.'%');
+      }
+
+      if ($ThirdAttemptAttendanceViolation) {
+        $query->where('ThirdAttemptAttendanceViolation', 'LIKE', '%'.$ThirdAttemptAttendanceViolation.'%');
+      }
+
+      if ($Withdrawal) {
+        $query->where('Withdrawal', 'LIKE', '%'.$Withdrawal.'%');
+      }
+
+      if ($DelayedGraduation){
+      $query->whereRaw('Batch != GraduationBatch');
+      }
+      session(['SR'=>$query->orderBy('FirstName', 'asc')->get()]);
+      Session::forget('search');
+      $searchResults = $query->orderBy('FirstName', 'asc')->paginate(5);
+      break;
+
+      case 'male-manager':
+      case 'male-officer':
+      $query = Student::where('Gender', '=', 'm');
+      if ($fname) {
+        $query->where('FirstName', 'LIKE', '%'.$fname.'%');
+      }
+
+      if ($mname) {
+        $query->where('MiddleName', 'LIKE', '%'.$mname.'%');
+      }
+
+      if ($lname) {
+        $query->where('LastName', 'LIKE', '%'.$lname.'%');
+      }
+
+      if ($NationalID) {
+        $query->where('NationalID', 'LIKE', '%'.$NationalID.'%');
+      }
+
+      if ($Badge) {
+        $query->where('Badge', 'LIKE', '%'.$Badge.'%');
+      }
+
+      if ($Status) {
+        $query->whereIn('Status', $Status);
+      }
+
+      if ($Stream) {
+        $query->whereIn('Stream', $Stream);
+      }
+
+      if ($Batch) {
+        $query->whereIn('Batch', $Batch);
+      }
+
+      if ($StudentNo) {
+        $query->where('StudentNo', 'LIKE', '%'.$StudentNo.'%');
+      }
+
+      if ($Mobile) {
+        $query->where('Mobile', 'LIKE', '%'.$Mobile.'%');
+      }
+
+      if ($KSAUHSEmail) {
+        $query->where('KSAUHSEmail', 'LIKE', '%'.$KSAUHSEmail.'%');
+      }
+
+      if ($NGHAEmail) {
+        $query->where('NGHAEmail', 'LIKE', '%'.$NGHAEmail.'%');
+      }
+
+      if ($PersonalEmail) {
+        $query->where('PersonalEmail', 'LIKE', '%'.$PersonalEmail.'%');
+      }
+
+      if ($GraduateExpectationsYear) {
+        $query->whereIn('GraduateExpectationsYear',$GraduateExpectationsYear);
+      }
+
+      if ($LastActivationDate) {
+        $query->where('LastActivationDate', '=', $LastActivationDate.'%');
+      }
+
+      if ($Dismissed) {
+        $query->where('Dismissed', 'LIKE', '%'.$Dismissed.'%');
+      }
+
+      if ($FirstBlockDrop) {
+        $query->where('FirstBlockDrop', 'LIKE', '%'.$FirstBlockDrop.'%');
+      }
+
+      if ($FirstPostpone) {
+        $query->where('FirstPostpone', 'LIKE', '%'.$FirstPostpone.'%');
+      }
+
+      if ($FirstAcademicViolation) {
+        $query->where('FirstAcademicViolation', 'LIKE', '%'.$FirstAcademicViolation.'%');
+      }
+
+      if ($SecondBlockDrop) {
+        $query->where('SecondBlockDrop', 'LIKE', '%'.$SecondBlockDrop.'%');
+      }
+
+      if ($SecondPostpone) {
+        $query->where('SecondPostpone', 'LIKE', '%'.$SecondPostpone.'%');
+      }
+
+      if ($SecondAcademicViolation) {
+        $query->where('SecondAcademicViolation', 'LIKE', '%'.$SecondAcademicViolation.'%');
+      }
+
+      if ($ThirdBlockDrop) {
+        $query->where('ThirdBlockDrop', 'LIKE', '%'.'LIKE', '%'.$ThirdBlockDrop.'%');
+      }
+
+      if ($ThirdPostpone) {
+        $query->where('ThirdPostpone', 'LIKE', '%'.$ThirdPostpone.'%');
+      }
+
+      if ($ThirdAcademicViolation) {
+        $query->where('ThirdAcademicViolation', 'LIKE', '%'.$ThirdAcademicViolation.'%');
+      }
+
+      if ($FirstAttemptAttendanceViolation) {
+        $query->where('FirstAttemptAttendanceViolation', 'LIKE', '%'.$FirstAttemptAttendanceViolation.'%');
+      }
+
+      if ($SecondAttemptAttendanceViolation) {
+        $query->where('SecondAttemptAttendanceViolation', 'LIKE', '%'.$SecondAttemptAttendanceViolation.'%');
+      }
+
+      if ($ThirdAttemptAttendanceViolation) {
+        $query->where('ThirdAttemptAttendanceViolation', 'LIKE', '%'.$ThirdAttemptAttendanceViolation.'%');
+      }
+
+      if ($Withdrawal) {
+        $query->where('Withdrawal', 'LIKE', '%'.$Withdrawal.'%');
+      }
+
+      if ($DelayedGraduation){
+      $query->whereRaw('Batch != GraduationBatch');
+      }
+      session(['SR'=>$query->get()]);
+      Session::forget('search');
+      $searchResults = $query->orderBy('FirstName', 'asc')->paginate(5);
+      break;
+
+      case 'female-manager':
+      case 'female-officer':
+      $query = Student::where('Gender', '=', 'f');
+      if ($fname) {
+        $query->where('FirstName', 'LIKE', '%'.$fname.'%');
+      }
+
+      if ($mname) {
+        $query->where('MiddleName', 'LIKE', '%'.$mname.'%');
+      }
+
+      if ($lname) {
+        $query->where('LastName', 'LIKE', '%'.$lname.'%');
+      }
+
+      if ($NationalID) {
+        $query->where('NationalID', 'LIKE', '%'.$NationalID.'%');
+      }
+
+      if ($Badge) {
+        $query->where('Badge', 'LIKE', '%'.$Badge.'%');
+      }
+
+      if ($Status) {
+        $query->whereIn('Status', $Status);
+      }
+
+      if ($Stream) {
+        $query->whereIn('Stream', $Stream);
+      }
+
+      if ($Batch) {
+        $query->whereIn('Batch', $Batch);
+      }
+
+      if ($StudentNo) {
+        $query->where('StudentNo', 'LIKE', '%'.$StudentNo.'%');
+      }
+
+      if ($Mobile) {
+        $query->where('Mobile', 'LIKE', '%'.$Mobile.'%');
+      }
+
+      if ($KSAUHSEmail) {
+        $query->where('KSAUHSEmail', 'LIKE', '%'.$KSAUHSEmail.'%');
+      }
+
+      if ($NGHAEmail) {
+        $query->where('NGHAEmail', 'LIKE', '%'.$NGHAEmail.'%');
+      }
+
+      if ($PersonalEmail) {
+        $query->where('PersonalEmail', 'LIKE', '%'.$PersonalEmail.'%');
+      }
+
+      if ($GraduateExpectationsYear) {
+        $query->whereIn('GraduateExpectationsYear',$GraduateExpectationsYear);
+      }
+
+      if ($LastActivationDate) {
+        $query->where('LastActivationDate', '=', $LastActivationDate.'%');
+      }
+
+      if ($Dismissed) {
+        $query->where('Dismissed', 'LIKE', '%'.$Dismissed.'%');
+      }
+
+      if ($FirstBlockDrop) {
+        $query->where('FirstBlockDrop', 'LIKE', '%'.$FirstBlockDrop.'%');
+      }
+
+      if ($FirstPostpone) {
+        $query->where('FirstPostpone', 'LIKE', '%'.$FirstPostpone.'%');
+      }
+
+      if ($FirstAcademicViolation) {
+        $query->where('FirstAcademicViolation', 'LIKE', '%'.$FirstAcademicViolation.'%');
+      }
+
+      if ($SecondBlockDrop) {
+        $query->where('SecondBlockDrop', 'LIKE', '%'.$SecondBlockDrop.'%');
+      }
+
+      if ($SecondPostpone) {
+        $query->where('SecondPostpone', 'LIKE', '%'.$SecondPostpone.'%');
+      }
+
+      if ($SecondAcademicViolation) {
+        $query->where('SecondAcademicViolation', 'LIKE', '%'.$SecondAcademicViolation.'%');
+      }
+
+      if ($ThirdBlockDrop) {
+        $query->where('ThirdBlockDrop', 'LIKE', '%'.'LIKE', '%'.$ThirdBlockDrop.'%');
+      }
+
+      if ($ThirdPostpone) {
+        $query->where('ThirdPostpone', 'LIKE', '%'.$ThirdPostpone.'%');
+      }
+
+      if ($ThirdAcademicViolation) {
+        $query->where('ThirdAcademicViolation', 'LIKE', '%'.$ThirdAcademicViolation.'%');
+      }
+
+      if ($FirstAttemptAttendanceViolation) {
+        $query->where('FirstAttemptAttendanceViolation', 'LIKE', '%'.$FirstAttemptAttendanceViolation.'%');
+      }
+
+      if ($SecondAttemptAttendanceViolation) {
+        $query->where('SecondAttemptAttendanceViolation', 'LIKE', '%'.$SecondAttemptAttendanceViolation.'%');
+      }
+
+      if ($ThirdAttemptAttendanceViolation) {
+        $query->where('ThirdAttemptAttendanceViolation', 'LIKE', '%'.$ThirdAttemptAttendanceViolation.'%');
+      }
+
+      if ($Withdrawal) {
+        $query->where('Withdrawal', 'LIKE', '%'.$Withdrawal.'%');
+      }
+
+      if ($DelayedGraduation){
+      $query->whereRaw('Batch != GraduationBatch');
+      }
+      session(['SR'=>$query->get()]);
+      Session::forget('search');
+      $searchResults = $query->orderBy('FirstName', 'asc')->paginate(5);
+      break;
     }
 
-    if ($mname) {
-      $query->where('MiddleName', '=', $mname);
-    }
-
-    if ($lname) {
-      $query->where('LastName', '=', $lname);
-    }
-
-    if ($NationalID) {
-      $query->where('NationalID', '=', $NationalID);
-    }
-
-    if ($Badge) {
-      $query->where('Badge', '=', $Badge);
-    }
-
-    if ($Status) {
-      $query->whereIn('Status', $Status);
-    }
-
-    if ($Stream) {
-      $query->whereIn('Stream', $Stream);
-    }
-
-    if ($Batch) {
-      $query->whereIn('Batch', $Batch);
-    }
-
-    if ($StudentNo) {
-      $query->where('StudentNo', '=', $StudentNo );
-    }
-
-    if ($Mobile) {
-      $query->where('Mobile', 'LIKE', $Mobile);
-    }
-
-    if ($KSAUHSEmail) {
-      $query->where('KSAUHSEmail', 'LIKE', $KSAUHSEmail );
-    }
-
-    if ($NGHAEmail) {
-      $query->where('NGHAEmail', 'LIKE', $NGHAEmail);
-    }
-
-    if ($PersonalEmail) {
-      $query->where('PersonalEmail', 'LIKE', $PersonalEmail);
-    }
-
-    if ($GraduateExpectationsYear) {
-      $query->whereIn('GraduateExpectationsYear',$GraduateExpectationsYear);
-    }
-
-    if ($LastActivationDate) {
-      $query->where('LastActivationDate', '=', $LastActivationDate);
-    }
-
-    if ($Dismissed) {
-      $query->where('Dismissed', '=', $Dismissed);
-    }
-
-    if ($FirstBlockDrop) {
-      $query->where('FirstBlockDrop', '=', $FirstBlockDrop);
-    }
-
-    if ($FirstPostpone) {
-      $query->where('FirstPostpone', '=', $FirstPostpone);
-    }
-
-    if ($FirstAcademicViolation) {
-      $query->where('FirstAcademicViolation', '=', $FirstAcademicViolation );
-    }
-
-    if ($SecondBlockDrop) {
-      $query->where('SecondBlockDrop', '=', $SecondBlockDrop);
-    }
-
-    if ($SecondPostpone) {
-      $query->where('SecondPostpone', '=', $SecondPostpone);
-    }
-
-    if ($SecondAcademicViolation) {
-      $query->where('SecondAcademicViolation', '=',$SecondAcademicViolation );
-    }
-
-    if ($ThirdBlockDrop) {
-      $query->where('ThirdBlockDrop', '=',$ThirdBlockDrop );
-    }
-
-    if ($ThirdPostpone) {
-      $query->where('ThirdPostpone', '=', $ThirdPostpone);
-    }
-
-    if ($ThirdAcademicViolation) {
-      $query->where('ThirdAcademicViolation', '=', $ThirdAcademicViolation);
-    }
-
-    if ($FirstAttemptAttendanceViolation) {
-      $query->where('FirstAttemptAttendanceViolation', '=', $FirstAttemptAttendanceViolation);
-    }
-
-    if ($SecondAttemptAttendanceViolation) {
-      $query->where('SecondAttemptAttendanceViolation', '=', $SecondAttemptAttendanceViolation );
-    }
-
-    if ($ThirdAttemptAttendanceViolation) {
-      $query->where('ThirdAttemptAttendanceViolation', '=', $ThirdAttemptAttendanceViolation);
-    }
-
-    if ($Withdrawal) {
-      $query->where('Withdrawal', '=', $Withdrawal);
-    }
-
-    if ($DelayedGraduation){
-    $query->whereRaw('Batch != GraduationBatch');
-    }
-
-    //adding session for exporting the result and removing old session
+    /*adding session for exporting the result and removing old session
     session(['SR'=>$query->get()]);
     Session::forget('search');
+    */
 
-    $searchResults = $query->orderBy('FirstName', 'asc')->paginate(5);
     return view('advanced_search_result',compact('searchResults'));
   }
 

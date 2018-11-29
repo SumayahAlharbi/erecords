@@ -30,10 +30,8 @@ Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|fe
 {
   Route::get('student/search_result', 'StudentController@search')->name('student.search_result');
   Route::get('student/advanced_search_result', 'StudentController@advanced_search')->name('student.advanced_search_result');
+  Route::get('/advanced_search', 'StudentController@advanced_search_form')->name('advanced_search');
   Route::resource('/student', 'StudentController');
-  Route::get('/advanced_search', function () {
-    return view('advanced_search');
-  })->name('advanced_search');
 });
 
 Route::group(['middleware' => ['role:male-manager|female-manager|admin']], function ()

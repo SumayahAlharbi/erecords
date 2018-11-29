@@ -24,10 +24,10 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
           @role('male-manager|female-manager')
-          <li><a href="{{ route('manager.home') }}">Manager Dashboard</a></li>
+          <li><a href="{{ route('manager.home') }}" target="_blank">Manager Dashboard</a></li>
           @endrole
           @role('admin')
-          <li><a href="{{ route('admin.home') }}">Admin Dashboard</a></li>
+          <li><a href="{{ route('admin.home') }}" target="_blank">Admin Dashboard</a></li>
           @endrole
           <li><a class="dropdown-item" href="{{ route('logout') }}"
           onclick="event.preventDefault();
