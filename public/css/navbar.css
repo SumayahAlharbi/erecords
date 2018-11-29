@@ -10,8 +10,8 @@ html, body {
 /* Fixed navbar */
 .nav-right {
   position: absolute;
-  right: 17.4%;
-  top: 10%;
+  right: 20%;
+  top: 16%;
   z-index: 2;
 }
 

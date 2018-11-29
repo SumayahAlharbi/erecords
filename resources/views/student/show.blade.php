@@ -73,7 +73,7 @@
       <input id="tab4" type="radio" name="tabs">
       <label class="tabs" for="tab4">Attachment</label>
 
-      @role('male-manager|female-manager')
+      @role('male-manager|female-manager|admin')
       <a style="text-decoration: none;" href="{{ URL::to('studentReport/pdf',$student->id) }}"><label class="tabs" for="tab5">Print</label></a>
       @endrole
 

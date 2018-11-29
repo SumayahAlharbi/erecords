@@ -69,21 +69,10 @@ form .invalid-feedback {
   background: #226f44;
 }
 
-.content {
-  text-align: center;
-}
-
-.header {
-  position: absolute;
-  left: 15%;
-  top:7%;
-  z-index: 2;
-}
-
 .title {
   position: absolute;
-  left: 15%;
-  bottom:7%;
+  left: 20%;
+  bottom:15%;
   z-index: 2;
   font-size: 40px;
   padding: 3px 6px 3px 6px;
@@ -122,8 +111,8 @@ form .invalid-feedback {
 
 .top-right {
   position: absolute;
-  right: 15%;
-  top:15%;
+  right: 18.1%;
+  top:20%;
   z-index: 1;
   height: auto;
 }
@@ -134,22 +123,9 @@ form .invalid-feedback {
 
 .header {
   position: absolute;
-  left: 15%;
-  top:7%;
+  left: 20%;
+  top: 15%;
   z-index: 2;
-}
-
-.title {
-  position: absolute;
-  left: 15%;
-  bottom:7%;
-  z-index: 2;
-  font-size: 40px;
-  padding: 3px 6px 3px 6px;
-  background: #f1f1f1;
-  font-weight:500;
-  color: 	#0A6030;
-  letter-spacing: .3rem;
 }
 
 .top-right form.search input[type=text] {
@@ -183,10 +159,9 @@ form .invalid-feedback {
 
 .search-result {
   position: absolute;
-  width: 1060px;
+  width: 1165px;
   height: 400px;
-  left: 15%;
-  right: 15%;
+  left: 20%;
   top:40%;
   z-index: 1;
   padding: 20px;
@@ -298,11 +273,11 @@ form .invalid-feedback {
 
 .search-details {
   position: absolute;
-  width: 1060px;
-  height: 475px;
+  width: 1165px;
+  height: 400px;
+  left: 20%;
+  top:40%;
   overflow-y:scroll;
-  left: 15%;
-  top:30%;
   z-index: 2;
   padding: 20px;
   background-color: white;
@@ -501,11 +476,11 @@ label.tabs[for*='5']:before { content: '\f02f'; }
 .search-form {
   position: absolute;
   width: 1050px;
-  min-height: 490px;
-  max-height: 490px;
-  overflow-y:scroll;
-  left: 15%;
+  height: 500px;
+  left: 20%;
   top:30%;
+
+  overflow-y:scroll;
   z-index: 2;
   padding: 20px;
   background-color: white;
