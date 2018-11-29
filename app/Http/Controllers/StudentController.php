@@ -97,6 +97,7 @@ class StudentController extends Controller
   {
     if (Session::has('SR')) {
       $searchResults =session('SR')->all();
+
       /*return view('ExportPDFSearch',compact('searchResults'));
       $pdf = PDF::loadView('ExportPDFSearch',compact('searchResults'));
       $pdf->save(storage_path().'_erecords.pdf');
@@ -109,26 +110,63 @@ class StudentController extends Controller
     else
     {
       $search =session('search');
-      // Fetch all students from database
-      $searchResults = Student::where('Badge', '=',$search)
-      ->orWhere('NationalID', '=', $search)
-      ->orWhere('Batch', 'LIKE', '%'.$search.'%')
-      ->orWhere('Stream', 'LIKE', '%'.$search.'%')
-      ->orWhere('Status', 'LIKE', '%'.$search.'%')
-      ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
-      ->orWhere('LastName', 'LIKE', '%'.$search.'%')
-      ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
-      ->get();
+      //check current user role
+      $current_user_role = Auth::user()->roles->first()->name;
 
-      /* Send data to the view using loadView function of PDF facade
-      $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
-      $pdf->save(storage_path().'_erecords.pdf');
-      //session->forget('search');
-      return $pdf->download('erecords.pdf');
-      */
-      $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
-      $pdf->save(public_path('/mpdf-temp/').'export_students.pdf');
-      return $pdf->download('export_students.pdf');
+      switch ($current_user_role) {
+        case 'admin': // all students
+        $searchResults = Student::where('Badge', '=', $search)
+        ->orWhere('NationalID', '=', $search)
+        ->orWhere('Batch', 'LIKE', '%'.$search.'%')
+        ->orWhere('Stream', 'LIKE', '%'.$search.'%')
+        ->orWhere('Status', 'LIKE', '%'.$search.'%')
+        ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
+        ->orWhere('LastName', 'LIKE', '%'.$search.'%')
+        ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
+        ->get();
+        $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
+        $pdf->save(public_path('/mpdf-temp/').'export_students.pdf');
+        return $pdf->download('export_students.pdf');
+        break;
+
+        case 'male-manager':
+        case 'male-officer': // all male students
+        $searchResults = Student::where('Gender', '=', 'm')
+        ->where(function($query)use ($search)
+        {
+          $query->Where('Badge', '=', $search)
+          ->orWhere('NationalID', '=', $search)
+          ->orWhere('Batch', 'LIKE', '%'.$search.'%')
+          ->orWhere('Stream', 'LIKE', '%'.$search.'%')
+          ->orWhere('Status', 'LIKE', '%'.$search.'%')
+          ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
+          ->orWhere('LastName', 'LIKE', '%'.$search.'%')
+          ->orWhere('StudentNo', 'LIKE', '%'.$search.'%');
+        })->get();
+        $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
+        $pdf->save(public_path('/mpdf-temp/').'export_students.pdf');
+        return $pdf->download('export_students.pdf');
+        break;
+
+        case 'female-manager':
+        case 'female-officer':  // all female students
+        $searchResults = Student::where('Gender', '=', 'f')
+        ->where(function($query)use ($search)
+        {
+          $query->Where('Badge', '=', $search)
+          ->orWhere('NationalID', '=', $search)
+          ->orWhere('Batch', 'LIKE', '%'.$search.'%')
+          ->orWhere('Stream', 'LIKE', '%'.$search.'%')
+          ->orWhere('Status', 'LIKE', '%'.$search.'%')
+          ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
+          ->orWhere('LastName', 'LIKE', '%'.$search.'%')
+          ->orWhere('StudentNo', 'LIKE', '%'.$search.'%');
+        })->get();
+        $pdf = PDF::loadView('ExportPDFSearch', compact('searchResults','search'));
+        $pdf->save(public_path('/mpdf-temp/').'export_students.pdf');
+        return $pdf->download('export_students.pdf');
+        break;
+      }
     }
   }
 

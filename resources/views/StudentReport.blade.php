@@ -86,7 +86,7 @@
                   <th style="width:20%;padding: 3px;text-align: left;">National ID:</th>
                   <td style="width:20%;padding: 3px;text-align: left;">{{$student->NationalID}}</td></tr>
                   <tr><th style="width:25%;padding: 3px;text-align: left;">Mobile:</th>
-                    <td style="width:35%;padding: 3px;text-align: left;">{{$student->Mobile}}</td>
+                    <td style="width:35%;padding: 3px;text-align: left;">0{{$student->Mobile}}</td>
                     <th style="width:20%;padding: 3px;text-align: left;">Stream:</th>
                     <td style="width:20%;padding: 3px;text-align: left;">{{$student->Stream}}</td></tr>
                   </tbody>
