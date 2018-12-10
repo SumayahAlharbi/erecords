@@ -42,12 +42,12 @@ class CreateStudentsTable extends Migration {
 			$table->string('Withdrawal');
 			$table->boolean('GraduateExpectationsYear');
 			$table->string('FirstBlockDrop');
-			$table->string('FirstAcademicViolation');
-			$table->string('SecondAcademicViolation');
-			$table->string('ThirdAcademicViolation');
-			$table->string('FirstAttemptAttendanceViolation');
-			$table->string('SecondAttemptAttendanceViolation');
-			$table->string('ThirdAttemptAttendanceViolation');
+			$table->string('FirstAcademicViolation')->nullable();
+			$table->string('SecondAcademicViolation')->nullable();
+			$table->string('ThirdAcademicViolation')->nullable();
+			$table->string('FirstAttemptAttendanceViolation')->nullable();
+			$table->string('SecondAttemptAttendanceViolation')->nullable();
+			$table->string('ThirdAttemptAttendanceViolation')->nullable();
 			$table->string('SecondBlockDrop');
 			$table->string('ThirdBlockDrop');
 			$table->string('Gender');

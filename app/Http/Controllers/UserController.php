@@ -40,7 +40,7 @@ class UserController extends Controller
     {
       //$lastLoggedActivity = Activity::all()->last();// only one
 
-      $activities = Activity::all(); // all in db
+      $activities = Activity::paginate(5); // all in db
       return view('activity_log',compact('activities'));
     }
 

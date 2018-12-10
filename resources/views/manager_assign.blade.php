@@ -1,13 +1,7 @@
-@extends('layouts.app')
-
-@section('content')
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+@extends('layouts.template')
 <style type="text/css">
 /* The container */
 .container2 {
-    margin-top: 25px;
     display: block;
     position: relative;
     padding-left: 35px;
@@ -19,7 +13,6 @@
     -ms-user-select: none;
     user-select: none;
 }
-
 /* Hide the browser's default checkbox */
 .container2 input {
     position: absolute;
@@ -28,7 +21,6 @@
     height: 0;
     width: 0;
 }
-
 /* Create a custom checkbox */
 .checkmark {
     position: absolute;
@@ -38,29 +30,24 @@
     width: 25px;
     background-color: #eee;
 }
-
 /* On mouse-over, add a grey background color */
 .container2:hover input ~ .checkmark {
     background-color: #ccc;
 }
-
 /* When the checkbox is checked, add a blue background */
 .container2 input:checked ~ .checkmark {
     background-color: #2196F3;
 }
-
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
-
 /* Show the checkmark when checked */
 .container2 input:checked ~ .checkmark:after {
     display: block;
 }
-
 /* Style the checkmark/indicator */
 .container2 .checkmark:after {
     left: 9px;
@@ -74,15 +61,10 @@
     transform: rotate(45deg);
 }
 </style>
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Manager Dashboard</a>
-      </nav>
-
-        <br>
+@section('content')
+<section class="section" style="padding:50px;min-height: 100vh;">
+  <div class="container">
+    <div class="row justify-content-center">
       <div class="card">
         <div class="card-header">Assign User to Role</div>
         <div class="card-body">
@@ -92,23 +74,24 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">User Name</label>
               <div class="col-md-6">
-                <div style="margin-top:7px">{{ucwords($user->first()->user_name)}}</div>
+                {{ucwords($user->first()->user_name)}}
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">User Email</label>
               <div class="col-md-6">
-                <div style="margin-top:7px">{{ucwords($user->first()->user_email)}}</div>
+                {{ucwords($user->first()->user_email)}}
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Roles List</label>
-              <div class="col-md-6">
-                  <!-- user cuurent roles -->
-                  @foreach($user as $value)
-                    <label class="container2">{{ ucwords($value->role_name)}}
+              <div class="col-md-6 offset-md-4">
+                <div class="row col-md-8"><!--style="min-width:200px;"-->
+                <!-- user cuurent roles -->
+                @foreach($user as $value)
+                <label class="container2">{{ ucwords($value->role_name)}}
                       @if ($value->role_name =='admin')
                       <input type="checkbox" name="roles[]" value="{{$value->role_id}}" checked="checked" disabled>
                       @else
@@ -116,17 +99,19 @@
                       @endif
                     <span class="checkmark"></span>
                   </label>
-                  @endforeach
+                @endforeach
 
-                  <!-- rest of roles -->
-                  @foreach($roles as $role)
-                  <label class="container2">{{ ucwords($role->name)}}
+                <!-- rest of roles -->
+                @foreach($roles as $role)
+                <label class="container2">{{ ucwords($role->name)}}
                     <input type="checkbox" name="roles[]" value="{{$role->id}}">
                     <span class="checkmark"></span>
                   </label>
-                  @endforeach
+                @endforeach
+
               </div>
             </div>
+          </div>
 
             <div class="form-group row mb-0">
               <div class="col-md-8 offset-md-4">
@@ -138,5 +123,5 @@
       </div>
     </div>
   </div>
-</div>
-@endsection
+  </section>
+  @endsection

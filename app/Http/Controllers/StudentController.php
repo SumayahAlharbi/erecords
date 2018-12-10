@@ -10,6 +10,8 @@ use PDF;
 use Session;
 use Spatie\Activitylog\Models\Activity;
 use Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class StudentController extends Controller
 {
@@ -844,7 +846,7 @@ class StudentController extends Controller
         'ArabicLastName'=> $student->ArabicLastName])
         ->log('Update Student Personal Info, Student id: '.$id);
 
-        return back();
+        return back()->with('success','Student Personal Information Updated Successfully!');
       }
     }
 
@@ -875,9 +877,18 @@ class StudentController extends Controller
       //$student = new Student();
       $student = Student::where('id', '=', $id)->first();
 
-      if ($GraduationBatch){
-        $query = Student::where('id', '=', $id)->update(
-          ['GraduationBatch' => $GraduationBatch]);
+      $query = Student::where('id', '=', $id)->update(
+          ['GraduationBatch' => $GraduationBatch,
+            'Stream' => $Stream,
+            'FirstAcademicViolation' => $FirstAcademicViolation,
+            'FirstAttemptAttendanceViolation' => $FirstAttemptAttendanceViolation,
+            'SecondAcademicViolation' => $SecondAcademicViolation,
+            'SecondAttemptAttendanceViolation' => $SecondAttemptAttendanceViolation,
+            'ThirdAcademicViolation' => $ThirdAcademicViolation,
+            'ThirdAttemptAttendanceViolation' => $ThirdAttemptAttendanceViolation
+        ]);
+
+
           if ($query)
           {
             activity()
@@ -886,115 +897,59 @@ class StudentController extends Controller
             ->useLog('Update')
             ->withProperties(['GraduationBatch' => $student->GraduationBatch])
             ->log('Update Student Academic Info, Student id: '.$id);
-          }
-      }
 
-      if ($Stream){
-        $query = Student::where('id', '=', $id)->update(
-          ['Stream' => $Stream]);
-
-          if ($query)
-          {
           activity()
           ->performedOn($student)
           ->causedBy(auth()->user())
           ->useLog('Update')
           ->withProperties(['Stream' => $student->Stream])
           ->log('Update Student Academic Info, Student id: '.$id);
-        }
-      }
 
-      if ($FirstAcademicViolation){
-        $query = Student::where('id', '=', $id)->update(
-          ['FirstAcademicViolation' => $FirstAcademicViolation]);
-
-          if ($query)
-          {
           activity()
           ->performedOn($student)
           ->causedBy(auth()->user())
           ->useLog('Update')
           ->withProperties(['FirstAcademicViolation' => $student->FirstAcademicViolation])
           ->log('Update Student Academic Info, Student id: '.$id);
-        }
-      }
 
-      if ($FirstAttemptAttendanceViolation){
-        $query = Student::where('id', '=', $id)->update(
-          ['FirstAttemptAttendanceViolation' => $FirstAttemptAttendanceViolation]);
-
-          if ($query)
-          {
           activity()
           ->performedOn($student)
           ->causedBy(auth()->user())
           ->useLog('Update')
           ->withProperties(['FirstAttemptAttendanceViolation' => $student->FirstAttemptAttendanceViolation])
           ->log('Update Student Academic Info, Student id: '.$id);
-        }
-      }
 
-      if ($SecondAcademicViolation){
-        $query = Student::where('id', '=', $id)->update(
-          ['SecondAcademicViolation' => $SecondAcademicViolation]);
-
-          if ($query)
-          {
           activity()
           ->performedOn($student)
           ->causedBy(auth()->user())
           ->useLog('Update')
           ->withProperties(['SecondAcademicViolation' => $student->SecondAcademicViolation])
           ->log('Update Student Academic Info, Student id: '.$id);
-        }
-      }
 
-      if ($SecondAttemptAttendanceViolation){
-        $query = Student::where('id', '=', $id)->update(
-          ['SecondAttemptAttendanceViolation' => $SecondAttemptAttendanceViolation]);
-
-          if ($query)
-          {
           activity()
           ->performedOn($student)
           ->causedBy(auth()->user())
           ->useLog('Update')
           ->withProperties(['SecondAttemptAttendanceViolation' => $student->SecondAttemptAttendanceViolation])
           ->log('Update Student Academic Info, Student id: '.$id);
-        }
-      }
 
-      if ($ThirdAcademicViolation){
-        $query = Student::where('id', '=', $id)->update(
-          ['ThirdAcademicViolation' => $ThirdAcademicViolation]);
-
-          if ($query)
-          {
           activity()
           ->performedOn($student)
           ->causedBy(auth()->user())
           ->useLog('Update')
           ->withProperties(['ThirdAcademicViolation' => $student->ThirdAcademicViolation])
           ->log('Update Student Academic Info, Student id: '.$id);
-        }
-      }
 
-      if ($ThirdAttemptAttendanceViolation){
-        $query = Student::where('id', '=', $id)->update(
-          ['ThirdAttemptAttendanceViolation' => $ThirdAttemptAttendanceViolation]);
-
-          if ($query)
-          {
           activity()
           ->performedOn($student)
           ->causedBy(auth()->user())
           ->useLog('Update')
           ->withProperties(['ThirdAttemptAttendanceViolation' => $student->ThirdAttemptAttendanceViolation])
           ->log('Update Student Academic Info, Student id: '.$id);
-        }
       }
 
-      return back();
+      return back()->with('success','Student Academic Information Updated Successfully!');
+      //return Redirect::to(URL::previous() . "#nav-academic")->with('success','Student Academic Information Updated Successfully!');
     }
 
     /**
@@ -1023,7 +978,7 @@ class StudentController extends Controller
         ->useLog('Update')
         ->withProperties(['Mobile' => $student->Mobile])
         ->log('Update Student Mobile Number, Student id: '.$id);
-        return back();
+        return back()->with('success','Student Contact Information Updated Successfully!');
 
       }
     }

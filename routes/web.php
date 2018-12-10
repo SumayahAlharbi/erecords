@@ -21,6 +21,9 @@ Route::get('/home', function () {
   return view('home');
 })->name('home');
 
+Route::get('/welcome', function () {
+  return view('welcome');
+})->name('welcome');
 
 Route::get('403error', function () {
   return view('403error');
@@ -64,9 +67,9 @@ Route::group(['middleware' => ['role:admin']], function ()
   Route::resource('/permission', 'PermissionController');
   Route::get('/admin','AdminController@index')->name('admin.home');
 
-  Route::get('/userRoles/{id}','RoleController@showUserRoles');// show user role form
+  Route::get('/admin/userRoles/{id}','RoleController@showUserRoles');// show user role form
 
-  Route::get('/permission_assign','PermissionController@showRolePermission')->name('permission.assign'); // show the form of assign permission to role -1-
+  Route::get('/assign','PermissionController@showRolePermission')->name('permission.assign'); // show the form of assign permission to role -1-
   Route::get('dynamic_dependent/ajax/{id}', 'PermissionController@dynamic_dependent_ajax'); // show list of permissions for the selected role -2-
   Route::get('/permission/assign','PermissionController@update')->name('permission.update'); // assign permission to role -3-
 });

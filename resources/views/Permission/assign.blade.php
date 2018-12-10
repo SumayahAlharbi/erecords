@@ -1,12 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-<link href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+@extends('layouts.template')
 <style>
 #loader{
 visibility:hidden;
@@ -79,91 +71,15 @@ visibility:hidden;
     transform: rotate(45deg);
 }
 </style>
-<script type="text/javascript">
-$(document).ready(function() {
-  $('.selectpicker').selectpicker(); // not working with ajax
+@section('content')
+<section class="section" style="padding:50px;min-height: 100vh;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Assign Role to Permissions</div>
 
-  $('select[name="role_id"]').on('change', function(){
-      var roleID = $(this).val();
-      if(roleID) {
-          $.ajax({
-              url: 'dynamic_dependent/ajax/'+roleID,
-              type:"GET",
-              dataType:"json",
-              beforeSend: function(){
-                  $('#loader').css("visibility", "visible");
-              },
-
-              success:function(data) {
-
-                  //$('select[name="permission_id[]"]').empty();
-                  $('#permission_list').empty();
-
-                  $.each(data[0], function(key, value){
-
-                    //$('#permission_ist').append('<li><input type="checkbox" name="permission_id[]" value="'+ key +'" checked><label>'+ value +'</label></li>');
-
-                      $('#permission_list').append('<label class="container2">'+value+'<input type="checkbox" name="permission_id[]" value="'+ key +'" checked><span class="checkmark"></span></label>');
-
-                      //$('select[name="permission_id[]"]').append('<option value="'+ key +'" selected>' + value + '</option>');
-                  });
-
-                  $.each(data[1], function(key, value){
-                    $('#permission_list').append('<label class="container2">'+ value['name'] +'<input type="checkbox" name="permission_id[]" value="'+ value['id'] +'"><span class="checkmark"></span></label>');
-                    //$('#permission_ist').append('<li><input type="checkbox" name="permission_id[]" value="'+ value['id'] +'"><label>'+ value['name'] +'</label></li>');
-                    //$('select[name="permission_id[]"]').append('<option value="'+ value['id'] +'">' + value['name'] + '</option>');
-                  });
-
-              },
-              complete: function(){
-                  $('#loader').css("visibility", "hidden");
-              }
-          });
-      } else {
-        $('#permission_list').empty();
-          //$('select[name="permission_id[]"]').empty();
-      }
-
-  });
-
-});
-</script>
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Admin Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.home') }}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('role.create') }}">Roles</a>
-            </li>
-            <li class="nav-item dropdown active">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Permissions
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('permission.create') }}">Add Permission</a>
-                <a class="dropdown-item" href="#">Assign Permission to Role<span class="sr-only">(current)</span></a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </nav>
-        <br>
-      <div class="card">
-        <div class="card-header">Assign Role to Permissions</div>
-
-        <div class="card-body">
+          <div class="card-body">
 
           <form method="POST" action="{{ route('permission.update') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -205,4 +121,5 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
+</section>
 @endsection

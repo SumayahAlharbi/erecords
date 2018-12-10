@@ -1,104 +1,84 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.template')
+@section('content')
+<section class="section" style="padding:50px;min-height: 100vh;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="card">
+        <div class="card-body">
 
-  <title>COMJ E-RECORDS</title>
-  <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet" type="text/css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <link href="{{ URL::asset('css/navbar.css') }}" rel="stylesheet" type="text/css">
+          <div style="text-align:right;display:block;">
+            <div class="btn-group flex-wrap" role="group" style="margin-bottom: 20px;">
+              <a class="btn btn-primary btn-md" href="{{ route('advanced_search') }}"><i class="fa fa-search-plus" aria-hidden="true"></i> Advanced Search</a>
+              @role('male-manager|female-manager|admin')
+              <a class="btn btn-success btn-md" href="{{ URL::to('summeryReport/pdf') }}"><i class="fa fa-file-alt" aria-hidden="true"></i> Summary Report</a>
+              <a class="btn btn-warning btn-md" href="{{ URL::to('Student/pdf') }}"><i class="far fa-file-pdf" aria-hidden="true"></i> Export to PDF</a>
+              <a class="btn btn-danger btn-md" href="{{ URL::to('Student/excel') }}"><i class="far fa-file-excel" aria-hidden="true"></i> Export to exel</a>
+              @endrole
+            </div>
+          </div>
 
-</head>
-<body>
-  <div class='header'>
-    <a href="{{ route('home') }}"><img src={{ asset('logo/comj-logo.png')}} alt='COMJ Logo' height="87" width="385"/></a>
-  </div>
+          @if (isset($searchResults))
 
-  <div class="nav-right">
-    <nav class="navbar-logout" role="navigation">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
-          <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu">
-          @role('male-manager|female-manager')
-          <li><a href="{{ route('manager.home') }}" target="_blank">Manager Dashboard</a></li>
-          @endrole
-          @role('admin')
-          <li><a href="{{ route('admin.home') }}" target="_blank">Admin Dashboard</a></li>
-          @endrole
-          <li><a class="dropdown-item" href="{{ route('logout') }}"
-          onclick="event.preventDefault();
-          document.getElementById('logout-form').submit();">
-          {{ __('Logout') }}
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-          @csrf
-        </form>
-        </li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-  </div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Badge</th>
+                  <th scope="col">National ID</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Student No</th>
+                  <th scope="col">Batch</th>
+                  <th scope="col">Stream</th>
+                </tr>
+              </thead>
+              @foreach($searchResults as $result)
+              <tr>
+                <th scope="row"><a href="{{route('student.show',$result->id)}}"><i class="fa fa-chevron-circle-right"></i></a></th>
+                <td>{{$result->FirstName}}</td>
+                <td>{{$result->LastName}}</td>
+                <td>{{$result->Badge}}</td>
+                <td>{{$result->NationalID}}</td>
+                <td>{{$result->Status}}</td>
+                <td>{{$result->StudentNo}}</td>
+                <td>{{$result->Batch}}</td>
+                <td>{{$result->Stream}}</td>
+              </tr>
 
-  <div class='top-right'>
-    <form method="get" action="{{ route('student.search_result') }}" enctype="multipart/form-data" class="search">
-      <input type="text" placeholder="Search.." name="keyword"/>
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-  </div>
+              @endforeach
 
-  <div class="flex-center position-ref full-height">
-    <div class="content">
-      <img src={{ asset('logo/comj.jpg')}} alt='KSAU-HS' height="720" width="1280"/>
+            </tbody>
+          </table>
 
+
+          <!--
+          @role('male-manager|female-manager|admin')
+          <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group mr-2" role="group" aria-label="First group">
+          <a class="btn btn-danger" href="{{ URL::to('Student/pdf') }}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export to PDF</a>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+        <a class="btn btn-danger" href="{{ URL::to('Student/excel') }}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to exel</a>
+      </div>
     </div>
 
-    <div class="search-result">
-      @role('male-manager|female-manager|admin')
-      <a class="advanced_search" href="{{ URL::to('summeryReport/pdf') }}">Summary Report</a>
-      <a class="advanced_search" href="{{ URL::to('Student/pdf') }}">Export to PDF</a>
-      <a class="advanced_search" href="{{ URL::to('Student/excel') }}">Export to exel</a>
-      @endrole
-      <a class="advanced_search" href="{{ route('advanced_search') }}">Advanced Search</a>
-      @if (isset($searchResults))
-      <table>
-        <tr><th></th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Badge</th>
-          <th>National ID</th>
-          <th>Status</th>
-          <th>Student No</th>
-          <th>Batch</th>
-          <th>Stream</th>
-        </tr>
-        @foreach($searchResults as $result)
-        <tr>
-          <td><a href="{{route('student.show',$result->id)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
-          <td>{{$result->FirstName}}</td>
-          <td>{{$result->LastName}}</td>
-          <td>{{$result->Badge}}</td>
-          <td>{{$result->NationalID}}</td>
-          <td>{{$result->Status}}</td>
-          <td>{{$result->StudentNo}}</td>
-          <td>{{$result->Batch}}</td>
-          <td>{{$result->Stream}}</td>
-        </tr>
-
-        @endforeach
-      </table>
-
-
-      <div class="pagination">
-        {!! $searchResults->appends(request()->input())->links(); !!}
-      </div>
-
-      @endif
-
+    <div class="btn-group float-right" role="group">
+    <a class="btn btn-danger" href="{{ URL::to('Student/pdf') }}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export to PDF</a>
+    <a class="btn btn-danger" href="{{ URL::to('Student/excel') }}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to exel</a>
   </div>
-</body>
-</html>
+  @endrole
+-->
+
+<div class="pagination justify-content-center">
+  {!! $searchResults->appends(request()->input())->links(); !!}
+</div>
+</div>
+@endif
+</div>
+</div>
+</div>
+</div>
+</section>
+@endsection
