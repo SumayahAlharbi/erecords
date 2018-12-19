@@ -12,6 +12,8 @@ use Spatie\Activitylog\Models\Activity;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class StudentController extends Controller
 {
@@ -537,7 +539,7 @@ class StudentController extends Controller
       }
 
       if ($DelayedGraduation){
-      $query->whereRaw('Batch != GraduationBatch');
+        $query->whereRaw('Batch != GraduationBatch');
       }
       session(['SR'=>$query->orderBy('FirstName', 'asc')->get()]);
       Session::forget('search');
@@ -664,7 +666,7 @@ class StudentController extends Controller
       }
 
       if ($DelayedGraduation){
-      $query->whereRaw('Batch != GraduationBatch');
+        $query->whereRaw('Batch != GraduationBatch');
       }
       session(['SR'=>$query->get()]);
       Session::forget('search');
@@ -791,7 +793,7 @@ class StudentController extends Controller
       }
 
       if ($DelayedGraduation){
-      $query->whereRaw('Batch != GraduationBatch');
+        $query->whereRaw('Batch != GraduationBatch');
       }
       session(['SR'=>$query->get()]);
       Session::forget('search');
@@ -822,32 +824,30 @@ class StudentController extends Controller
       'ArabicLastName' => 'required',
     ]);
 
+    $requestData = $request->except('_token','update_personal');
+
     $id = $request->get('id');
-    $ArabicFirstName = $request->get('ArabicFirstName');
-    $ArabicMiddleName = $request->get('ArabicMiddleName');
-    $ArabicLastName = $request->get('ArabicLastName');
+    $student = Student::where('id', '=', $id)
+    ->select('id','ArabicFirstName','ArabicMiddleName','ArabicLastName')
+    ->first();
 
-    //$student = new Student();
-    $student = Student::where('id', '=', $id)->first();
-
-    $query = Student::where('id', '=', $id)->update(
-      ['ArabicFirstName' => $ArabicFirstName ,
-      'ArabicMiddleName' => $ArabicMiddleName ,
-      'ArabicLastName' => $ArabicLastName]);
-
-      if ($query) {
-        // log this activity
-        activity()
-        ->performedOn($student)
-        ->causedBy(auth()->user())
-        ->useLog('Update')
-        ->withProperties(['ArabicFirstName' => $student->ArabicFirstName,
-        'ArabicMiddleName'=> $student->ArabicMiddleName,
-        'ArabicLastName'=> $student->ArabicLastName])
-        ->log('Update Student Personal Info, Student id: '.$id);
-
-        return back()->with('success','Student Personal Information Updated Successfully!');
+    foreach ($requestData as $key => $value) {
+      if ($requestData[$key] != $student[$key])
+      {
+        $query = Student::where('id', '=', $id)->update([$key => $requestData[$key]]);
+        if ($query)
+        {
+          activity()
+          ->performedOn($student)
+          ->causedBy(auth()->user())
+          ->useLog('Update')
+          ->withProperties(['old' => $student[$key],'current'=>$requestData[$key]])
+          ->log('Update "'.$key.'", Student id: '.$id);
+        }
       }
+    }
+        return back()->with('update_personal','Student Personal Information Updated Successfully!');
+
     }
 
     /**
@@ -864,92 +864,31 @@ class StudentController extends Controller
         'Stream' => 'required|numeric|min:1'
       ]);
 
+      $requestData = $request->except('_token','update_academic');
+
       $id = $request->get('id');
-      $GraduationBatch = $request->get('GraduationBatch');
-      $Stream = $request->get('Stream');
-      $FirstAcademicViolation = $request->get('FirstAcademicViolation');
-      $FirstAttemptAttendanceViolation = $request->get('FirstAttemptAttendanceViolation');
-      $SecondAcademicViolation = $request->get('SecondAcademicViolation');
-      $SecondAttemptAttendanceViolation = $request->get('SecondAttemptAttendanceViolation');
-      $ThirdAcademicViolation = $request->get('ThirdAcademicViolation');
-      $ThirdAttemptAttendanceViolation = $request->get('ThirdAttemptAttendanceViolation');
+      $student = Student::where('id', '=', $id)
+      ->select('id','GraduationBatch','Stream','FirstAcademicViolation','FirstAttemptAttendanceViolation','SecondAcademicViolation','SecondAttemptAttendanceViolation','ThirdAcademicViolation','ThirdAttemptAttendanceViolation')
+      ->first();
 
-      //$student = new Student();
-      $student = Student::where('id', '=', $id)->first();
-
-      $query = Student::where('id', '=', $id)->update(
-          ['GraduationBatch' => $GraduationBatch,
-            'Stream' => $Stream,
-            'FirstAcademicViolation' => $FirstAcademicViolation,
-            'FirstAttemptAttendanceViolation' => $FirstAttemptAttendanceViolation,
-            'SecondAcademicViolation' => $SecondAcademicViolation,
-            'SecondAttemptAttendanceViolation' => $SecondAttemptAttendanceViolation,
-            'ThirdAcademicViolation' => $ThirdAcademicViolation,
-            'ThirdAttemptAttendanceViolation' => $ThirdAttemptAttendanceViolation
-        ]);
-
-
+      foreach ($requestData as $key => $value) {
+        if ($requestData[$key] != $student[$key])
+        {
+          $query = Student::where('id', '=', $id)->update([$key => $requestData[$key]]);
           if ($query)
           {
             activity()
             ->performedOn($student)
             ->causedBy(auth()->user())
             ->useLog('Update')
-            ->withProperties(['GraduationBatch' => $student->GraduationBatch])
-            ->log('Update Student Academic Info, Student id: '.$id);
-
-          activity()
-          ->performedOn($student)
-          ->causedBy(auth()->user())
-          ->useLog('Update')
-          ->withProperties(['Stream' => $student->Stream])
-          ->log('Update Student Academic Info, Student id: '.$id);
-
-          activity()
-          ->performedOn($student)
-          ->causedBy(auth()->user())
-          ->useLog('Update')
-          ->withProperties(['FirstAcademicViolation' => $student->FirstAcademicViolation])
-          ->log('Update Student Academic Info, Student id: '.$id);
-
-          activity()
-          ->performedOn($student)
-          ->causedBy(auth()->user())
-          ->useLog('Update')
-          ->withProperties(['FirstAttemptAttendanceViolation' => $student->FirstAttemptAttendanceViolation])
-          ->log('Update Student Academic Info, Student id: '.$id);
-
-          activity()
-          ->performedOn($student)
-          ->causedBy(auth()->user())
-          ->useLog('Update')
-          ->withProperties(['SecondAcademicViolation' => $student->SecondAcademicViolation])
-          ->log('Update Student Academic Info, Student id: '.$id);
-
-          activity()
-          ->performedOn($student)
-          ->causedBy(auth()->user())
-          ->useLog('Update')
-          ->withProperties(['SecondAttemptAttendanceViolation' => $student->SecondAttemptAttendanceViolation])
-          ->log('Update Student Academic Info, Student id: '.$id);
-
-          activity()
-          ->performedOn($student)
-          ->causedBy(auth()->user())
-          ->useLog('Update')
-          ->withProperties(['ThirdAcademicViolation' => $student->ThirdAcademicViolation])
-          ->log('Update Student Academic Info, Student id: '.$id);
-
-          activity()
-          ->performedOn($student)
-          ->causedBy(auth()->user())
-          ->useLog('Update')
-          ->withProperties(['ThirdAttemptAttendanceViolation' => $student->ThirdAttemptAttendanceViolation])
-          ->log('Update Student Academic Info, Student id: '.$id);
+            ->withProperties(['old' => $student[$key],'current'=>$requestData[$key]])
+            ->log('Update "'.$key.'", Student id: '.$id);
+          }
+        }
       }
 
-      return back()->with('success','Student Academic Information Updated Successfully!');
-      //return Redirect::to(URL::previous() . "#nav-academic")->with('success','Student Academic Information Updated Successfully!');
+      return back()->with('update_academic','Student Academic Information Updated Successfully!');
+
     }
 
     /**
@@ -976,9 +915,9 @@ class StudentController extends Controller
         ->performedOn($student)
         ->causedBy(auth()->user())
         ->useLog('Update')
-        ->withProperties(['Mobile' => $student->Mobile])
+        ->withProperties(['Mobile' => '0'.$student->Mobile])
         ->log('Update Student Mobile Number, Student id: '.$id);
-        return back()->with('success','Student Contact Information Updated Successfully!');
+        return back()->with('update_contact','Student Contact Information Updated Successfully!');
 
       }
     }
@@ -1002,29 +941,32 @@ class StudentController extends Controller
     public function upload_attachment(Request $request)
     {
 
-    $this->validate($request, [
-      'attch_title'=>'required|max:50',
-      'attachment'=>'required|mimes:doc,pdf,docx,jpeg,png,jpg|max:2000',// 2MB
-    ]);
+      $this->validate($request, [
+        'attch_title'=>'required|max:50',
+        'attachment'=>'required|mimes:doc,pdf,docx,jpeg,png,jpg|max:2000',// 2MB
+      ]);
 
-    $input = $request->except('_token');
-    if ($file = $request->file('attachment'))
-    {
-      $name = $file->getClientOriginalName();
-      $file->move(public_path('attachments'),$name);
-      $input['file'] = $name;
+      $input = $request->except('_token');
+      $input['title']=$request->get('attch_title');
+      $input['student_id']=$request->get('id');
 
-    }
-    //'title','image','stu_id'
-    $input['title']=$request->get('attch_title');
-    $input['student_id']=$request->get('id');
-    $attachment = Attachment::create($input);
-    if ($attachment){ // stay at attachments page and disply a link to the uploaded file
-        return back();
-    }
-    else { // stay at attachments page and display an error message (Something went wrong .. try again)
-      //return $request->all();
-    }
+      if ($file = $request->file('attachment'))
+      {
+        $timestamp = date('d-m-Y-h-i-s',time());
+        //$name = $file->getClientOriginalName();
+        $guessExtension = $file->guessExtension();
+        $storge_name = str_replace(' ', '-', $input['title']).'-'.str_replace(' ', '-', $timestamp).'-'.$input['student_id'].'.'.$guessExtension;
+        Storage::putFileAs('public/student_attachments', $file, $storge_name);
+        $input['file'] = $storge_name;
+
+      }
+      $attachment = Attachment::create($input);
+      if ($attachment){ // stay at attachments page and disply a link to the uploaded file
+        return back()->with('upload_attachment','Attachment File Uploaded Successfully!');
+      }
+      else { // stay at attachments page and display an error message (Something went wrong .. try again)
+        //return $request->all();
+      }
     }
 
 
@@ -1039,6 +981,10 @@ class StudentController extends Controller
     {
       $student = Student::findOrFail($id);
       $attachments = $student->attachment;
+
+      //$directory= 'student_attachments';
+      //$files = Storage::disk('public')->files($directory);
+
       return view('student.show',compact('student','attachments'));
     }
 

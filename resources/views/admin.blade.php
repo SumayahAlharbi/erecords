@@ -1,6 +1,6 @@
 @extends('layouts.template')
 @section('content')
-<section class="section" style="padding:50px;min-height: 100vh;">
+<section class="section">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
@@ -25,11 +25,13 @@
                     <th scope="row">{{$user->id}}</th>
                     <td>{{ucwords($user->name)}}</td>
                     <td>{{ucwords($user->email)}}</td>
-                    <td><ol style="text-align:left;padding-top:14px;">
+                    <td>
+                      <ol>
                       @foreach($user->roles as $role)
                       <li>{{ ucwords($role->name)}}</li>
                       @endforeach
-                    </ol></td>
+                    </ol>
+                  </td>
                     <td>
                       <a href="{{ URL::to('admin/userRoles', $user->id)}}" class="btn btn-info">Edit</a>
                     </td>

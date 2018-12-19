@@ -54,11 +54,12 @@ Route::group(['middleware' => ['role:male-manager|female-manager|admin']], funct
   Route::get('studentReport/pdf/{id}','StudentController@studentReport_pdf');
 
   //roles and permissions
-  Route::get('/manager','UserController@index')->name('manager.home'); //manger dashboard
+  Route::get('/manager','UserController@showLastActivity')->name('manager.home'); //manger dashboard
   Route::get('/manager/userRoles/{id}','UserController@showUserRoles'); // show user roles form
   Route::get('user/{id}','UserController@update')->name('user.update'); // assign user to roles
 
   Route::get('/manager/activityLog','UserController@activity_log')->name('activity.log');
+    Route::get('/manager/users','UserController@index')->name('users');
 });
 
 Route::group(['middleware' => ['role:admin']], function ()
@@ -72,6 +73,23 @@ Route::group(['middleware' => ['role:admin']], function ()
   Route::get('/assign','PermissionController@showRolePermission')->name('permission.assign'); // show the form of assign permission to role -1-
   Route::get('dynamic_dependent/ajax/{id}', 'PermissionController@dynamic_dependent_ajax'); // show list of permissions for the selected role -2-
   Route::get('/permission/assign','PermissionController@update')->name('permission.update'); // assign permission to role -3-
+});
+
+Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager']], function ()
+{
+  Route::get('/attachments/{filename}', function ($filename)
+  {
+      $path = storage_path() . '/app/public/student_attachments/' . $filename;
+
+      if(!File::exists($path)) abort(404);
+
+      $file = File::get($path);
+      $type = File::mimeType($path);
+
+      $response = Response::make($file, 200);
+      $response->header("Content-Type", $type);
+      return $response;
+  })->name('attachments');
 });
 
 Auth::routes();

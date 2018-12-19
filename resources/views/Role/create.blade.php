@@ -1,6 +1,6 @@
 @extends('layouts.template')
 @section('content')
-<section class="section" style="padding:50px;min-height: 100vh;">
+<section class="section">
 <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
@@ -10,7 +10,7 @@
         <div class="card-body">
 
           <form method="post" action="{{ route('role.store') }}" enctype="multipart/form-data">
-            {{ csrf_field() }}
+            @csrf
             <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Role Name</label>
             <div class="col-md-6">

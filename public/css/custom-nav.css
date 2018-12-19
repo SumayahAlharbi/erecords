@@ -1,0 +1,22 @@
+ul.navbar-nav > li.nav-item > a.nav-link:focus, ul.navbar-nav > li.nav-item > a.nav-link:link,
+ul.navbar-nav > li.nav-item > a.nav-link:visited, ul.navbar-nav > li.nav-item > a.nav-link:active{
+  color:#0A6030;
+}
+
+ul.navbar-nav > li.nav-item > a.nav-link:hover{
+  color:#3a7f59;
+}
+#main{
+  background: #fbfaf6;
+}
+footer div.footer-copyright{
+  color:#A18D2F;
+}
+div.container button.navbar-toggler{
+  background:#A18D2F;
+  padding: 5px 10px;
+  color:white;
+}
+button.navbar-toggler > i{
+  color:white;
+}

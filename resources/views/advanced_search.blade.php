@@ -1,18 +1,6 @@
 @extends('layouts.template')
-<script type="text/javascript">
-$(document).ready(function() {
-  $('.selectpicker').selectpicker();
-});
-</script>
-
-<!--<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
-  <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.1/css/bootstrap-select.css" rel="stylesheet"/>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.1/js/bootstrap-select.js"></script>
--->
 @section('content')
-<section class="section" style="padding:50px;min-height: 100vh;">
+<section class="section">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
@@ -21,6 +9,7 @@ $(document).ready(function() {
 
           <div class="card-body">
             <form method="get" action="{{ route('student.advanced_search_result') }}" enctype="multipart/form-data">
+              @csrf
               <div class="form-group row">
                 <label for="FirstName" class="col-sm-4 col-form-label text-md-right">First Name</label>
                 <div class="col-md-6">

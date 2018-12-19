@@ -1,6 +1,6 @@
 @extends('layouts.template')
 @section('content')
-<section class="section" style="padding:50px;min-height: 100vh;">
+<section class="section">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
@@ -19,7 +19,7 @@
                   <i class="fa fa-university" aria-hidden="true"></i> Academic
                 </a>
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
-                  <i class="fa fa-connectdevelop" aria-hidden="true"></i> Contact
+                  <i class="fab fa-connectdevelop" aria-hidden="true"></i> Contact
                 </a>
                 <a class="nav-item nav-link" id="nav-attachment-tab" data-toggle="tab" href="#nav-attachment" role="tab" aria-controls="nav-contact" aria-selected="false">
                   <i class="fa fa-paperclip" aria-hidden="true"></i> Attachment
@@ -36,8 +36,8 @@
               <div class="tab-pane fade show active" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
                 @role('male-manager|female-manager')
 
-                <div class="card-body" style="margin-top:10px;">
-                  @if ($message = Session::get('success'))
+                <div class="card-body">
+                  @if ($message = Session::get('update_personal'))
                   <div class="alert alert-success alert-block">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>{{ $message }}</strong>
@@ -181,7 +181,14 @@
 
                 @role('male-manager|female-manager')
 
-                <div class="card-body" style="margin-top:10px;">
+                <div class="card-body">
+                  @if ($message = Session::get('update_academic'))
+                  <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                  </div>
+                  @endif
+
                   <form method="POST" action="{{ route('student.update_academic') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="{{$student->id}}">
@@ -474,7 +481,14 @@
               </div>
               <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 @role('male-manager|female-manager')
-                <div class="card-body" style="margin-top:10px;">
+                <div class="card-body">
+                  @if ($message = Session::get('update_contact'))
+                  <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                  </div>
+                  @endif
+
                   <form method="POST" action="{{ route('student.update_contact') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="{{$student->id}}">
@@ -521,7 +535,7 @@
                   </form>
                 </div>
                 @else
-                <div class="card-body" style="margin-top:10px;">
+                <div class="card-body">
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">Mobile</label>
@@ -562,16 +576,23 @@
               </div>
               <div class="tab-pane fade" id="nav-attachment" role="tabpanel" aria-labelledby="nav-attachment-tab">
 
-                <div class="card-body" style="margin-top:10px;">
+                <div class="card-body">
 
                   @role('male-manager|female-manager|female-officer|male-officer')
+
+                  @if ($message = Session::get('upload_attachment'))
+                  <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                  </div>
+                  @endif
 
                   @if (count($attachments) > 0)
                   <h5>Attachment List</h5>
                   <ul>
                     @foreach ($attachments as $attachment)
                     <li>
-                      <a href="{{ url('/attachments/' . $attachment->file) }}" target="_blank">{{$attachment->title}}</a>
+                      <a href="{{route('attachments',$attachment->file)}}" target="_blank">{{$attachment->title}}</a>
                     </li>
                     @endforeach
                   </ul>
@@ -616,9 +637,8 @@
                       </div>
                     </div>
                   </form>
+                  @endrole
                 </div>
-                @endrole
-
               </div>
               <div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
                 ...
