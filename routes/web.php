@@ -43,6 +43,10 @@ Route::group(['middleware' => ['role:male-manager|female-manager|admin']], funct
   Route::post('student/update_academic', 'StudentController@update_academic')->name('student.update_academic');
   Route::post('student/update_contact', 'StudentController@update_contact')->name('student.update_contact');
   Route::post('student/upload_attachment', 'StudentController@upload_attachment')->name('student.upload_attachment');
+  Route::get('student/delete_attachment/{id}', 'StudentController@delete_attachment')->name('student.delete_attachment');
+  Route::get('student/showEditAttForm/{id}', 'StudentController@showEditAttForm')->name('student.showEditAttForm');
+  Route::post('student/{sid}/attachment/{aid}', 'StudentController@edit_attachment')->name('student.edit_attachment');
+
   Route::get('Student/pdf','StudentController@export_pdf');
   Route::get('Student/excel', function () {
     return Excel::download(new SimpleSearchExport, 'erecords.xlsx');

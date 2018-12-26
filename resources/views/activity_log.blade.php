@@ -3,7 +3,7 @@
 <section class="section">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-10">
         <div class="card">
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
@@ -28,29 +28,26 @@
                     <th scope="col">User</th>
                   </tr>
                 </thead>
-                @foreach($activities as $activity)
-                <tr>
-                  <th scope="row">{{$activity->id}}</th>
-                  <td>{{$activity->log_name}}</td>
-                  <td>{{$activity->created_at->diffForHumans()}}
-                    {{$activity->created_at}}</td>
-                    <td>{{$activity->description}}</td>
+                <tbody>
+                  @foreach($lastLoggedActivity as $index => $result)
+                  <tr>
+                    <td>{{$result->id}}</th>
+                      <td>{{$result->name}}</td>
+                      <td>{{\Carbon\Carbon::parse($result->created_date)->diffForHumans(\Carbon\Carbon::now())}}
+                        {{$result->created_date}}</td>
+                        <td>{{$result->des}}</td>
+                        <td>{{json_decode('"'.$before[$index].'"')}}</td>
+                        <td>{{json_decode('"'.$after[$index].'"')}}</td>
+                        <td>
+                          {{$result->user_name}}
+                        </td>
+                      </tr>
 
-                    @foreach($activity->properties as $index => $result)
-                    <td>{{$result}}</td>
-                    @endforeach
-
-                    <td>
-                      {{$activity->causer->name}}
-                    </td>
-                  </tr>
-
-                  @endforeach
-
-                </tbody>
+                      @endforeach
+                    </tbody>
               </table>
               <div class="pagination justify-content-center">
-                {!! $activities->appends(request()->input())->links(); !!}
+                {!! $lastLoggedActivity->appends(request()->input())->links(); !!}
               </div>
             </div>
           </div>

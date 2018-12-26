@@ -71,3 +71,9 @@ visibility:hidden;
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+.fa-edit{
+  color: #008000;
+}
+.fa-trash-alt{
+  color: #c90000;
+}

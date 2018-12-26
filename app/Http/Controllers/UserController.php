@@ -59,23 +59,107 @@ class UserController extends Controller
         ->get();
         break;
       }
-      return view('users', compact('users','lastLoggedActivity'));
+      return view('users', compact('users'));
     }
 
     public function showLastActivity()
     {
-      $lastLoggedActivity = Activity::latest()->limit(5)->get();
-      return view('manager',compact('lastLoggedActivity'));
+
+      //check current user role
+      $current_user_role = Auth::user()->roles->first()->name;
+
+      switch ($current_user_role) {
+        case 'male-manager':
+        $lastLoggedActivity = DB::table('activity_log')
+        ->join('students', 'activity_log.subject_id', '=', 'students.id')
+        ->join('users', 'activity_log.causer_id', '=', 'users.id')
+        ->where('students.Gender','=','m')
+        ->select('activity_log.id AS id', 'activity_log.log_name AS name', 'activity_log.created_at AS created_date', 'activity_log.description AS des'
+        ,'activity_log.properties AS pro','users.name AS user_name')
+        ->orderBy('activity_log.id', 'desc')
+        ->limit(5)->get();
+
+        $after=[];$before=[];
+        foreach($lastLoggedActivity as $activity)
+        {
+        $after[]=preg_replace('/(.*)"current":"(.*)"}(.*)/sm', '\2', $activity->pro);
+        $before[]=preg_replace('/(.*){"old":"(.*)","(.*)/sm', '\2', $activity->pro);
+        }
+        return view('manager',compact('lastLoggedActivity','after','before'));
+        break;
+        case 'female-manager':
+        $lastLoggedActivity = DB::table('activity_log')
+        ->leftjoin('students', 'students.id', '=', 'activity_log.subject_id')
+        ->leftjoin('users', 'users.id', '=', 'activity_log.causer_id')
+        ->where('students.Gender','=','f')
+        ->select('activity_log.id AS id', 'activity_log.log_name AS name', 'activity_log.created_at AS created_date', 'activity_log.description AS des'
+        ,'activity_log.properties AS pro','users.name AS user_name')
+        ->orderBy('activity_log.id', 'desc')
+        ->limit(5)->get();
+
+        $after=[];$before=[];
+        foreach($lastLoggedActivity as $activity)
+        {
+        $after[]=preg_replace('/(.*)"current":"(.*)"}(.*)/sm', '\2', $activity->pro);
+        $before[]=preg_replace('/(.*){"old":"(.*)","(.*)/sm', '\2', $activity->pro);
+        }
+        return view('manager',compact('lastLoggedActivity','after','before'));
+        break;
+      }
+
+      //$lastLoggedActivity = Activity::latest()->limit(5)->get();
+      //return view('manager',compact('lastLoggedActivity'));
     }
 
 
 
     public function activity_log()
     {
-      //$lastLoggedActivity = Activity::all()->last();// only one
 
-      $activities = Activity::paginate(5); // all in db
-      return view('activity_log',compact('activities'));
+      //$activities = Activity::paginate(5); // all in db
+      //return view('activity_log',compact('activities'));
+
+      //check current user role
+      $current_user_role = Auth::user()->roles->first()->name;
+
+      switch ($current_user_role) {
+        case 'male-manager':
+        $lastLoggedActivity = DB::table('activity_log')
+        ->join('students', 'activity_log.subject_id', '=', 'students.id')
+        ->join('users', 'activity_log.causer_id', '=', 'users.id')
+        ->where('students.Gender','=','m')
+        ->select('activity_log.id AS id', 'activity_log.log_name AS name', 'activity_log.created_at AS created_date', 'activity_log.description AS des'
+        ,'activity_log.properties AS pro','users.name AS user_name')
+        ->orderBy('activity_log.id', 'desc')
+        ->paginate(5);
+
+        $after=[];$before=[];
+        foreach($lastLoggedActivity as $activity)
+        {
+        $after[]=preg_replace('/(.*)"current":"(.*)"}(.*)/sm', '\2', $activity->pro);
+        $before[]=preg_replace('/(.*){"old":"(.*)","(.*)/sm', '\2', $activity->pro);
+        }
+        return view('activity_log',compact('lastLoggedActivity','after','before'));
+        break;
+        case 'female-manager':
+        $lastLoggedActivity = DB::table('activity_log')
+        ->leftjoin('students', 'students.id', '=', 'activity_log.subject_id')
+        ->leftjoin('users', 'users.id', '=', 'activity_log.causer_id')
+        ->where('students.Gender','=','f')
+        ->select('activity_log.id AS id', 'activity_log.log_name AS name', 'activity_log.created_at AS created_date', 'activity_log.description AS des'
+        ,'activity_log.properties AS pro','users.name AS user_name')
+        ->orderBy('activity_log.id', 'desc')
+        ->paginate(5);
+
+        $after=[];$before=[];
+        foreach($lastLoggedActivity as $activity)
+        {
+        $after[]=preg_replace('/(.*)"current":"(.*)"}(.*)/sm', '\2', $activity->pro);
+        $before[]=preg_replace('/(.*){"old":"(.*)","(.*)/sm', '\2', $activity->pro);
+        }
+        return view('activity_log',compact('lastLoggedActivity','after','before'));
+        break;
+      }
     }
 
     /**

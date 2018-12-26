@@ -824,7 +824,7 @@ class StudentController extends Controller
       'ArabicLastName' => 'required',
     ]);
 
-    $requestData = $request->except('_token','update_personal');
+    $requestData = $request->except('_token');
 
     $id = $request->get('id');
     $student = Student::where('id', '=', $id)
@@ -837,6 +837,8 @@ class StudentController extends Controller
         $query = Student::where('id', '=', $id)->update([$key => $requestData[$key]]);
         if ($query)
         {
+        //$data = '"\u0628\u0633\u0645"';
+        //echo json_decode($data) ;
           activity()
           ->performedOn($student)
           ->causedBy(auth()->user())
@@ -881,7 +883,7 @@ class StudentController extends Controller
             ->performedOn($student)
             ->causedBy(auth()->user())
             ->useLog('Update')
-            ->withProperties(['old' => $student[$key],'current'=>$requestData[$key]])
+            ->withProperties(['old' => "".$student[$key]."",'current'=>$requestData[$key]])
             ->log('Update "'.$key.'", Student id: '.$id);
           }
         }
@@ -915,8 +917,8 @@ class StudentController extends Controller
         ->performedOn($student)
         ->causedBy(auth()->user())
         ->useLog('Update')
-        ->withProperties(['Mobile' => '0'.$student->Mobile])
-        ->log('Update Student Mobile Number, Student id: '.$id);
+        ->withProperties(['old' => '0'.$student->Mobile,'current' => '0'.$Mobile])
+        ->log('Update Mobile Number, Student id: '.$id);
         return back()->with('update_contact','Student Contact Information Updated Successfully!');
 
       }
@@ -947,6 +949,7 @@ class StudentController extends Controller
       ]);
 
       $input = $request->except('_token');
+
       $input['title']=$request->get('attch_title');
       $input['student_id']=$request->get('id');
 
@@ -969,7 +972,103 @@ class StudentController extends Controller
       }
     }
 
+    /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function showEditAttForm($id)
+    {
+      $attachment = Attachment::findOrFail($id);
+      return view('student.edit_attachment',compact('attachment'));
+    }
 
+    /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function delete_attachment($id)
+    {
+
+      $attachment = Attachment::findOrFail($id);
+      $student = Student::where('id', '=', $attachment->student_id)->first();
+      $query = $attachment->delete();
+
+      if ($query){
+
+        activity()
+        ->performedOn($student)
+        ->causedBy(auth()->user())
+        ->useLog('Delete')
+        ->withProperties(['old' => $attachment->title,'current'=>'-'])
+        ->log('Delete Student Attachment, Student id: '.$attachment->student_id);
+
+        unlink(storage_path('app/public/student_attachments/'.$attachment->file));
+        return \Redirect::route('student.show', $attachment->student_id)->with('delete_attachment','Attachment Delete Successfully!');
+      }
+
+
+    }
+
+    /**
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function edit_attachment(Request $request)
+    {
+      $this->validate($request, [
+        'attch_title'=>'required|max:50',
+        'attachment'=>'required|mimes:doc,pdf,docx,jpeg,png,jpg|max:2000',// 2MB
+      ]);
+
+      $input = $request->except('_token');
+
+      $title = $request->get('attch_title');
+      $id = $request->get('att_id');
+      $student_id = $request->get('student_id');
+
+      $attachment = Attachment::findOrFail($id);
+      $student = Student::where('id', '=', $student_id)->first();
+
+      if ($file = $request->file('attachment'))
+      {
+        // delete old file
+        unlink(storage_path('app/public/student_attachments/'.$attachment->file));
+
+        // upload new file
+        $timestamp = date('d-m-Y-h-i-s',time());
+        $guessExtension = $file->guessExtension();
+        $storge_name = str_replace(' ', '-', $title).'-'.str_replace(' ', '-', $timestamp).'-'.$student_id.'.'.$guessExtension;
+        Storage::putFileAs('public/student_attachments', $file, $storge_name);
+      }
+      // update db
+      $query = Attachment::where('id', '=', $id)->update(
+                  ['title' => $title,
+                  'file' => $storge_name,
+                  'created_at' => Carbon::now(),
+                  'updated_at' => Carbon::now(),
+                ]);
+
+      if ($query){
+        activity()
+        ->performedOn($student)
+        ->causedBy(auth()->user())
+        ->useLog('Update')
+        ->withProperties(['old' => $attachment->title,'current'=>$title])
+        ->log('Update Student Attachment, Student id: '.$attachment->student_id);
+
+        return \Redirect::route('student.show', $student_id)->with('update_attachment','Attachment Updated Successfully!');
+      }
+      else {
+
+      }
+
+    }
 
     /**
     * Display the specified resource.

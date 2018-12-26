@@ -3,7 +3,7 @@
 <section class="section">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-10">
 
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
@@ -16,7 +16,7 @@
         <!-- Icon Cards-->
         <div class="row">
           <div class="col-sm-6 mb-3">
-            <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card text-white bg-success o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon">
                   <i class="fas fa-users-cog"></i>
@@ -82,18 +82,17 @@
                     </tr>
                   </tfoot>
                   <tbody>
-                    @foreach($lastLoggedActivity as $activity)
+                    @foreach($lastLoggedActivity as $index => $result)
                     <tr>
-                      <td>{{$activity->id}}</th>
-                        <td>{{$activity->log_name}}</td>
-                        <td>{{$activity->created_at->diffForHumans()}}
-                          {{$activity->created_at}}</td>
-                          <td>{{$activity->description}}</td>
-                          @foreach($activity->properties as $index => $result)
-                          <td>{{$result}}</td>
-                          @endforeach
+                      <td>{{$result->id}}</td>
+                        <td>{{$result->name}}</td>
+                        <td>{{\Carbon\Carbon::parse($result->created_date)->diffForHumans(\Carbon\Carbon::now())}}
+                          {{$result->created_date}}</td>
+                          <td>{{$result->des}}</td>
+                          <td>{{json_decode('"'.$before[$index].'"')}}</td>
+                          <td>{{json_decode('"'.$after[$index].'"')}}</td>
                           <td>
-                            {{$activity->causer->name}}
+                            {{$result->user_name}}
                           </td>
                         </tr>
 

@@ -116,7 +116,7 @@
 
                     <div class="form-group row mb-0">
                       <div class="col-md-8 offset-md-4">
-                        <button type="submit" name="update_personal" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                       </div>
                     </div>
 
@@ -337,8 +337,8 @@
                       </div>
                     </div>
                     <div class="text-right">
-                    <button type="submit" name="update_academic" class="btn btn-primary">Save</button>
-                  </div>
+                      <button type="submit" name="update_academic" class="btn btn-primary">Save</button>
+                    </div>
                   </form>
                 </div>
                 @else
@@ -587,15 +587,49 @@
                   </div>
                   @endif
 
+                  @if ($message = Session::get('update_attachment'))
+                  <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                  </div>
+                  @endif
+
+                  @if ($message = Session::get('delete_attachment'))
+                  <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                  </div>
+                  @endif
+
                   @if (count($attachments) > 0)
                   <h5>Attachment List</h5>
-                  <ul>
-                    @foreach ($attachments as $attachment)
-                    <li>
-                      <a href="{{route('attachments',$attachment->file)}}" target="_blank">{{$attachment->title}}</a>
-                    </li>
-                    @endforeach
-                  </ul>
+                  <div class="table-responsive">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <td>Browse</td>
+                          <td>Edit</td>
+                          <td>Delete</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($attachments as $attachment)
+                        <tr>
+                          <th>
+                            <a href="{{route('attachments',$attachment->file)}}" target="_blank" title="Browse">{{$attachment->title}}</a>
+                          </th>
+                          <th>
+                            <a href="{{route('student.showEditAttForm',$attachment->id)}}" title="Edit"><i class="far fa-edit"></i></a>
+                          </th>
+                          <th>
+                            <a href="{{route('student.delete_attachment',$attachment->id)}}" title="Delete"
+                              onclick="return confirm('Are you sure you want to delete this file?')"><i class="far fa-trash-alt"></i></a>
+                          </th>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
                   @endif
                   @endrole
 
