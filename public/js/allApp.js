@@ -16,7 +16,7 @@ function growShrinkLogo() {
 }
 
 $(document).ready(function() {
-  
+
   $('.selectpicker').selectpicker();
 
   $('select[name="role_id"]').on('change', function(){

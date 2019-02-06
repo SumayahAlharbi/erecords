@@ -33,7 +33,7 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Permission List</label>
               <div class="col-md-6">
-              <span id="loader"><i class="fa fa-spinner fa-3x fa-spin"></i></span>
+              <span id="loader"><div class="fa fa-spinner fa-spin"></div></span>
               <div id="permission_list"></div>
             </div>
             </div>

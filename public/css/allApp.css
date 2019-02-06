@@ -4,6 +4,11 @@ section.section {
 #loader{
 visibility:hidden;
 }
+.fa-spin {
+font-size:35px;
+margin: 6px 0px 10px 0px;
+}
+
 /* The container */
 .container2 {
     display: block;
