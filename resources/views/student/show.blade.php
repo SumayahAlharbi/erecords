@@ -578,7 +578,7 @@
 
                 <div class="card-body">
 
-                  @role('male-manager|female-manager|female-officer|male-officer')
+                  @role('male-manager|female-manager')
 
                   @if ($message = Session::get('upload_attachment'))
                   <div class="alert alert-success alert-block">
@@ -631,6 +631,27 @@
                     </table>
                   </div>
                   @endif
+                  @endrole
+
+                  @role('female-officer|male-officer')
+                  <div class="table-responsive">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <td>Browse</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($attachments as $attachment)
+                        <tr>
+                          <th>
+                            <a href="{{route('attachments',$attachment->file)}}" target="_blank" title="Browse">{{$attachment->title}}</a>
+                          </th>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
                   @endrole
 
                   @role('male-manager|female-manager')
