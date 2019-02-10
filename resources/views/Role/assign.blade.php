@@ -13,21 +13,23 @@
               <input name="_method" type="hidden" value="PUT">
               <div class="form-group row">
                 <label class="col-md-4 col-form-label text-md-right">User Name</label>
-                <div class="col-md-6">
+                <div class="col-md-6 mt-2">
                   {{ucwords($user->first()->user_name)}}
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-md-4 col-form-label text-md-right">User Email</label>
-                <div class="col-md-6">
+                <div class="col-md-6 mt-2">
                   {{ucwords($user->first()->user_email)}}
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-md-4 col-form-label text-md-right">Roles List</label>
-                <div class="col-md-6">
+                <div class="col-md-6 mt-2">
+
+                  @if ($user->first()->role_name)
                   <!-- user cuurent roles -->
                   @foreach($user as $value)
                   <label class="container2">{{ ucwords($value->role_name)}}
@@ -35,6 +37,7 @@
                     <span class="checkmark"></span>
                   </label>
                   @endforeach
+                  @endif
 
                   <!-- rest of roles -->
                   @foreach($roles as $role)

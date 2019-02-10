@@ -97,5 +97,3 @@ Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|fe
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
