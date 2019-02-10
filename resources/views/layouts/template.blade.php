@@ -64,10 +64,10 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               @role('male-manager|female-manager')
-              <a class="dropdown-item" href="{{ route('manager.home') }}">Manager Dashboard</a>
+              <a class="dropdown-item" href="{{ route('manager.home') }}">Dashboard</a>
               @endrole
               @role('admin')
-              <a class="dropdown-item" href="{{ route('admin.home') }}">Admin Dashboard</a>
+              <a class="dropdown-item" href="{{ route('admin.home') }}">Dashboard</a>
               <a class="dropdown-item" href="{{ route('role.create') }}">Add Roles</a>
               <a class="dropdown-item" href="{{ route('permission.create') }}">Add Permission</a>
               <a class="dropdown-item" href="{{ route('permission.assign') }}">Assign Permission to Role</a>
