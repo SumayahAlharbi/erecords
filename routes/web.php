@@ -31,7 +31,7 @@ Route::get('403error', function () {
 
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager|admin']], function ()
 {
-  Route::get('student/search_result', 'StudentController@search')->name('student.search_result');
+  Route::post('student/search_result', 'StudentController@search')->name('student.search_result');
   Route::get('student/advanced_search_result', 'StudentController@advanced_search')->name('student.advanced_search_result');
   Route::get('/advanced_search', 'StudentController@advanced_search_form')->name('advanced_search');
   Route::resource('/student', 'StudentController');
