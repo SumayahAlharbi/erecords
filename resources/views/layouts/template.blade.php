@@ -82,7 +82,7 @@
           </form>
         </li>
         @role('male-manager|male-officer|female-officer|female-manager|admin')
-        <form class="form-inline my-md-0" method="POST" action="{{ route('student.search_result') }}">
+        <form class="form-inline my-md-0" method="GET" action="{{ route('student.search_result') }}">
           @csrf
           <input class="form-control" type="text" placeholder="Search" name="keyword">
         </form>
