@@ -58,7 +58,6 @@
           </table>
 
           <div class="pagination justify-content-center">
-            <!--{!! $searchResults->links() !!}-->
           </div>
         </div>
         @endif
