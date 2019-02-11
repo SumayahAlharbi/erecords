@@ -58,7 +58,7 @@
           </table>
 
           <div class="pagination justify-content-center">
-            {!! $searchResults->links() !!}
+            {!! $searchResults->appends(request()->input())->links(); !!}
           </div>
         </div>
         @endif
