@@ -56,7 +56,7 @@ class StudentController extends Controller
       ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
       ->orWhere('LastName', 'LIKE', '%'.$search.'%')
       ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
-      ->limit(50)->get();
+      ->simplePaginate(5);
       break;
 
       case 'male-manager':
@@ -72,7 +72,7 @@ class StudentController extends Controller
         ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
         ->orWhere('LastName', 'LIKE', '%'.$search.'%')
         ->orWhere('StudentNo', 'LIKE', '%'.$search.'%');
-      })->Paginate(5);
+      })->simplePaginate(5);
       break;
 
       case 'female-manager':
@@ -88,7 +88,7 @@ class StudentController extends Controller
         ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
         ->orWhere('LastName', 'LIKE', '%'.$search.'%')
         ->orWhere('StudentNo', 'LIKE', '%'.$search.'%');
-      })->Paginate(5);
+      })->simplePaginate(5);
       break;
     };
 
@@ -543,7 +543,7 @@ class StudentController extends Controller
       }
       session(['SR'=>$query->orderBy('FirstName', 'asc')->get()]);
       Session::forget('search');
-      $searchResults = $query->orderBy('FirstName', 'asc')->Paginate(5);
+      $searchResults = $query->orderBy('FirstName', 'asc')->simplePaginate(5);
       break;
 
       case 'male-manager':
@@ -670,7 +670,7 @@ class StudentController extends Controller
       }
       session(['SR'=>$query->get()]);
       Session::forget('search');
-      $searchResults = $query->orderBy('FirstName', 'asc')->Paginate(5);
+      $searchResults = $query->orderBy('FirstName', 'asc')->simplePaginate(5);
       break;
 
       case 'female-manager':
@@ -797,7 +797,7 @@ class StudentController extends Controller
       }
       session(['SR'=>$query->get()]);
       Session::forget('search');
-      $searchResults = $query->orderBy('FirstName', 'asc')->Paginate(5);
+      $searchResults = $query->orderBy('FirstName', 'asc')->simplePaginate(5);
       break;
     }
 
