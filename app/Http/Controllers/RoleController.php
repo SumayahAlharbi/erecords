@@ -139,30 +139,6 @@ class RoleController extends Controller
     else {
       return redirect('/admin');
     }
-
-
-    /* with model not working
-    $input = $request->except('_token');
-    if (isset($input['roles']))
-    {
-    $roles_id = array_filter($input['roles']);
-  }
-
-  $update = false;
-
-  if (isset($roles_id))
-  {
-  foreach ($roles_id as $role_id)
-  {
-  $update = ModelHasRoles::firstOrCreate(array('role_id' => $role_id, 'model_type' => 'App\User', 'model_id' => $user_id));
-}
-if ($update)
-{
-return redirect('/admin');
-}
-}
-*/
-
 }
 
 /**

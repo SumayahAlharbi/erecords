@@ -32,4 +32,11 @@ class Student extends Model
     return $this->hasMany('App\Attachment');
   }
 
+  public static function boot()
+  {
+    parent::boot();
+
+    static::addGlobalScope(new Scopes\GlobalScope);
+  }
+
 }
