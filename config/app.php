@@ -148,7 +148,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        
+	      Yajra\Oci8\Oci8ServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

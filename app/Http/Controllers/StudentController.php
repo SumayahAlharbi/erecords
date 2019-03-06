@@ -17,6 +17,17 @@ use Carbon\Carbon;
 class StudentController extends Controller
 {
 
+  public function testSIS()
+  {
+
+   // students of batch 1
+   $students = DB::connection('oracle')->table('SYSADM.PS_KS_COM_PERS_INF')->select('NATIONAL_ID','FIRST_NAME50','LAST_NAME')
+   ->where('PHONE','LIKE','543675862')->get();
+   return $students;
+
+  }
+
+
   /**
   * Display a listing of the resource.
   *

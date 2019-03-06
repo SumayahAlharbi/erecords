@@ -77,6 +77,13 @@ Route::group(['middleware' => ['role:admin']], function ()
   Route::get('/assign','PermissionController@showRolePermission')->name('permission.assign'); // show the form of assign permission to role -1-
   Route::get('dynamic_dependent/ajax/{id}', 'PermissionController@dynamic_dependent_ajax'); // show list of permissions for the selected role -2-
   Route::get('/permission/assign','PermissionController@update')->name('permission.update'); // assign permission to role -3-
+  Route::get('/test','StudentController@testSIS');
+  Route::get('/phpInfo', function () {
+  return view('phpinfo');
+});
+  
+
+
 });
 
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager']], function ()
