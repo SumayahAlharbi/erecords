@@ -14,12 +14,15 @@ use App\Exports\SimpleSearchExport;
 */
 
 Route::get('/', function () {
-  return view('home');
+  //return view('home');
+  return view('auth.login');
 });
 
-Route::get('/home', function () {
-  return view('home');
-})->name('home');
+/*Route::get('/home', function () {
+  //return view('home');
+  return view('dashboard');
+})->name('home');*/
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/welcome', function () {
   return view('welcome');
@@ -27,6 +30,31 @@ Route::get('/welcome', function () {
 
 Route::get('403error', function () {
   return view('403error');
+});
+
+// CAS Login
+Route::get('/cas/login', function(){
+  // if the user isn't authenticated by CAS
+  if ( !cas()->isAuthenticated() ) {
+    // take the user to CAS
+    cas()->authenticate();
+    }
+    // if the user is authenticated by CAS
+    if ( cas()->isAuthenticated() ) {
+      // if the user is authenticated by CAS and found by user maper and matched a existing account
+      if (Auth::check()) {
+        // he shall enter :)
+        return redirect()->route('home');
+      // if the user is authenticated by CAS and not found by user maper in the app :(
+      }elseif (!(Auth::check())) {
+        // See ya !
+        abort(403, 'Access Denied, Your KSAU-HS account is correct but you don not have access to this application.');
+      }
+    }
+})->name('cas');
+// CAS Logout
+Route::get('/cas/logout', function(){
+      cas()->logout();
 });
 
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager|admin']], function ()
@@ -43,8 +71,8 @@ Route::group(['middleware' => ['role:male-manager|female-manager|admin']], funct
   Route::post('student/update_academic', 'StudentController@update_academic')->name('student.update_academic');
   Route::post('student/update_contact', 'StudentController@update_contact')->name('student.update_contact');
   Route::post('student/upload_attachment', 'StudentController@upload_attachment')->name('student.upload_attachment');
-  Route::get('student/delete_attachment/{id}', 'StudentController@delete_attachment')->name('student.delete_attachment');
-  Route::get('student/showEditAttForm/{id}', 'StudentController@showEditAttForm')->name('student.showEditAttForm');
+  Route::get('student/delete_attachment/attachment/{id}/student/{sid}', 'StudentController@delete_attachment')->name('student.delete_attachment');
+  Route::get('/showEditAttForm/attachment/{id}/student/{sid}', 'StudentController@showEditAttForm')->name('student.showEditAttForm');
   Route::post('student/{sid}/attachment/{aid}', 'StudentController@edit_attachment')->name('student.edit_attachment');
 
   Route::get('Student/pdf','StudentController@export_pdf');
@@ -81,7 +109,7 @@ Route::group(['middleware' => ['role:admin']], function ()
   Route::get('/phpInfo', function () {
   return view('phpinfo');
 });
-  
+
 
 
 });

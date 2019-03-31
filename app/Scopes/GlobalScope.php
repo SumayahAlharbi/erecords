@@ -18,6 +18,8 @@ class GlobalScope implements Scope
   */
   public function apply(Builder $builder, Model $model)
   {
+    if (Auth::user())
+    {
     $current_user_role = Auth::user()->roles->first()->name;
 
     switch ($current_user_role) {
@@ -33,5 +35,6 @@ class GlobalScope implements Scope
       $builder->where('Gender', '=', 'f');
       break;
     }
+  }
   }
 }

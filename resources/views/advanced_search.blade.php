@@ -40,7 +40,8 @@
                   <input type="text" class="form-control" id="Badge" name="Badge">
                 </div>
               </div>
-              <div class="form-group row">
+
+              <!--<div class="form-group row">
                 <label for="Batch" class="col-sm-4 col-form-label text-md-right">Batch</label>
                 <div class="col-md-6">
                   <select class="form-control selectpicker" id="Batch" name="Batch[]" multiple="multiple">
@@ -50,19 +51,21 @@
                     @endforeach
                   </select>
                 </div>
-              </div>
+              </div>-->
+
               <div class="form-group row">
                 <label for="Status" class="col-sm-4 col-form-label text-md-right">Status</label>
                 <div class="col-md-6">
                   <select class="form-control selectpicker" id="Status" name="Status[]" multiple="multiple">
                     <option value=""></option>
                     @foreach($status as $value)
-                    <option value="{{$value->Status}}">{{$value->Status}}</option>
+                    <option value="{{$value->student_status}}">{{$value->student_status}}</option>
                     @endforeach
                   </select>
                 </div>
               </div>
-              <div class="form-group row">
+
+              <!--<div class="form-group row">
                 <label for="Stream" class="col-sm-4 col-form-label text-md-right">Stream</label>
                 <div class="col-md-6">
                   <select class="form-control selectpicker" id="Stream" name="Stream[]" multiple="multiple">
@@ -72,7 +75,8 @@
                     @endforeach
                   </select>
                 </div>
-              </div>
+              </div>-->
+
               <div class="form-group row">
                 <label for="StudentNo" class="col-sm-4 col-form-label text-md-right">Student No</label>
                 <div class="col-md-6">
@@ -94,12 +98,12 @@
                 </div>
               </div>
 
-              <div class="form-group row">
+              <!--<div class="form-group row">
                 <label for="NGHAEmail" class="col-sm-4 col-form-label text-md-right">NGHA Email</label>
                 <div class="col-md-6">
                   <input type="text" class="form-control" id="NGHAEmail" name="NGHAEmail">
                 </div>
-              </div>
+              </div>-->
 
               <div class="form-group row">
                 <label for="PersonalEmail" class="col-sm-4 col-form-label text-md-right">Personal Email</label>
@@ -108,7 +112,7 @@
                 </div>
               </div>
 
-              <div class="form-group row">
+              <!--<div class="form-group row">
                 <label for="LastActivationDate" class="col-sm-4 col-form-label text-md-right">Last Activation Date</label>
                 <div class="col-md-6">
                   <input type="date" class="form-control" id="LastActivationDate" name="LastActivationDate">
@@ -246,6 +250,7 @@
                     </div>
                 </div>
             </div>
+          -->
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">

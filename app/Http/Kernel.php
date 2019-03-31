@@ -51,6 +51,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        /*'cas.auth'  => SpringsCS\Cas\Middleware\CASAuth::class,
+        'cas.guest' => SpringsCS\Cas\Middleware\RedirectCASAuthenticated::class,*/
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,

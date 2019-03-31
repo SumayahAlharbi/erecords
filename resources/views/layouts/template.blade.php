@@ -35,9 +35,9 @@
 
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
-          <li class="nav-item">
+          <!--<li class="nav-item">
             <a class="nav-link" href="{{ route('register') }}">Register</a>
-          </li>
+          </li>-->
           <li class="nav-item">
             <a class="nav-link" href="{{ route('login') }}">Login</a>
           </li>
@@ -124,6 +124,8 @@
   <script type="text/javascript" src="{{ asset('js/bootstrap-bundle-min.js') }}"></script>
 
   <script type="text/javascript" src="{{ asset('js/allApp.js') }}"></script>
+
+
 
 </body>
 </html>

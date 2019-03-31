@@ -67,7 +67,7 @@ return [
                 'prefix'         => env('DB_PREFIX', ''),
                 'prefix_schema'  => env('DB_SCHEMA_PREFIX', ''),
                 'server_version' => env('DB_SERVER_VERSION', '11g'),
-        ],	
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',

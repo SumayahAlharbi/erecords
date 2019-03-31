@@ -82,3 +82,14 @@ margin: 6px 0px 10px 0px;
 .fa-trash-alt{
   color: #c90000;
 }
+
+ul.nav-tabs > li.nav-item > a.active {
+{
+  color:#0A6030;
+}
+
+/*.nav-tabs .nav-item  > .active > a:hover,
+.nav-tabs .nav-item  > .active > a:focus {
+
+}
+*/
