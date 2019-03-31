@@ -33,6 +33,31 @@ Route::get('403error', function () {
 
 Auth::routes();
 
+// CAS Login
+Route::get('/cas/login', function(){
+  // if the user isn't authenticated by CAS
+  if ( !cas()->isAuthenticated() ) {
+    // take the user to CAS
+    cas()->authenticate();
+    }
+    // if the user is authenticated by CAS
+    if ( cas()->isAuthenticated() ) {
+      // if the user is authenticated by CAS and found by user maper and matched a existing account
+      if (Auth::check()) {
+        // he shall enter :)
+        return redirect()->route('home');
+      // if the user is authenticated by CAS and not found by user maper in the app :(
+      }elseif (!(Auth::check())) {
+        // See ya !
+        abort(403, 'Access Denied, Your KSAU-HS account is correct but you don not have access to this application.');
+      }
+    }
+});
+// CAS Logout
+Route::get('/cas/logout', function(){
+      cas()->logout();
+});
+
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager|admin']], function ()
 {
   Route::get('/home', 'HomeController@index')->name('home');
