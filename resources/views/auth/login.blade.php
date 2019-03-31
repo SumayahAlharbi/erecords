@@ -23,9 +23,9 @@
             <div class="card-body">
               <div class="form-group text-center m-t-20">
                 <div class="col-xs-12">
-                  <h5> Comming Soon </h5>
-                  <h6> Login with KSAU-HS ID </h6>
-                  <!--<a class="btn btn-primary btn-lg waves-effect waves-light" href="{{ url('cas/login')}}">{{ __('Login with KSAU-HS ID') }}</a>-->
+                  <!--<h5> Comming Soon </h5>
+                  <h6> Login with KSAU-HS ID </h6>-->
+                  <a class="btn btn-primary btn-lg waves-effect waves-light" href="{{ url('cas/login')}}">{{ __('Login with KSAU-HS ID') }}</a>
                 </div>
               </div>
             </div>

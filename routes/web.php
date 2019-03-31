@@ -22,7 +22,6 @@ Route::get('/', function () {
   //return view('home');
   return view('dashboard');
 })->name('home');*/
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/welcome', function () {
   return view('welcome');
@@ -31,6 +30,8 @@ Route::get('/welcome', function () {
 Route::get('403error', function () {
   return view('403error');
 });
+
+Auth::routes();
 
 // CAS Login
 Route::get('/cas/login', function(){
@@ -59,6 +60,7 @@ Route::get('/cas/logout', function(){
 
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager|admin']], function ()
 {
+  Route::get('/home', 'HomeController@index')->name('home');
   Route::get('student/search_result', 'StudentController@search')->name('student.search_result');
   Route::get('student/advanced_search_result', 'StudentController@advanced_search')->name('student.advanced_search_result');
   Route::get('/advanced_search', 'StudentController@advanced_search_form')->name('advanced_search');
@@ -130,5 +132,3 @@ Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|fe
       return $response;
   })->name('attachments');
 });
-
-Auth::routes();

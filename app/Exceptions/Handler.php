@@ -70,6 +70,6 @@ class Handler extends ExceptionHandler
           return response()->json(['error' => 'Unauthenticated.'], 401);
       }
 
-      return redirect()->guest('home'); //<--- Changed to not laravel login view
+      return redirect()->guest('login'); //<--- Changed to not laravel login view
   }
 }
