@@ -1,18 +1,8 @@
-@extends('layouts.template')
+@extends('layouts.login')
 @section('content')
-<section class="login" style="background-image:url({{ asset('logo/home.jpg')}});min-height: 100vh;background-size: cover;
-background-repeat: no-repeat;
-background-position: center center;
-height: 100%;
-width: 100%;
-padding: 8% 0;
-position: fixed;">
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
+<div class="login" style="background-image:url('logo/home.jpg')">
 
-      <div class="card" style="  width: 350px;
-      margin: 0 auto;">
+      <div class="card login-box">
       <div class="card-body">
 
 
@@ -62,9 +52,9 @@ position: fixed;">
                   {{ __('Remember Me') }}
                 </label>
               </div>
-              <i class="fas fa-lock"></i><a class="btn btn-link" href="{{ route('password.request') }}">
+              <!--<i class="fas fa-lock"></i><a class="btn btn-link text-success" href="{{ route('password.request') }}">
                 {{ __('Forgot Your Password?') }}
-              </a>
+              </a>-->
             </div>
           </div>
 
@@ -79,9 +69,5 @@ position: fixed;">
       </div>
     </div>
 
-
-  </div>
 </div>
-</div>
-</section>
 @endsection
