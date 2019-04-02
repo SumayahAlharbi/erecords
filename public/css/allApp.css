@@ -93,3 +93,18 @@ ul.nav-tabs > li.nav-item > a.active {
 
 }
 */
+section.login {
+  min-height: 100vh;
+  background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+    width: 100%;
+    padding: 10% 0;
+    position: fixed;
+}
+
+.login-box {
+  width: 400px;
+  margin: 0 auto;
+}
