@@ -3,16 +3,17 @@
 <section class="section">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
 
-          <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="{{ route('manager.home') }}">Dashboard</a>
-              </li>
-              <li class="breadcrumb-item active">Users</li>
-            </ol>
+      <div class="col-md-8">
+        <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="{{ route('manager.home') }}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Users</li>
+          </ol>
+
+        <div class="card">
 
           <div class="card-body">
             <div class="table-responsive">

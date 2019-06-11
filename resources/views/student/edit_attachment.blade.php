@@ -18,6 +18,7 @@
 
                     <input type="hidden" name="student_id" value="{{$attachment->student_id}}">
                     <input type="hidden" name="att_id" value="{{$attachment->id}}">
+                    <input type="hidden" name="stu_sis_id" value="{{$stu_sis_id}}">
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">Attachment Title</label>

@@ -31,35 +31,43 @@
 <table Style="width:100%; border-collapse: collapse; border: 1px solid black;">
   <tr>
     <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Batch</th>
-    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">ACTIVE</th>
-    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">DISMISSED</th>
-    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">POSTPOND</th>
-    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">WITHDRAWL</th>
-    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">INTERN</th>
-    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">ALUMNI</th>
-    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Total of ID</th>
+    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Enrolled Active</th>
+    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Dismissed</th>
+    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Postponed</th>
+    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Withdrawn</th>
+    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Graduated</th>
+    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Cancelled</th>
+    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Record Closed</th>
+    <th Style="border: 1px solid black; text-align:center; height: 50px;padding:5px">Total</th>
   </tr>
   @foreach($batches as $index => $result)
   <tr Style="border: 1px solid black; text-align:center;">
     <td Style="border: 1px solid black; padding: 5px">{{$result->Batch}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$active[$index]}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$dismissed[$index]}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$postponed[$index]}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$withdrawal[$index]}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$intern[$index]}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$alumni[$index]}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$total[$index]}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$array_enrolledActive[$index]}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$array_dismissed[$index]}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$array_postponed[$index]}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$array_withdrawal[$index]}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$array_graduated[$index]}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$array_cancelled[$index]}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$array_recordClosed[$index]}}</td>
+    <td Style="border: 1px solid black; padding: 5px">
+      {{$array_enrolledActive[$index]+$array_dismissed[$index]+$array_postponed[$index]+$array_withdrawal[$index]
+      +$array_graduated[$index]+$array_cancelled[$index]+$array_recordClosed[$index]}}
+    </td>
   </tr>
   @endforeach
   <tr>
     <td Style="border: 1px solid black; padding: 5px">Total</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$total_active}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$total_enrolledActive}}</td>
     <td Style="border: 1px solid black; padding: 5px">{{$total_dismissed}}</td>
     <td Style="border: 1px solid black; padding: 5px">{{$total_postponed}}</td>
     <td Style="border: 1px solid black; padding: 5px">{{$total_withdrawal}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$total_intern}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$total_alumni}}</td>
-    <td Style="border: 1px solid black; padding: 5px">{{$totaloftotal}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$total_graduated}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$total_cancelled}}</td>
+    <td Style="border: 1px solid black; padding: 5px">{{$total_recordClosed}}</td>
+    <td Style="border: 1px solid black; padding: 5px">
+      {{$total_enrolledActive+$total_dismissed+$total_postponed+$total_withdrawal+$total_graduated+$total_cancelled+$total_recordClosed}}
+    </td>
   </tr>
 </table>
 <br>

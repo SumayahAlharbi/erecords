@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Auth;
 
-class GlobalScope implements Scope
+class SISScope implements Scope
 {
   /**
   * Apply the scope to a given Eloquent query builder.
@@ -20,21 +20,22 @@ class GlobalScope implements Scope
   {
     if (Auth::user())
     {
-    $current_user_role = Auth::user()->roles->first()->name;
+      $current_user_role = Auth::user()->roles->first()->name;
 
-    switch ($current_user_role) {
-      case 'admin':
-      $builder;
-      break;
-      case 'male-manager':
-      case 'male-officer':
-      $builder->where('Gender', '=', 'm');
-      break;
-      case 'female-manager':
-      case 'female-officer':
-      $builder->where('Gender', '=', 'f');
-      break;
+      switch ($current_user_role) {
+        case 'admin':
+        $builder;
+        break;
+        case 'male-manager':
+        case 'male-officer':
+        $builder->where('SEX', '=', 'M');
+        break;
+        case 'female-manager':
+        case 'female-officer':
+        $builder->where('SEX', '=', 'F');
+        break;
+      }
     }
-  }
+
   }
 }

@@ -6,10 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- IE -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap AND fontawesome CSS
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  -->
   <link href="{{ asset('css/bootstrap-min.css') }}" media="all" rel="stylesheet" type="text/css">
   <!-- Dose not work
   <link href="{{ asset('css/fontawesome-all.css') }}" media="all" rel="stylesheet" type="text/css">-->
@@ -28,24 +24,6 @@
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
       <a class="navbar-brand" href="{{ route('home') }}"><img src={{ asset('logo/comj-logo.png')}} alt='COMJ Logo' height="87" width="385" id="Logo"></a>
-
-      <!--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fa fa-bars"></i>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav text-uppercase ml-auto">
-          @role('admin')
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('register') }}">Register</a>
-          </li>
-          @endrole
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">Login</a>
-          </li>
-        </ul>
-      </div>-->
     </div>
   </nav>
 
@@ -95,17 +73,9 @@
   </nav>
   @endif
 
-  <div id="main">
+    <div id="app">
     @yield('content')
   </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© Copyright - College of Medicine - Jeddah</div>
-    <!-- Copyright -->
-  </footer>
-  <!-- Footer -->
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -127,8 +97,6 @@
   <script type="text/javascript" src="{{ asset('js/bootstrap-bundle-min.js') }}"></script>
 
   <script type="text/javascript" src="{{ asset('js/allApp.js') }}"></script>
-
-
 
 </body>
 </html>

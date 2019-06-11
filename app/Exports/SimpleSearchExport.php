@@ -3,6 +3,7 @@
 namespace App\Exports;
 use App\Http\Controllers;
 use App\Student;
+use App\Pres;
 use DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -18,70 +19,85 @@ class SimpleSearchExport implements FromCollection, WithHeadings, ShouldAutoSize
   {
     if (Session::has('SR')) {
 
-      //check current user role
-      $current_user_role = Auth::user()->roles->first()->name;
+      $query = Pres::Select('EMPLID','FIRST_NAME50','LAST_NAME','EXTERNAL_SYSTEM_ID','NATIONAL_ID','STUDENT_STATUS','CAMPUS_ID');
 
-      switch ($current_user_role) {
-        case 'admin':
-        $query = DB::table('students')->select('*')->orderBy('FirstName', 'asc');
-
+        $fname = session('fname');
         if (session('fname')) {
-          $query->where('FirstName', '=', session('fname'));
+          $query->whereRaw('lower(FIRST_NAME50) like lower(?)', ["%{$fname}%"]);
         }
 
-        if (session('Batch')) {
+        /*if (session('Batch')) {
           $query->whereIn('Batch', session('Batch'));
-        }
+        }*/
 
+        $status = session('Status');
         if (session('Status')) {
-          $query->whereIn('Status', session('Status'));
+          $query->whereRaw('lower(STUDENT_STATUS) like lower(?)', ["%{$status}%"]);
         }
 
         if (session('mname')) {
-          $query->where('MiddleName', '=', session('mname'));
+          $mname = session('mname');
+          $query->whereRaw('lower(MIDDLE_NAME) like lower(?)', ["%{$mname}%"]);
         }
 
+        $lname = session('lname');
         if (session('lname')) {
-          $query->where('LastName', '=', session('lname'));
+          $query->whereRaw('lower(LAST_NAME) like lower(?)', ["%{$lname}%"]);
         }
 
+        $NationalID = session('NationalID');
         if (session('NationalID')) {
-          $query->where('NationalID', '=', session('NationalID'));
+          $query->whereRaw('lower(NATIONAL_ID) like lower(?)', ["%{$NationalID}%"]);
         }
 
+        $Badge = session('Badge');
         if (session('Badge')) {
-          $query->where('Badge', '=', session('Badge'));
+          $query->whereRaw('lower(EXTERNAL_SYSTEM_ID) like lower(?)', ["%{$Badge}%"]);
         }
 
-        if (session('Stream')) {
+        /*if (session('Stream')) {
           $query->whereIn('Stream', session('Stream'));
-        }
+        }*/
 
+        $StudentNo = session('StudentNo');
         if (session('StudentNo')) {
-          $query->where('StudentNo', '=', session('StudentNo'));
+          $query->whereRaw('lower(CAMPUS_ID) like lower(?)', ["%{$StudentNo}%"]);
         }
 
         if (session('Mobile')) {
-          $query->where('StudentNo', '=', session('StudentNo'));
+          $Mobile = session('Mobile');
+          $query->whereRaw('lower(PHONE) like lower(?)', ["%{$Mobile}%"]);
         }
 
         if (session('KSAUHSEmail')) {
-          $query->where('KSAUHSEmail', '=', session('KSAUHSEmail'));
+          $ksauhsemail = session('KSAUHSEmail');
+          $query->where('E_ADDR_TYPE', '=', 'CAMP')
+          ->whereRaw('lower(EMAIL_ADDR) like lower(?)', ["%{$ksauhsemail}%"]);
         }
 
-        if (session('NGHAEmail')) {
+        /*if (session('NGHAEmail')) {
           $query->where('NGHAEmail', '=', session('NGHAEmail'));
-        }
+        }*/
 
         if (session('PersonalEmail')) {
-          $query->where('PersonalEmail', '=', session('PersonalEmail'));
+          $personalemail = session('PersonalEmail');
+          $query->where('E_ADDR_TYPE', '=', 'HOME')
+          ->whereRaw('lower(EMAIL_ADDR) like lower(?)', ["%{$personalemail}%"]);
+
         }
+
+        /* in another view
         if (session('GraduateExpectationsYear')) {
           $query->whereIn('GraduateExpectationsYear', session('GraduateExpectationsYear'));
-        }
+        }*/
+
+
         if (session('LastActivationDate')) {
-          $query->where('LastActivationDate', '=', session('LastActivationDate'));
+          $lastActivationDate = session('LastActivationDate');
+          $query->whereRaw('lower(LastActivationDate) like lower(?)', ["%{$lastActivationDate}%"]);
         }
+
+        /*
         if (session('Dismissed')) {
           $query->where('Dismissed', '=', session('Dismissed'));
         }
@@ -123,327 +139,96 @@ class SimpleSearchExport implements FromCollection, WithHeadings, ShouldAutoSize
         }
         if (session('Withdrawal')) {
           $query->where('Withdrawal', '=', session('Withdrawal'));
-        }
-        if (session('Withdrawal')) {
-          $query->where('Withdrawal', '=', session('Withdrawal'));
-        }
-        if (session('DelayedGraduation')) {
+        }*/
+
+
+        /*if (session('DelayedGraduation')) { in our db
             $query->whereRaw('Batch != GraduationBatch');
-        }
-        return $query->get();
-        break;
+        }*/
+        $searchResults_SIS = $query->distinct()->get();
 
-        case 'male-manager':
-        case 'male-officer':
-        $query = Student::where('Gender', '=', 'm')->orderBy('FirstName', 'asc');
+        // Seach in app DB
+        $searchResults = Student::Select('Batch','Stream','NationalID')
+        ->where('Badge', '=', $Badge)
+        ->orWhere('NationalID', '=', $NationalID)
+        ->orWhere('FirstName', 'LIKE', '%'.$fname.'%')
+        ->orWhere('LastName', 'LIKE', '%'.$lname.'%')
+        ->orWhere('StudentNo', 'LIKE', '%'.$StudentNo.'%')
+        ->get();
 
-        if (session('fname')) {
-          $query->where('FirstName', '=', session('fname'));
-        }
-
-        if (session('Batch')) {
-          $query->whereIn('Batch', session('Batch'));
-        }
-
-        if (session('Status')) {
-          $query->whereIn('Status', session('Status'));
+        foreach($searchResults_SIS as $k => $obj) {
+        $obj->{'batch'} = '';
+        $obj->{'stream'} = '';
         }
 
-        if (session('mname')) {
-          $query->where('MiddleName', '=', session('mname'));
-        }
 
-        if (session('lname')) {
-          $query->where('LastName', '=', session('lname'));
-        }
+        foreach ($searchResults_SIS as $key1 => $value1) {
+            foreach ($searchResults as $key2 => $value2) {
+                if ($value1['national_id'] == $value2['NationalID']) {
+                    $value1['batch']=$value2['Batch'];
+                    $value1['stream']=$value2['Stream'];
+                }
+            }
+          }
 
-        if (session('NationalID')) {
-          $query->where('NationalID', '=', session('NationalID'));
-        }
-
-        if (session('Badge')) {
-          $query->where('Badge', '=', session('Badge'));
-        }
-
-        if (session('Stream')) {
-          $query->whereIn('Stream', session('Stream'));
-        }
-
-        if (session('StudentNo')) {
-          $query->where('StudentNo', '=', session('StudentNo'));
-        }
-
-        if (session('Mobile')) {
-          $query->where('StudentNo', '=', session('StudentNo'));
-        }
-
-        if (session('KSAUHSEmail')) {
-          $query->where('KSAUHSEmail', '=', session('KSAUHSEmail'));
-        }
-
-        if (session('NGHAEmail')) {
-          $query->where('NGHAEmail', '=', session('NGHAEmail'));
-        }
-
-        if (session('PersonalEmail')) {
-          $query->where('PersonalEmail', '=', session('PersonalEmail'));
-        }
-        if (session('GraduateExpectationsYear')) {
-          $query->whereIn('GraduateExpectationsYear', session('GraduateExpectationsYear'));
-        }
-        if (session('LastActivationDate')) {
-          $query->where('LastActivationDate', '=', session('LastActivationDate'));
-        }
-        if (session('Dismissed')) {
-          $query->where('Dismissed', '=', session('Dismissed'));
-        }
-        if (session('FirstBlockDrop')) {
-          $query->where('FirstBlockDrop', '=', session('FirstBlockDrop'));
-        }
-        if (session('FirstPostpone')) {
-          $query->where('FirstPostpone', '=', session('FirstPostpone'));
-        }
-        if (session('FirstAcademicViolation')) {
-          $query->where('FirstAcademicViolation', '=', session('FirstAcademicViolation'));
-        }
-        if (session('SecondBlockDrop')) {
-          $query->where('SecondBlockDrop', '=', session('SecondBlockDrop'));
-        }
-        if (session('SecondPostpone')) {
-          $query->where('SecondPostpone', '=', session('SecondPostpone'));
-        }
-        if (session('SecondAcademicViolation')) {
-          $query->where('SecondAcademicViolation', '=', session('SecondAcademicViolation'));
-        }
-        if (session('ThirdBlockDrop')) {
-          $query->where('ThirdBlockDrop', '=', session('ThirdBlockDrop'));
-        }
-        if (session('ThirdPostpone')) {
-          $query->where('ThirdPostpone', '=', session('ThirdPostpone'));
-        }
-        if (session('ThirdAcademicViolation')) {
-          $query->where('ThirdAcademicViolation', '=', session('ThirdAcademicViolation'));
-        }
-        if (session('FirstAttemptAttendanceViolation')) {
-          $query->where('FirstAttemptAttendanceViolation', '=', session('FirstAttemptAttendanceViolation'));
-        }
-        if (session('SecondAttemptAttendanceViolation')) {
-          $query->where('SecondAttemptAttendanceViolation', '=', session('SecondAttemptAttendanceViolation'));
-        }
-        if (session('ThirdAttemptAttendanceViolation')) {
-          $query->where('ThirdAttemptAttendanceViolation', '=', session('ThirdAttemptAttendanceViolation'));
-        }
-        if (session('Withdrawal')) {
-          $query->where('Withdrawal', '=', session('Withdrawal'));
-        }
-        if (session('Withdrawal')) {
-          $query->where('Withdrawal', '=', session('Withdrawal'));
-        }
-        if (session('DelayedGraduation')) {
-            $query->whereRaw('Batch != GraduationBatch');
-        }
-        return $query->get();
-        break;
-
-        case 'female-manager':
-        case 'female-officer':
-        $query = Student::where('Gender', '=', 'f')->orderBy('FirstName', 'asc');
-
-        if (session('fname')) {
-          $query->where('FirstName', '=', session('fname'));
-        }
-
-        if (session('Batch')) {
-          $query->whereIn('Batch', session('Batch'));
-        }
-
-        if (session('Status')) {
-          $query->whereIn('Status', session('Status'));
-        }
-
-        if (session('mname')) {
-          $query->where('MiddleName', '=', session('mname'));
-        }
-
-        if (session('lname')) {
-          $query->where('LastName', '=', session('lname'));
-        }
-
-        if (session('NationalID')) {
-          $query->where('NationalID', '=', session('NationalID'));
-        }
-
-        if (session('Badge')) {
-          $query->where('Badge', '=', session('Badge'));
-        }
-
-        if (session('Stream')) {
-          $query->whereIn('Stream', session('Stream'));
-        }
-
-        if (session('StudentNo')) {
-          $query->where('StudentNo', '=', session('StudentNo'));
-        }
-
-        if (session('Mobile')) {
-          $query->where('StudentNo', '=', session('StudentNo'));
-        }
-
-        if (session('KSAUHSEmail')) {
-          $query->where('KSAUHSEmail', '=', session('KSAUHSEmail'));
-        }
-
-        if (session('NGHAEmail')) {
-          $query->where('NGHAEmail', '=', session('NGHAEmail'));
-        }
-
-        if (session('PersonalEmail')) {
-          $query->where('PersonalEmail', '=', session('PersonalEmail'));
-        }
-        if (session('GraduateExpectationsYear')) {
-          $query->whereIn('GraduateExpectationsYear', session('GraduateExpectationsYear'));
-        }
-        if (session('LastActivationDate')) {
-          $query->where('LastActivationDate', '=', session('LastActivationDate'));
-        }
-        if (session('Dismissed')) {
-          $query->where('Dismissed', '=', session('Dismissed'));
-        }
-        if (session('FirstBlockDrop')) {
-          $query->where('FirstBlockDrop', '=', session('FirstBlockDrop'));
-        }
-        if (session('FirstPostpone')) {
-          $query->where('FirstPostpone', '=', session('FirstPostpone'));
-        }
-        if (session('FirstAcademicViolation')) {
-          $query->where('FirstAcademicViolation', '=', session('FirstAcademicViolation'));
-        }
-        if (session('SecondBlockDrop')) {
-          $query->where('SecondBlockDrop', '=', session('SecondBlockDrop'));
-        }
-        if (session('SecondPostpone')) {
-          $query->where('SecondPostpone', '=', session('SecondPostpone'));
-        }
-        if (session('SecondAcademicViolation')) {
-          $query->where('SecondAcademicViolation', '=', session('SecondAcademicViolation'));
-        }
-        if (session('ThirdBlockDrop')) {
-          $query->where('ThirdBlockDrop', '=', session('ThirdBlockDrop'));
-        }
-        if (session('ThirdPostpone')) {
-          $query->where('ThirdPostpone', '=', session('ThirdPostpone'));
-        }
-        if (session('ThirdAcademicViolation')) {
-          $query->where('ThirdAcademicViolation', '=', session('ThirdAcademicViolation'));
-        }
-        if (session('FirstAttemptAttendanceViolation')) {
-          $query->where('FirstAttemptAttendanceViolation', '=', session('FirstAttemptAttendanceViolation'));
-        }
-        if (session('SecondAttemptAttendanceViolation')) {
-          $query->where('SecondAttemptAttendanceViolation', '=', session('SecondAttemptAttendanceViolation'));
-        }
-        if (session('ThirdAttemptAttendanceViolation')) {
-          $query->where('ThirdAttemptAttendanceViolation', '=', session('ThirdAttemptAttendanceViolation'));
-        }
-        if (session('Withdrawal')) {
-          $query->where('Withdrawal', '=', session('Withdrawal'));
-        }
-        if (session('Withdrawal')) {
-          $query->where('Withdrawal', '=', session('Withdrawal'));
-        }
-        if (session('DelayedGraduation')) {
-            $query->whereRaw('Batch != GraduationBatch');
-        }
-        return $query->get();
-        break;
-
-      }
-
-
+        return $searchResults_SIS;
 
     }
     else
     {
-      /*
-      $search =session('search');
-      // Fetch all Students from database
-      $searchResults = Student::where('Badge', '=',$search)
-      ->orWhere('NationalID', '=', $search)
-      ->orWhere('Batch', 'LIKE', '%'.$search.'%')
-      ->orWhere('Stream', 'LIKE', '%'.$search.'%')
-      ->orWhere('Status', 'LIKE', '%'.$search.'%')
-      ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
-      ->orWhere('LastName', 'LIKE', '%'.$search.'%')
-      ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
-      ->get();
-      return $searchResults;
-      */
       $search =session('search');
 
-      //check current user role
-      $current_user_role = Auth::user()->roles->first()->name;
+        $searchResults_SIS = Pres::Select('EMPLID','FIRST_NAME50','LAST_NAME','EXTERNAL_SYSTEM_ID','NATIONAL_ID','STUDENT_STATUS','CAMPUS_ID')
+        ->Where('EXTERNAL_SYSTEM_ID', '=', $search)
+        ->orWhere('NATIONAL_ID', '=', $search)
+        ->orWhereRaw('lower(STUDENT_STATUS) like lower(?)', ["%{$search}%"])
+        ->orWhereRaw('lower(FIRST_NAME50) like lower(?)', ["%{$search}%"])
+        ->orWhereRaw('lower(LAST_NAME) like lower(?)', ["%{$search}%"])
+        ->orWhere('CAMPUS_ID', 'LIKE', '%'.$search.'%')
+        ->orderBy('FIRST_NAME50', 'ASC')
+        ->distinct()
+        ->get();
 
-      switch ($current_user_role) {
-        case 'admin': // all students
-        $searchResults = Student::where('Badge', '=', $search)
+        // Seach in app DB
+        $searchResults = Student::Select('Batch','Stream','NationalID')
+        ->where('Badge', '=', $search)
         ->orWhere('NationalID', '=', $search)
-        ->orWhere('Batch', 'LIKE', '%'.$search.'%')
         ->orWhere('Stream', 'LIKE', '%'.$search.'%')
-        ->orWhere('Status', 'LIKE', '%'.$search.'%')
         ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
         ->orWhere('LastName', 'LIKE', '%'.$search.'%')
         ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
         ->get();
-        return $searchResults;
-        break;
 
-        case 'male-manager':
-        case 'male-officer': // all male students
-        $searchResults = Student::where('Gender', '=', 'm')
-        ->where(function($query)use ($search)
-        {
-          $query->Where('Badge', '=', $search)
-          ->orWhere('NationalID', '=', $search)
-          ->orWhere('Batch', 'LIKE', '%'.$search.'%')
-          ->orWhere('Stream', 'LIKE', '%'.$search.'%')
-          ->orWhere('Status', 'LIKE', '%'.$search.'%')
-          ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
-          ->orWhere('LastName', 'LIKE', '%'.$search.'%')
-          ->orWhere('StudentNo', 'LIKE', '%'.$search.'%');
-        })->get();
-        return $searchResults;
-        break;
+        foreach($searchResults_SIS as $k => $obj) {
+        $obj->{'batch'} = '';
+        $obj->{'stream'} = '';
+        }
 
-        case 'female-manager':
-        case 'female-officer':  // all female students
-        $searchResults = Student::where('Gender', '=', 'f')
-        ->where(function($query)use ($search)
-        {
-          $query->Where('Badge', '=', $search)
-          ->orWhere('NationalID', '=', $search)
-          ->orWhere('Batch', 'LIKE', '%'.$search.'%')
-          ->orWhere('Stream', 'LIKE', '%'.$search.'%')
-          ->orWhere('Status', 'LIKE', '%'.$search.'%')
-          ->orWhere('FirstName', 'LIKE', '%'.$search.'%')
-          ->orWhere('LastName', 'LIKE', '%'.$search.'%')
-          ->orWhere('StudentNo', 'LIKE', '%'.$search.'%');
-        })->get();
-        return $searchResults;
-      }
+
+        foreach ($searchResults_SIS as $key1 => $value1) {
+            foreach ($searchResults as $key2 => $value2) {
+                if ($value1['national_id'] == $value2['NationalID']) {
+                    $value1['batch']=$value2['Batch'];
+                    $value1['stream']=$value2['Stream'];
+                }
+            }
+          }
+
+        return $searchResults_SIS;
     }
   }
 
-  public function map($searchResults): array
+  public function map($searchResults_SIS): array
   {
     return [
-      $searchResults->FirstName,
-      $searchResults->LastName,
-      $searchResults->Badge,
-      $searchResults->NationalID,
-      $searchResults->Status,
-      $searchResults->StudentNo,
-      $searchResults->Batch,
-      $searchResults->Stream
+      $searchResults_SIS->first_name50,
+      $searchResults_SIS->last_name,
+      $searchResults_SIS->external_system_id,
+      $searchResults_SIS->national_id,
+      $searchResults_SIS->student_status,
+      $searchResults_SIS->campus_id,
+      $searchResults_SIS->batch,
+      $searchResults_SIS->stream,
     ];
   }
   public function headings(): array
