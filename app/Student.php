@@ -11,6 +11,7 @@ class Student extends Model
   public $table='students';
 
   protected $fillable =[
+    'id',
     'FirstName',
     'MiddleName',
     'LastName',
@@ -21,9 +22,14 @@ class Student extends Model
     'NationalID',
     'Status',
     'StudentNo',
-    'Batch',
     'Stream',
-    'id',
+    'Gender',
+    'Batch',
+    'GraduationBatch',
+    'GraduateExpectationsYear',
+    'Mobile',
+    'KSAUHSEmail',
+    'PersonalEmail',
   ];
 
   public $timestamps = false;

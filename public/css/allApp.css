@@ -1,4 +1,4 @@
-section .section {
+section.section {
   padding:50px;min-height: 100vh;
 }
 
@@ -101,6 +101,15 @@ div .login-box {
 }
 
 ul.nav-tabs > li.nav-item > a.active {
-  {
-    color:#0A6030;
-  }
+  color:#0A6030;
+}
+
+div.form-group span.required-f{
+  color: #d9534f;
+  font-weight: bold;
+}
+
+/*table.table-hover tbody tr.colorful {
+  background-color: #e9f6ec !important;
+}
+*/

@@ -35,18 +35,16 @@
                   <th scope="col">National ID</th>
                   <th scope="col">Status</th>
                   <th scope="col">Student No</th>
-                  <th scope="col">Batch</th>
+                  <th scope="col">Admission Batch</th>
+                  <th scope="col">Graduation Batch</th>
                   <th scope="col">Stream</th>
                 </tr>
               </thead>
               @foreach($searchResults_SIS as $result)
-              <tr>
+
                 @if ($result->profile == 0)
-                <th scope="row"><i class="fa fa-chevron-circle-right"></i></th>
-                @endif
-                @if ($result->profile == 1)
-                <th scope="row"><a href="{{route('student.show',$result->emplid)}}"><i class="fa fa-chevron-circle-right"></i></a></th>
-                @endif
+                <tr>
+                <th scope="row"><a href="{{route('student.create',$result->emplid)}}"><i class="fas fa-plus-square"></i></a></th>
                 <td>{{$result->first_name50}}</td>
                 <td>{{$result->last_name}}</td>
                 <td>{{$result->external_system_id}}</td>
@@ -54,8 +52,25 @@
                 <td>{{$result->student_status}}</td>
                 <td>{{$result->campus_id}}</td>
                 <td>{{$result->batch}}</td>
+                <td>{{$result->graduationBatch}}</td>
                 <td>{{$result->stream}}</td>
               </tr>
+                @endif
+                @if ($result->profile == 1)
+                <tr class="colorful">
+                <th scope="row"><a href="{{route('student.show',$result->emplid)}}"><i class="fa fa-chevron-circle-right"></i></a></th>
+                <td>{{$result->first_name50}}</td>
+                <td>{{$result->last_name}}</td>
+                <td>{{$result->external_system_id}}</td>
+                <td>{{$result->national_id}}</td>
+                <td>{{$result->student_status}}</td>
+                <td>{{$result->campus_id}}</td>
+                <td>{{$result->batch}}</td>
+                <td>{{$result->graduationBatch}}</td>
+                <td>{{$result->stream}}</td>
+              </tr>
+                @endif
+
 
               @endforeach
 

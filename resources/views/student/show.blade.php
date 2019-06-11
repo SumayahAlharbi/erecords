@@ -34,6 +34,15 @@
             <div class="tab-content" id="nav-tabContent">
 
               <div class="tab-pane fade show active" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
+
+                @if (!empty($student_create))
+                <div class="alert alert-success alert-block">
+                  <br>
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <strong>{{ $student_create }}</strong>
+                </div>
+                @endif
+
                 @role('male-manager|female-manager')
 
                 <div class="card-body">
@@ -62,7 +71,9 @@
                         </span>
                         @endif
 
-                      <small id="emailHelp" class="form-text text-muted">SIS value: {{$student->first_name}}</small>
+                        <input type="hidden" id="ArabicFirstNameSIS" value="{{$student->first_name}}">
+
+                      <small class="form-text text-muted">SIS value: {{$student->first_name}}</small>
                       </div>
                     </div>
 
@@ -81,7 +92,9 @@
                         </span>
                         @endif
 
-                        <small id="emailHelp" class="form-text text-muted">SIS value: {{$student->middle_name_cd}}</small>
+                        <input type="hidden" id="ArabicMiddleNameSIS" value="{{$student->middle_name_cd}}">
+
+                        <small class="form-text text-muted">SIS value: {{$student->middle_name_cd}}</small>
                       </div>
 
                     </div>
@@ -101,7 +114,9 @@
                         </span>
                         @endif
 
-                        <small id="emailHelp" class="form-text text-muted">SIS value: {{$student->last_name_cd}}</small>
+                        <input type="hidden" id="ArabicLastNameSIS" value="{{$student->last_name_cd}}">
+
+                        <small class="form-text text-muted">SIS value: {{$student->last_name_cd}}</small>
                       </div>
 
                     </div>

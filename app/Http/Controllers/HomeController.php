@@ -76,6 +76,8 @@ class HomeController extends Controller
     }
     $total = $count_mm+$count_fm+$count_mo+$count_fo+$count_ad;
 
+    $user  = [$count_mm,$count_fm,$count_mo,$count_fo,$count_ad];
+
     $count_mm = $count_mm/$total*100;
     $count_mm = (int)$count_mm;
 
@@ -112,7 +114,7 @@ class HomeController extends Controller
         $updates_array [] = $key->total;
     }
 
-    return view('dashboard',compact('sis','local','users','month_array','updates_array'));
+    return view('dashboard',compact('sis','local','user','users','month_array','updates_array'));
 
   }
 }

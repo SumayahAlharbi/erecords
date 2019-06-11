@@ -52,7 +52,7 @@
   <br>
 
   <div id="container">
-    <div id="center"><h3>Student Summary Infotmation</h3></div>
+    <div id="center"><h3>Student Summary Information</h3></div>
     <div id="right">Report Date: <br> {{ date('l, F m, Y') }}</div>
   </div>
 
@@ -69,10 +69,11 @@
           <td style="width:16%;padding: 3px;text-align: left;">{{$student->middle_name}}</td>
           <td style="width:16%;padding: 3px;text-align: left;">{{$student->last_name}}</td></tr>
           <tr><th style="width:16%;padding: 3px;text-align: left;">Arabic Name:</th>
-            <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->last_name_cd,ENT_QUOTES, "UTF-8");?></div></td>
+            <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->first_name,ENT_QUOTES, "UTF-8");?>
+              </div></td>
 
             <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->middle_name_cd,ENT_QUOTES, "UTF-8");?></div></td>
-            <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->first_name,ENT_QUOTES, "UTF-8");?></div></td></tr>
+            <td style="width:16%;padding: 3px;text-align: left;"><div id="arabic-text"><?php echo htmlentities($student->last_name_cd,ENT_QUOTES, "UTF-8");?></div></td></tr>
             <tr><th style="width:25%;padding: 3px;text-align: left;">Student No:</th>
               <td style="width:25%;padding: 3px;text-align: left;">{{$student->campus_id}}</td>
               <th style="width:25%;padding: 3px;text-align: left;">Status:</th>

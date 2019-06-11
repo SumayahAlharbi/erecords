@@ -15,7 +15,14 @@ use App\Exports\SimpleSearchExport;
 
 Route::get('/', function () {
   //return view('home');
-  return view('auth.login');
+  if (Auth::check())
+  {
+    return redirect()->route('home');
+  }
+  else {
+    return view('auth.login');
+  }
+
 });
 
 /*Route::get('/home', function () {
@@ -118,6 +125,7 @@ Route::group(['middleware' => ['role:admin']], function ()
 
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager']], function ()
 {
+  Route::get('/student/add/{id}','StudentController@create')->name('student.create');
   Route::get('/attachments/{filename}', function ($filename)
   {
       $path = storage_path() . '/app/public/student_attachments/' . $filename;

@@ -10,13 +10,14 @@
         <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
           @csrf
 
-          <div class="form-group text-center m-t-20">
+          <!--<div class="form-group text-center m-t-20">
             <div class="col-xs-12">
               <a class="btn btn-lg waves-effect waves-light btn-success btn-block" href="{{ url('cas/login')}}">{{ __('Login with KSAU-HS ID') }}</a>
             </div>
           </div>
 
-          <hr>
+          <hr>-->
+          
           <h3 class="box-title m-b-20">Login</h3>
 
           <div class="form-group">

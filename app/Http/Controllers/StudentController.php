@@ -85,7 +85,7 @@ class StudentController extends Controller
     //return count($total);
 
     // Seach in app DB
-    $searchResults = Student::Select('Batch','Stream','NationalID')
+    $searchResults = Student::Select('Batch','Stream','NationalID','GraduationBatch')
     ->where('Badge', '=', $search)
     ->orWhere('NationalID', '=', $search)
     ->orWhere('Stream', 'LIKE', '%'.$search.'%')
@@ -93,10 +93,12 @@ class StudentController extends Controller
     ->orWhere('LastName', 'LIKE', '%'.$search.'%')
     ->orWhere('StudentNo', 'LIKE', '%'.$search.'%')
     ->get();
+    //return $searchResults;
 
     foreach($searchResults_SIS as $k => $obj) {
     $obj->{'batch'} = '';
     $obj->{'stream'} = '';
+    $obj->{'graduationBatch'} = '';
     $obj->{'profile'} = false;
     }
 
@@ -107,6 +109,7 @@ class StudentController extends Controller
                 $value1['batch']=$value2['Batch'];
                 $value1['stream']=$value2['Stream'];
                 $value1['profile']= true;
+                $value1['graduationBatch']=$value2['GraduationBatch'];
             }
 
         }
@@ -584,7 +587,7 @@ class StudentController extends Controller
       $total =  $total_query->distinct('NATIONAL_ID')->get();
 
       // Seach in app DB
-      $searchResults = Student::Select('Batch','Stream','NationalID')
+      $searchResults = Student::Select('Batch','Stream','NationalID','GraduationBatch')
       ->where('Badge', '=', $Badge)
       ->orWhere('NationalID', '=', $NationalID)
       ->orWhere('Stream', '=', $Stream)
@@ -596,6 +599,7 @@ class StudentController extends Controller
       foreach($searchResults_SIS as $k => $obj) {
       $obj->{'batch'} = '';
       $obj->{'stream'} = '';
+      $obj->{'graduationBatch'} = '';
       $obj->{'profile'} = false;
       }
 
@@ -606,7 +610,9 @@ class StudentController extends Controller
                   $value1['batch']=$value2['Batch'];
                   $value1['stream']=$value2['Stream'];
                   $value1['profile']= true;
+                  $value1['graduationBatch']=$value2['GraduationBatch'];
               }
+
           }
         }
 
@@ -739,12 +745,113 @@ class StudentController extends Controller
 
   /**
   * Show the form for creating a new resource.
-  *
+  * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-  public function create()
+  public function create($id)
   {
-    //
+    $student = Pres::FindOrFail($id);
+
+    $ksauhs_email = Pres::Select('EMAIL_ADDR')
+    ->where('EMPLID', '=', $id)
+    ->where('E_ADDR_TYPE', '=', 'CAMP')
+    ->first();
+
+    $personal_email = Pres::Select('EMAIL_ADDR')
+    ->where('EMPLID', '=', $id)
+    ->where('E_ADDR_TYPE', '=', 'HOME')
+    ->first();
+
+    //Search for student in local db
+    $nationl_id = $student->national_id;
+    $find = Student::Where('NationalID', '=', $nationl_id)->first();
+
+    if ($find){
+      return view('studentCreationError', compact('id'));
+    }
+    else{
+      return view('student.create',compact('student','ksauhs_email','personal_email'));
+    }
+
+  }
+
+  /**
+  * Store a newly created resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function store(Request $request)
+  {
+
+    $input = $request->except('_token');
+    $input['ArabicFirstName']=$request->get('ArabicFirstName');
+    $input['ArabicMiddleName']=$request->get('ArabicMiddleName');
+    $input['ArabicLastName']=$request->get('ArabicLastName');
+    $input['FirstName']=$request->get('FirstName');
+    $input['MiddleName']=$request->get('MiddleName');
+    $input['LastName']=$request->get('LastName');
+    $input['NationalID']=$request->get('NationalID');
+    $input['Badge']=$request->get('Badge');
+    $input['Status']=$request->get('Status');
+    $input['Stream']=$request->get('Stream');
+    $input['StudentNo']=$request->get('StudentNo');
+    $input['Batch']=$request->get('AdmissionBatch');
+    $input['GraduationBatch']=$request->get('GraduationBatch');
+    $input['GraduateExpectationsYear']=$request->get('GraduateExpectationsYear');
+    $input['Mobile']=$request->get('Mobile');
+    $input['KSAUHSEmail']=$request->get('KSAUHSEmail');
+    $input['PersonalEmail']=$request->get('PersonalEmail');
+
+    if ($request->get('Gender') == 'Male')
+    $input['Gender']='m';
+    else {
+    $input['Gender']='f';
+    }
+
+    $id = Student::withoutGlobalScopes()->max('id');
+    $input['id']= $id+1;
+
+    $sis_id = $request->get('stu_sis_id');
+
+    $new_student = Student::create($input);
+
+    if ($new_student){
+
+      $student = Pres::FindOrFail($sis_id);
+
+      $ksauhs_email = Pres::Select('EMAIL_ADDR')
+      ->where('EMPLID', '=', $id)
+      ->where('E_ADDR_TYPE', '=', 'CAMP')
+      ->first();
+
+      $personal_email = Pres::Select('EMAIL_ADDR')
+      ->where('EMPLID', '=', $id)
+      ->where('E_ADDR_TYPE', '=', 'HOME')
+      ->first();
+
+      $nationl_id = $student->national_id;
+
+      // Student info from the app DB
+      $stu = Student::Where('NationalID', '=', $nationl_id)->first();
+
+      if ($stu !== NULL)
+      {
+        $attachments = $stu->attachment;
+      }
+      else {
+        $attachments = null;
+      }
+
+      $student_create = 'Student Created Successfully!';
+
+      return view('student.show',compact('student','ksauhs_email','personal_email','attachments','stu','student_create'));
+      //return back()->with('student_create','Student Created Successfully!');
+    }
+    else {
+      return back()->with('student_create','Something went wrong, kindly try again!');
+    }
+
   }
 
   /**
