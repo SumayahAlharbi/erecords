@@ -25,11 +25,6 @@ Route::get('/', function () {
 
 });
 
-/*Route::get('/home', function () {
-  //return view('home');
-  return view('dashboard');
-})->name('home');*/
-
 Route::get('/welcome', function () {
   return view('welcome');
 })->name('welcome');
