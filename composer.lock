@@ -394,6 +394,7 @@
         },
         {
             "name": "egulias/email-validator",
+<<<<<<< Updated upstream
             "version": "2.1.8",
             "source": {
                 "type": "git",
@@ -404,6 +405,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/c26463ff9241f27907112fbcd0c86fa670cfef98",
                 "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98",
+=======
+            "version": "2.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/egulias/EmailValidator.git",
+                "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/709f21f92707308cdf8f9bcfa1af4cb26586521e",
+                "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -447,7 +460,11 @@
                 "validation",
                 "validator"
             ],
+<<<<<<< Updated upstream
             "time": "2019-05-16T22:02:54+00:00"
+=======
+            "time": "2018-12-04T22:38:24+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "erusev/parsedown",
@@ -636,6 +653,7 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29T18:48:56+00:00"
+<<<<<<< Updated upstream
         },
         {
             "name": "kylekatarnls/update-helper",
@@ -681,6 +699,8 @@
             ],
             "description": "Update helper",
             "time": "2019-06-05T08:34:23+00:00"
+=======
+>>>>>>> Stashed changes
         },
         {
             "name": "laravel/framework",
@@ -886,6 +906,7 @@
         },
         {
             "name": "league/flysystem",
+<<<<<<< Updated upstream
             "version": "1.0.52",
             "source": {
                 "type": "git",
@@ -896,6 +917,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c5a5097156387970e6f0ccfcdf03f752856f3391",
                 "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391",
+=======
+            "version": "1.0.49",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem.git",
+                "reference": "a63cc83d8a931b271be45148fa39ba7156782ffd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a63cc83d8a931b271be45148fa39ba7156782ffd",
+                "reference": "a63cc83d8a931b271be45148fa39ba7156782ffd",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -966,7 +999,11 @@
                 "sftp",
                 "storage"
             ],
+<<<<<<< Updated upstream
             "time": "2019-05-20T20:21:14+00:00"
+=======
+            "time": "2018-11-23T23:41:29+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "maatwebsite/excel",
@@ -1281,6 +1318,7 @@
         },
         {
             "name": "mpdf/mpdf",
+<<<<<<< Updated upstream
             "version": "v7.1.9",
             "source": {
                 "type": "git",
@@ -1291,6 +1329,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/mpdf/mpdf/zipball/a0fc1215d2306aa3b4ba6e97bd6ebe4bab6a88fb",
                 "reference": "a0fc1215d2306aa3b4ba6e97bd6ebe4bab6a88fb",
+=======
+            "version": "v7.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mpdf/mpdf.git",
+                "reference": "5a124ed382cf9241597c7ba12f98a756daa7f8df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/5a124ed382cf9241597c7ba12f98a756daa7f8df",
+                "reference": "5a124ed382cf9241597c7ba12f98a756daa7f8df",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -1345,7 +1395,11 @@
                 "php",
                 "utf-8"
             ],
+<<<<<<< Updated upstream
             "time": "2019-02-06T13:32:19+00:00"
+=======
+            "time": "2019-01-08T11:38:17+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "myclabs/deep-copy",
@@ -1453,6 +1507,7 @@
         },
         {
             "name": "nikic/php-parser",
+<<<<<<< Updated upstream
             "version": "v4.2.2",
             "source": {
                 "type": "git",
@@ -1463,6 +1518,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
                 "reference": "1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
+=======
+            "version": "v4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "594bcae1fc0bccd3993d2f0d61a018e26ac2865a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/594bcae1fc0bccd3993d2f0d61a018e26ac2865a",
+                "reference": "594bcae1fc0bccd3993d2f0d61a018e26ac2865a",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -1500,7 +1567,11 @@
                 "parser",
                 "php"
             ],
+<<<<<<< Updated upstream
             "time": "2019-05-25T20:07:01+00:00"
+=======
+            "time": "2019-01-12T16:31:37+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "niklasravnsborg/laravel-pdf",
@@ -1792,6 +1863,7 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
+<<<<<<< Updated upstream
             "version": "1.7.0",
             "source": {
                 "type": "git",
@@ -1802,6 +1874,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/84e09df79855ed3da84e2eab6850eb7741d8cbda",
                 "reference": "84e09df79855ed3da84e2eab6850eb7741d8cbda",
+=======
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
+                "reference": "bf00f0cc5f55c354018f9a9ef15e6e3e1a229051"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/bf00f0cc5f55c354018f9a9ef15e6e3e1a229051",
+                "reference": "bf00f0cc5f55c354018f9a9ef15e6e3e1a229051",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -1882,7 +1966,11 @@
                 "xls",
                 "xlsx"
             ],
+<<<<<<< Updated upstream
             "time": "2019-05-26T02:50:36+00:00"
+=======
+            "time": "2019-01-02T04:42:54+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "psr/container",
@@ -2351,6 +2439,7 @@
         },
         {
             "name": "spatie/laravel-permission",
+<<<<<<< Updated upstream
             "version": "2.37.0",
             "source": {
                 "type": "git",
@@ -2361,6 +2450,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/81dbe9d372d70c255b66a2727a235076509f8d45",
                 "reference": "81dbe9d372d70c255b66a2727a235076509f8d45",
+=======
+            "version": "2.29.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-permission.git",
+                "reference": "7f308806ca051fca42685e4a97a282139a6a7982"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/7f308806ca051fca42685e4a97a282139a6a7982",
+                "reference": "7f308806ca051fca42685e4a97a282139a6a7982",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -2412,7 +2513,11 @@
                 "security",
                 "spatie"
             ],
+<<<<<<< Updated upstream
             "time": "2019-04-09T12:45:17+00:00"
+=======
+            "time": "2018-12-16T00:49:22+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "spatie/string",
@@ -2531,6 +2636,7 @@
         },
         {
             "name": "symfony/console",
+<<<<<<< Updated upstream
             "version": "v4.3.1",
             "source": {
                 "type": "git",
@@ -2541,13 +2647,30 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/console/zipball/d50bbeeb0e17e6dd4124ea391eff235e932cbf64",
                 "reference": "d50bbeeb0e17e6dd4124ea391eff235e932cbf64",
+=======
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "b0a03c1bb0fcbe288629956cf2f1dd3f1dc97522"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/b0a03c1bb0fcbe288629956cf2f1dd3f1dc97522",
+                "reference": "b0a03c1bb0fcbe288629956cf2f1dd3f1dc97522",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
+<<<<<<< Updated upstream
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/polyfill-php73": "^1.8",
                 "symfony/service-contracts": "^1.1"
+=======
+                "symfony/contracts": "^1.0",
+                "symfony/polyfill-mbstring": "~1.0"
+>>>>>>> Stashed changes
             },
             "conflict": {
                 "symfony/dependency-injection": "<3.4",
@@ -2575,7 +2698,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -2602,6 +2729,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-06-05T13:25:51+00:00"
         },
         {
@@ -2616,6 +2744,90 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/css-selector/zipball/105c98bb0c5d8635bea056135304bd8edcc42b4d",
                 "reference": "105c98bb0c5d8635bea056135304bd8edcc42b4d",
+=======
+            "time": "2019-01-04T15:13:53+00:00"
+        },
+        {
+            "name": "symfony/contracts",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/contracts.git",
+                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/1aa7ab2429c3d594dd70689604b5cf7421254cdf",
+                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "psr/cache": "^1.0",
+                "psr/container": "^1.0"
+            },
+            "suggest": {
+                "psr/cache": "When using the Cache contracts",
+                "psr/container": "When using the Service contracts",
+                "symfony/cache-contracts-implementation": "",
+                "symfony/service-contracts-implementation": "",
+                "symfony/translation-contracts-implementation": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Contracts\\": ""
+                },
+                "exclude-from-classmap": [
+                    "**/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "A set of abstractions extracted out of the Symfony components",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "abstractions",
+                "contracts",
+                "decoupling",
+                "interfaces",
+                "interoperability",
+                "standards"
+            ],
+            "time": "2018-12-05T08:06:11+00:00"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "76dac1dbe2830213e95892c7c2ec1edd74113ea4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/76dac1dbe2830213e95892c7c2ec1edd74113ea4",
+                "reference": "76dac1dbe2830213e95892c7c2ec1edd74113ea4",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -2624,7 +2836,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -2655,6 +2871,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-01-16T21:53:39+00:00"
         },
         {
@@ -2669,6 +2886,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/debug/zipball/4e025104f1f9adb1f7a2d14fb102c9986d6e97c6",
                 "reference": "4e025104f1f9adb1f7a2d14fb102c9986d6e97c6",
+=======
+            "time": "2019-01-03T09:07:35+00:00"
+        },
+        {
+            "name": "symfony/debug",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/debug.git",
+                "reference": "64cb33c81e37d19b7715d4a6a4d49c1c382066dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/64cb33c81e37d19b7715d4a6a4d49c1c382066dd",
+                "reference": "64cb33c81e37d19b7715d4a6a4d49c1c382066dd",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -2684,7 +2917,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -2711,6 +2948,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-05-30T16:10:05+00:00"
         },
         {
@@ -2725,11 +2963,31 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/4e6c670af81c4fb0b6c08b035530a9915d0b691f",
                 "reference": "4e6c670af81c4fb0b6c08b035530a9915d0b691f",
+=======
+            "time": "2019-01-03T09:07:35+00:00"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
+                "reference": "887de6d34c86cf0cb6cbf910afb170cdb743cb5e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/887de6d34c86cf0cb6cbf910afb170cdb743cb5e",
+                "reference": "887de6d34c86cf0cb6cbf910afb170cdb743cb5e",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
+<<<<<<< Updated upstream
                 "symfony/event-dispatcher-contracts": "^1.1"
+=======
+                "symfony/contracts": "^1.0"
+>>>>>>> Stashed changes
             },
             "conflict": {
                 "symfony/dependency-injection": "<3.4"
@@ -2754,7 +3012,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -2781,6 +3043,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-05-30T16:10:05+00:00"
         },
         {
@@ -2853,6 +3116,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/finder/zipball/b3d4f4c0e4eadfdd8b296af9ca637cfbf51d8176",
                 "reference": "b3d4f4c0e4eadfdd8b296af9ca637cfbf51d8176",
+=======
+            "time": "2019-01-05T16:37:49+00:00"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "9094d69e8c6ee3fe186a0ec5a4f1401e506071ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/9094d69e8c6ee3fe186a0ec5a4f1401e506071ce",
+                "reference": "9094d69e8c6ee3fe186a0ec5a4f1401e506071ce",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -2861,7 +3140,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -2888,6 +3171,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-05-26T20:47:49+00:00"
         },
         {
@@ -2902,6 +3186,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-foundation/zipball/b7e4945dd9b277cd24e93566e4da0a87956392a9",
                 "reference": "b7e4945dd9b277cd24e93566e4da0a87956392a9",
+=======
+            "time": "2019-01-03T09:07:35+00:00"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "a633d422a09242064ba24e44a6e1494c5126de86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/a633d422a09242064ba24e44a6e1494c5126de86",
+                "reference": "a633d422a09242064ba24e44a6e1494c5126de86",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -2916,7 +3216,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -2943,6 +3247,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-06-06T10:05:02+00:00"
         },
         {
@@ -2957,11 +3262,28 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-kernel/zipball/738ad561cd6a8d1c44ee1da941b2e628e264c429",
                 "reference": "738ad561cd6a8d1c44ee1da941b2e628e264c429",
+=======
+            "time": "2019-01-05T16:37:49+00:00"
+        },
+        {
+            "name": "symfony/http-kernel",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-kernel.git",
+                "reference": "83de6543328917c18d5498eeb6bb6d36f7aab31b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/83de6543328917c18d5498eeb6bb6d36f7aab31b",
+                "reference": "83de6543328917c18d5498eeb6bb6d36f7aab31b",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
                 "psr/log": "~1.0",
+                "symfony/contracts": "^1.0.2",
                 "symfony/debug": "~3.4|~4.0",
                 "symfony/event-dispatcher": "^4.3",
                 "symfony/http-foundation": "^4.1.1",
@@ -2971,7 +3293,11 @@
             "conflict": {
                 "symfony/browser-kit": "<4.3",
                 "symfony/config": "<3.4",
+<<<<<<< Updated upstream
                 "symfony/dependency-injection": "<4.3",
+=======
+                "symfony/dependency-injection": "<4.2",
+>>>>>>> Stashed changes
                 "symfony/translation": "<4.2",
                 "symfony/var-dumper": "<4.1.1",
                 "twig/twig": "<1.34|<2.4,>=2"
@@ -2985,7 +3311,11 @@
                 "symfony/config": "~3.4|~4.0",
                 "symfony/console": "~3.4|~4.0",
                 "symfony/css-selector": "~3.4|~4.0",
+<<<<<<< Updated upstream
                 "symfony/dependency-injection": "^4.3",
+=======
+                "symfony/dependency-injection": "^4.2",
+>>>>>>> Stashed changes
                 "symfony/dom-crawler": "~3.4|~4.0",
                 "symfony/expression-language": "~3.4|~4.0",
                 "symfony/finder": "~3.4|~4.0",
@@ -2994,9 +3324,13 @@
                 "symfony/stopwatch": "~3.4|~4.0",
                 "symfony/templating": "~3.4|~4.0",
                 "symfony/translation": "~4.2",
+<<<<<<< Updated upstream
                 "symfony/translation-contracts": "^1.1",
                 "symfony/var-dumper": "^4.1.1",
                 "twig/twig": "^1.34|^2.4"
+=======
+                "symfony/var-dumper": "^4.1.1"
+>>>>>>> Stashed changes
             },
             "suggest": {
                 "symfony/browser-kit": "",
@@ -3008,7 +3342,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -3035,6 +3373,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-06-06T13:23:34+00:00"
         },
         {
@@ -3095,6 +3434,9 @@
                 "mime-type"
             ],
             "time": "2019-06-04T09:22:54+00:00"
+=======
+            "time": "2019-01-06T16:19:23+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3449,6 +3791,7 @@
         },
         {
             "name": "symfony/process",
+<<<<<<< Updated upstream
             "version": "v4.3.1",
             "source": {
                 "type": "git",
@@ -3459,6 +3802,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/process/zipball/856d35814cf287480465bb7a6c413bb7f5f5e69c",
                 "reference": "856d35814cf287480465bb7a6c413bb7f5f5e69c",
+=======
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "ea043ab5d8ed13b467a9087d81cb876aee7f689a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/ea043ab5d8ed13b467a9087d81cb876aee7f689a",
+                "reference": "ea043ab5d8ed13b467a9087d81cb876aee7f689a",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -3467,7 +3822,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -3494,6 +3853,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-05-30T16:10:05+00:00"
         },
         {
@@ -3508,6 +3868,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/routing/zipball/9b31cd24f6ad2cebde6845f6daa9c6d69efe2465",
                 "reference": "9b31cd24f6ad2cebde6845f6daa9c6d69efe2465",
+=======
+            "time": "2019-01-03T14:48:52+00:00"
+        },
+        {
+            "name": "symfony/routing",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/routing.git",
+                "reference": "e69b7a13a0b58af378a49b49dd7084462de16cee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/e69b7a13a0b58af378a49b49dd7084462de16cee",
+                "reference": "e69b7a13a0b58af378a49b49dd7084462de16cee",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -3537,7 +3913,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -3570,6 +3950,7 @@
                 "uri",
                 "url"
             ],
+<<<<<<< Updated upstream
             "time": "2019-06-05T09:16:20+00:00"
         },
         {
@@ -3642,12 +4023,33 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/translation/zipball/5dda505e5f65d759741dfaf4e54b36010a4b57aa",
                 "reference": "5dda505e5f65d759741dfaf4e54b36010a4b57aa",
+=======
+            "time": "2019-01-03T09:07:35+00:00"
+        },
+        {
+            "name": "symfony/translation",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/translation.git",
+                "reference": "939fb792d73f2ce80e6ae9019d205fc480f1c9a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/939fb792d73f2ce80e6ae9019d205fc480f1c9a0",
+                "reference": "939fb792d73f2ce80e6ae9019d205fc480f1c9a0",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
+<<<<<<< Updated upstream
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/translation-contracts": "^1.1.2"
+=======
+                "symfony/contracts": "^1.0.2",
+                "symfony/polyfill-mbstring": "~1.0"
+>>>>>>> Stashed changes
             },
             "conflict": {
                 "symfony/config": "<3.4",
@@ -3655,7 +4057,11 @@
                 "symfony/yaml": "<3.4"
             },
             "provide": {
+<<<<<<< Updated upstream
                 "symfony/translation-implementation": "1.0"
+=======
+                "symfony/translation-contracts-implementation": "1.0"
+>>>>>>> Stashed changes
             },
             "require-dev": {
                 "psr/log": "~1.0",
@@ -3677,7 +4083,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -3704,6 +4114,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2019-06-03T20:27:40+00:00"
         },
         {
@@ -3775,6 +4186,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/var-dumper/zipball/f974f448154928d2b5fb7c412bd23b81d063f34b",
                 "reference": "f974f448154928d2b5fb7c412bd23b81d063f34b",
+=======
+            "time": "2019-01-03T09:07:35+00:00"
+        },
+        {
+            "name": "symfony/var-dumper",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/var-dumper.git",
+                "reference": "85bde661b178173d85c6f11ea9d03b61d1212bb2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/85bde661b178173d85c6f11ea9d03b61d1212bb2",
+                "reference": "85bde661b178173d85c6f11ea9d03b61d1212bb2",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -3803,7 +4230,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.3-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -3837,7 +4268,11 @@
                 "debug",
                 "dump"
             ],
+<<<<<<< Updated upstream
             "time": "2019-06-05T02:08:12+00:00"
+=======
+            "time": "2019-01-03T09:07:35+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -3888,6 +4323,7 @@
         },
         {
             "name": "vlucas/phpdotenv",
+<<<<<<< Updated upstream
             "version": "v2.6.1",
             "source": {
                 "type": "git",
@@ -3898,6 +4334,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
                 "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
+=======
+            "version": "v2.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "cfd5dc225767ca154853752abc93aeec040fcf36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/cfd5dc225767ca154853752abc93aeec040fcf36",
+                "reference": "cfd5dc225767ca154853752abc93aeec040fcf36",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -3935,6 +4383,7 @@
                 "env",
                 "environment"
             ],
+<<<<<<< Updated upstream
             "time": "2019-01-29T11:11:52+00:00"
         },
         {
@@ -4038,9 +4487,80 @@
             ],
             "description": "PDO userspace driver proxying calls to PHP OCI8 driver",
             "time": "2019-05-09T02:45:31+00:00"
+=======
+            "time": "2018-10-30T17:29:25+00:00"
+>>>>>>> Stashed changes
         }
     ],
     "packages-dev": [
+        {
+            "name": "doctrine/annotations",
+            "version": "v1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/annotations.git",
+                "reference": "c7f2050c68a9ab0bdb0f98567ec08d80ea7d24d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/c7f2050c68a9ab0bdb0f98567ec08d80ea7d24d5",
+                "reference": "c7f2050c68a9ab0bdb0f98567ec08d80ea7d24d5",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/lexer": "1.*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "doctrine/cache": "1.*",
+                "phpunit/phpunit": "^6.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Docblock Annotations Parser",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "annotations",
+                "docblock",
+                "parser"
+            ],
+            "time": "2017-12-06T07:11:42+00:00"
+        },
         {
             "name": "doctrine/cache",
             "version": "v1.8.0",
@@ -4117,6 +4637,7 @@
             "time": "2018-08-21T18:01:43+00:00"
         },
         {
+<<<<<<< Updated upstream
             "name": "doctrine/dbal",
             "version": "v2.9.2",
             "source": {
@@ -4128,15 +4649,26 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/dbal/zipball/22800bd651c1d8d2a9719e2a3dc46d5108ebfcc9",
                 "reference": "22800bd651c1d8d2a9719e2a3dc46d5108ebfcc9",
+=======
+            "name": "doctrine/collections",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/collections.git",
+                "reference": "a01ee38fcd999f34d9bfbcee59dbda5105449cbf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/a01ee38fcd999f34d9bfbcee59dbda5105449cbf",
+                "reference": "a01ee38fcd999f34d9bfbcee59dbda5105449cbf",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
-                "doctrine/cache": "^1.0",
-                "doctrine/event-manager": "^1.0",
-                "ext-pdo": "*",
                 "php": "^7.1"
             },
             "require-dev": {
+<<<<<<< Updated upstream
                 "doctrine/coding-standard": "^5.0",
                 "jetbrains/phpstorm-stubs": "^2018.1.2",
                 "phpstan/phpstan": "^0.10.1",
@@ -4146,13 +4678,15 @@
             },
             "suggest": {
                 "symfony/console": "For helpful console commands such as SQL execution and import of files."
+=======
+                "doctrine/coding-standard": "~0.1@dev",
+                "phpunit/phpunit": "^5.7"
+>>>>>>> Stashed changes
             },
-            "bin": [
-                "bin/doctrine-dbal"
-            ],
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "2.9.x-dev",
                     "dev-develop": "3.0.x-dev"
                 }
@@ -4160,6 +4694,14 @@
             "autoload": {
                 "psr-4": {
                     "Doctrine\\DBAL\\": "lib/Doctrine/DBAL"
+=======
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Collections\\": "lib/"
+>>>>>>> Stashed changes
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4182,8 +4724,13 @@
                 {
                     "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
+<<<<<<< Updated upstream
             "description": "Powerful PHP database abstraction layer (DBAL) with many features for database schema introspection and management.",
             "homepage": "https://www.doctrine-project.org/projects/dbal.html",
             "keywords": [
@@ -4197,35 +4744,46 @@
                 "queryobject"
             ],
             "time": "2018-12-31T03:27:51+00:00"
+=======
+            "description": "Collections Abstraction library",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "array",
+                "collections",
+                "iterator"
+            ],
+            "time": "2017-07-22T10:37:32+00:00"
+>>>>>>> Stashed changes
         },
         {
-            "name": "doctrine/event-manager",
-            "version": "v1.0.0",
+            "name": "doctrine/common",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/event-manager.git",
-                "reference": "a520bc093a0170feeb6b14e9d83f3a14452e64b3"
+                "url": "https://github.com/doctrine/common.git",
+                "reference": "4acb8f89626baafede6ee5475bc5844096eba8a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/event-manager/zipball/a520bc093a0170feeb6b14e9d83f3a14452e64b3",
-                "reference": "a520bc093a0170feeb6b14e9d83f3a14452e64b3",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/4acb8f89626baafede6ee5475bc5844096eba8a9",
+                "reference": "4acb8f89626baafede6ee5475bc5844096eba8a9",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
-            },
-            "conflict": {
-                "doctrine/common": "<2.9@dev"
+                "doctrine/annotations": "1.*",
+                "doctrine/cache": "1.*",
+                "doctrine/collections": "1.*",
+                "doctrine/inflector": "1.*",
+                "doctrine/lexer": "1.*",
+                "php": "~5.6|~7.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^4.0",
-                "phpunit/phpunit": "^7.0"
+                "phpunit/phpunit": "^5.4.6"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "2.7.x-dev"
                 }
             },
             "autoload": {
@@ -4257,20 +4815,89 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com"
-                },
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com"
                 }
             ],
-            "description": "Doctrine Event Manager component",
-            "homepage": "https://www.doctrine-project.org/projects/event-manager.html",
+            "description": "Common Library for Doctrine projects",
+            "homepage": "http://www.doctrine-project.org",
             "keywords": [
-                "event",
-                "eventdispatcher",
-                "eventmanager"
+                "annotations",
+                "collections",
+                "eventmanager",
+                "persistence",
+                "spl"
             ],
-            "time": "2018-06-11T11:59:03+00:00"
+            "time": "2017-07-22T08:35:12+00:00"
+        },
+        {
+            "name": "doctrine/dbal",
+            "version": "v2.5.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/dbal.git",
+                "reference": "729340d8d1eec8f01bff708e12e449a3415af873"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/729340d8d1eec8f01bff708e12e449a3415af873",
+                "reference": "729340d8d1eec8f01bff708e12e449a3415af873",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": ">=2.4,<2.8-dev",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "symfony/console": "2.*||^3.0"
+            },
+            "suggest": {
+                "symfony/console": "For helpful console commands such as SQL execution and import of files."
+            },
+            "bin": [
+                "bin/doctrine-dbal"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\DBAL\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                }
+            ],
+            "description": "Database Abstraction Layer",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database",
+                "dbal",
+                "persistence",
+                "queryobject"
+            ],
+            "time": "2017-07-22T20:44:48+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -5187,6 +5814,7 @@
         },
         {
             "name": "phpunit/phpunit",
+<<<<<<< Updated upstream
             "version": "7.5.12",
             "source": {
                 "type": "git",
@@ -5197,6 +5825,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c",
                 "reference": "9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c",
+=======
+            "version": "7.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpunit.git",
+                "reference": "7c89093bd00f7d5ddf0ab81dee04f801416b4944"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7c89093bd00f7d5ddf0ab81dee04f801416b4944",
+                "reference": "7c89093bd00f7d5ddf0ab81dee04f801416b4944",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -5267,7 +5907,11 @@
                 "testing",
                 "xunit"
             ],
+<<<<<<< Updated upstream
             "time": "2019-05-28T11:59:40+00:00"
+=======
+            "time": "2019-01-15T08:19:08+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -5436,6 +6080,7 @@
         },
         {
             "name": "sebastian/environment",
+<<<<<<< Updated upstream
             "version": "4.2.2",
             "source": {
                 "type": "git",
@@ -5446,21 +6091,41 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/f2a2c8e1c97c11ace607a7a667d73d47c19fe404",
                 "reference": "f2a2c8e1c97c11ace607a7a667d73d47c19fe404",
+=======
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/environment.git",
+                "reference": "febd209a219cea7b56ad799b30ebbea34b71eb8f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/febd209a219cea7b56ad799b30ebbea34b71eb8f",
+                "reference": "febd209a219cea7b56ad799b30ebbea34b71eb8f",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1"
             },
             "require-dev": {
+<<<<<<< Updated upstream
                 "phpunit/phpunit": "^7.5"
             },
             "suggest": {
                 "ext-posix": "*"
+=======
+                "phpunit/phpunit": "^7.4"
+>>>>>>> Stashed changes
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< Updated upstream
                     "dev-master": "4.2-dev"
+=======
+                    "dev-master": "4.0-dev"
+>>>>>>> Stashed changes
                 }
             },
             "autoload": {
@@ -5485,7 +6150,11 @@
                 "environment",
                 "hhvm"
             ],
+<<<<<<< Updated upstream
             "time": "2019-05-05T09:05:15+00:00"
+=======
+            "time": "2018-11-25T09:31:21+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "sebastian/exporter",
