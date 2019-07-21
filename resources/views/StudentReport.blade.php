@@ -161,33 +161,33 @@
                   <tbody>
                     <tr><th style="padding: 3px;text-align: left;">Academic Violation</th></tr>
                     <tr><td style="padding: 3px;text-align: left;">1st:</td><td style="padding: 3px;text-align: left;">
-                      @if($stu->FirstAcademicViolation)
+                      @if($stu->FirstAcademicViolation && $stu->FirstAcademicViolation != 'NULL')
                       {{$stu->FirstAcademicViolation}}
                       @endif
                     </td></tr>
                     <tr><td style="padding: 3px;text-align: left;">2nd:</td><td style="padding: 3px;text-align: left;">
-                      @if($stu->SecondAcademicViolation)
+                      @if($stu->SecondAcademicViolation && $stu->SecondAcademicViolation != 'NULL')
                       {{$stu->SecondAcademicViolation}}
                       @endif
                     </td></tr>
                     <tr><td style="padding: 3px;text-align: left;">3rd:</td><td style="padding: 3px;text-align: left;">
-                      @if($stu->ThirdAcademicViolation)
+                      @if($stu->ThirdAcademicViolation && $stu->ThirdAcademicViolation != 'NULL')
                       {{$stu->ThirdAcademicViolation}}
                       @endif
                     </td></tr>
                     <tr><th style="padding: 3px;text-align: left;">Forbidden from final exam</th></tr>
                     <tr><td style="padding: 3px;text-align: left;">1st:</td><td style="padding: 3px;text-align: left;">
-                      @if($stu->FirstAttemptAttendanceViolation)
+                      @if($stu->FirstAttemptAttendanceViolation && $stu->FirstAttemptAttendanceViolation != 'NULL')
                       {{$stu->FirstAttemptAttendanceViolation}}
                       @endif
                     </td></tr>
                     <tr><td style="padding: 3px;text-align: left;">2nd:</td><td style="padding: 3px;text-align: left;">
-                      @if($stu->SecondAttemptAttendanceViolation)
+                      @if($stu->SecondAttemptAttendanceViolation && $stu->SecondAttemptAttendanceViolation != 'NULL')
                       {{$stu->SecondAttemptAttendanceViolation}}
                       @endif
                     </td></tr>
                     <tr><td style="padding: 3px;text-align: left;">3rd:</td><td style="padding: 3px;text-align: left;">
-                      @if($stu->ThirdAttemptAttendanceViolation)
+                      @if($stu->ThirdAttemptAttendanceViolation && $stu->ThirdAttemptAttendanceViolation != 'NULL')
                       {{$stu->ThirdAttemptAttendanceViolation}}
                       @endif
                     </td></tr>
