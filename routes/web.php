@@ -14,12 +14,21 @@ use App\Exports\SimpleSearchExport;
 */
 
 Route::get('/', function () {
-  return view('home');
+  //return view('home');
+  if (Auth::check())
+  {
+    return redirect()->route('home');
+  }
+  else {
+    return view('auth.login');
+  }
+
 });
 
-Route::get('/home', function () {
-  return view('home');
-})->name('home');
+/*Route::get('/home', function () {
+  //return view('home');
+  return view('dashboard');
+})->name('home');*/
 
 Route::get('/welcome', function () {
   return view('welcome');
@@ -29,8 +38,36 @@ Route::get('403error', function () {
   return view('403error');
 });
 
+Auth::routes();
+
+// CAS Login
+Route::get('/cas/login', function(){
+  // if the user isn't authenticated by CAS
+  if ( !cas()->isAuthenticated() ) {
+    // take the user to CAS
+    cas()->authenticate();
+    }
+    // if the user is authenticated by CAS
+    if ( cas()->isAuthenticated() ) {
+      // if the user is authenticated by CAS and found by user maper and matched a existing account
+      if (Auth::check()) {
+        // he shall enter :)
+        return redirect()->route('home');
+      // if the user is authenticated by CAS and not found by user maper in the app :(
+      }elseif (!(Auth::check())) {
+        // See ya !
+        abort(403, 'Access Denied, Your KSAU-HS account is correct but you don not have access to this application.');
+      }
+    }
+});
+// CAS Logout
+Route::get('/cas/logout', function(){
+      cas()->logout();
+});
+
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager|admin']], function ()
 {
+  Route::get('/home', 'HomeController@index')->name('home');
   Route::get('student/search_result', 'StudentController@search')->name('student.search_result');
   Route::get('student/advanced_search_result', 'StudentController@advanced_search')->name('student.advanced_search_result');
   Route::get('/advanced_search', 'StudentController@advanced_search_form')->name('advanced_search');
@@ -43,8 +80,8 @@ Route::group(['middleware' => ['role:male-manager|female-manager|admin']], funct
   Route::post('student/update_academic', 'StudentController@update_academic')->name('student.update_academic');
   Route::post('student/update_contact', 'StudentController@update_contact')->name('student.update_contact');
   Route::post('student/upload_attachment', 'StudentController@upload_attachment')->name('student.upload_attachment');
-  Route::get('student/delete_attachment/{id}', 'StudentController@delete_attachment')->name('student.delete_attachment');
-  Route::get('student/showEditAttForm/{id}', 'StudentController@showEditAttForm')->name('student.showEditAttForm');
+  Route::get('student/delete_attachment/attachment/{id}/student/{sid}', 'StudentController@delete_attachment')->name('student.delete_attachment');
+  Route::get('/showEditAttForm/attachment/{id}/student/{sid}', 'StudentController@showEditAttForm')->name('student.showEditAttForm');
   Route::post('student/{sid}/attachment/{aid}', 'StudentController@edit_attachment')->name('student.edit_attachment');
 
   Route::get('Student/pdf','StudentController@export_pdf');
@@ -77,10 +114,18 @@ Route::group(['middleware' => ['role:admin']], function ()
   Route::get('/assign','PermissionController@showRolePermission')->name('permission.assign'); // show the form of assign permission to role -1-
   Route::get('dynamic_dependent/ajax/{id}', 'PermissionController@dynamic_dependent_ajax'); // show list of permissions for the selected role -2-
   Route::get('/permission/assign','PermissionController@update')->name('permission.update'); // assign permission to role -3-
+  Route::get('/test','StudentController@testSIS');
+  Route::get('/phpInfo', function () {
+  return view('phpinfo');
+});
+
+
+
 });
 
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager']], function ()
 {
+  Route::get('/student/add/{id}','StudentController@create')->name('student.create');
   Route::get('/attachments/{filename}', function ($filename)
   {
       $path = storage_path() . '/app/public/student_attachments/' . $filename;
@@ -95,5 +140,3 @@ Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|fe
       return $response;
   })->name('attachments');
 });
-
-Auth::routes();

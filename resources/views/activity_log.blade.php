@@ -4,14 +4,16 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-10">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{{ route('manager.home') }}">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">User Activities</li>
+        </ol>
+
         <div class="card">
-          <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="{{ route('manager.home') }}">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">User Activities</li>
-          </ol>
 
           <div class="card-body">
 

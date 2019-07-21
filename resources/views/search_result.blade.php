@@ -8,7 +8,7 @@
 
           <div class="row mb-2">
             <div class="col">
-            <h6>Search Result for "{{ str_limit($search, $limit = 30, $end = '...') }}"</h6>
+            <h6>About ({{count($total)}}) Search Results for "{{ str_limit($search, $limit = 30, $end = '...') }}"</h6>
           </div>
           <div class="col">
             <div class="btn-group-justified flex-wrap float-right" role="group">
@@ -22,7 +22,7 @@
           </div>
           </div>
 
-          @if (isset($searchResults))
+          @if (isset($searchResults_SIS))
 
           <div class="table-responsive">
             <table class="table table-hover">
@@ -35,22 +35,42 @@
                   <th scope="col">National ID</th>
                   <th scope="col">Status</th>
                   <th scope="col">Student No</th>
-                  <th scope="col">Batch</th>
+                  <th scope="col">Admission Batch</th>
+                  <th scope="col">Graduation Batch</th>
                   <th scope="col">Stream</th>
                 </tr>
               </thead>
-              @foreach($searchResults as $result)
-              <tr>
-                <th scope="row"><a href="{{route('student.show',$result->id)}}"><i class="fa fa-chevron-circle-right"></i></a></th>
-                <td>{{$result->FirstName}}</td>
-                <td>{{$result->LastName}}</td>
-                <td>{{$result->Badge}}</td>
-                <td>{{$result->NationalID}}</td>
-                <td>{{$result->Status}}</td>
-                <td>{{$result->StudentNo}}</td>
-                <td>{{$result->Batch}}</td>
-                <td>{{$result->Stream}}</td>
+              @foreach($searchResults_SIS as $result)
+
+                @if ($result->profile == 0)
+                <tr>
+                <th scope="row"><a href="{{route('student.create',$result->emplid)}}"><i class="fas fa-plus-square"></i></a></th>
+                <td>{{$result->first_name50}}</td>
+                <td>{{$result->last_name}}</td>
+                <td>{{$result->external_system_id}}</td>
+                <td>{{$result->national_id}}</td>
+                <td>{{$result->student_status}}</td>
+                <td>{{$result->campus_id}}</td>
+                <td>{{$result->batch}}</td>
+                <td>{{$result->graduationBatch}}</td>
+                <td>{{$result->stream}}</td>
               </tr>
+                @endif
+                @if ($result->profile == 1)
+                <tr class="colorful">
+                <th scope="row"><a href="{{route('student.show',$result->emplid)}}"><i class="fa fa-chevron-circle-right"></i></a></th>
+                <td>{{$result->first_name50}}</td>
+                <td>{{$result->last_name}}</td>
+                <td>{{$result->external_system_id}}</td>
+                <td>{{$result->national_id}}</td>
+                <td>{{$result->student_status}}</td>
+                <td>{{$result->campus_id}}</td>
+                <td>{{$result->batch}}</td>
+                <td>{{$result->graduationBatch}}</td>
+                <td>{{$result->stream}}</td>
+              </tr>
+                @endif
+
 
               @endforeach
 
@@ -58,7 +78,7 @@
           </table>
 
           <div class="pagination justify-content-center">
-            {!! $searchResults->appends(request()->input())->links(); !!}
+            {!! $searchResults_SIS->appends(request()->input())->links(); !!}
           </div>
         </div>
         @endif

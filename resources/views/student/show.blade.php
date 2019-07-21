@@ -6,7 +6,7 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            <a href="{{ URL::previous() }}"><i class="fa fa-chevron-left"></i></a>&nbsp;&nbsp;{{$student->FirstName}} {{$student->LastName}}
+            <a href="{{ URL::previous() }}"><i class="fa fa-chevron-left"></i></a>&nbsp;&nbsp;{{$student->first_name50}} {{$student->last_name}}
           </div>
 
           <div class="card-body">
@@ -25,7 +25,7 @@
                   <i class="fa fa-paperclip" aria-hidden="true"></i> Attachment
                 </a>
                 @role('male-manager|female-manager|admin')
-                <a class="nav-item nav-link" id="nav-report-tab" href="{{ URL::to('studentReport/pdf',$student->id) }}" role="tab" aria-controls="nav-contact" aria-selected="false">
+                <a class="nav-item nav-link" id="nav-report-tab" href="{{ URL::to('studentReport/pdf',$student->emplid) }}" role="tab" aria-controls="nav-contact" aria-selected="false">
                   <i class="fa fa-print" aria-hidden="true"></i> Print</a>
                 </a>
                 @endrole
@@ -34,6 +34,15 @@
             <div class="tab-content" id="nav-tabContent">
 
               <div class="tab-pane fade show active" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
+
+                @if (!empty($student_create))
+                <div class="alert alert-success alert-block">
+                  <br>
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <strong>{{ $student_create }}</strong>
+                </div>
+                @endif
+
                 @role('male-manager|female-manager')
 
                 <div class="card-body">
@@ -45,72 +54,98 @@
                   @endif
                   <form method="POST" action="{{ route('student.update_personal') }}" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" value="{{$student->id}}">
+                    <input type="hidden" name="id" value="{{$stu->id}}">
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">Arabic First Name</label>
                       <div class="col-md-6">
-                        <input type="text" name="ArabicFirstName" id="ArabicFirstName" class="form-control{{ $errors->has('ArabicFirstName') ? ' is-invalid' : '' }}" value="{{$student->ArabicFirstName}}" required autofocus>
+                        @if ($stu !== null)
+                        <input type="text" name="ArabicFirstName" id="ArabicFirstName" class="form-control{{ $errors->has('ArabicFirstName') ? ' is-invalid' : '' }}" value="{{$stu->ArabicFirstName}}" required autofocus>
+                        @else
+                        <input type="text" name="ArabicFirstName" id="ArabicFirstName" class="form-control{{ $errors->has('ArabicFirstName') ? ' is-invalid' : '' }}" value="" required autofocus>
+                        @endif
 
                         @if ($errors->has('ArabicFirstName'))
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $errors->first('ArabicFirstName') }}</strong>
                         </span>
                         @endif
+
+                        <input type="hidden" id="ArabicFirstNameSIS" value="{{$student->first_name}}">
+
+                      <small class="form-text text-muted">SIS value: {{$student->first_name}}</small>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">Arabic Middle Name</label>
                       <div class="col-md-6">
-                        <input type="text" name="ArabicMiddleName" id="ArabicMiddleName" class="form-control{{ $errors->has('ArabicMiddleName') ? ' is-invalid' : '' }}" value="{{$student->ArabicMiddleName}}" required autofocus>
+                        @if ($stu !== null)
+                        <input type="text" name="ArabicMiddleName" id="ArabicMiddleName" class="form-control{{ $errors->has('ArabicMiddleName') ? ' is-invalid' : '' }}" value="{{$stu->ArabicMiddleName}}" required autofocus>
+                        @else
+                        <input type="text" name="ArabicMiddleName" id="ArabicMiddleName" class="form-control{{ $errors->has('ArabicMiddleName') ? ' is-invalid' : '' }}" value="" required autofocus>
+                        @endif
 
                         @if ($errors->has('ArabicMiddleName'))
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $errors->first('ArabicMiddleName') }}</strong>
                         </span>
                         @endif
+
+                        <input type="hidden" id="ArabicMiddleNameSIS" value="{{$student->middle_name_cd}}">
+
+                        <small class="form-text text-muted">SIS value: {{$student->middle_name_cd}}</small>
                       </div>
+
                     </div>
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">Arabic Last Name</label>
                       <div class="col-md-6">
-                        <input type="text" name="ArabicLastName" id="ArabicLastName" class="form-control{{ $errors->has('ArabicLastName') ? ' is-invalid' : '' }}" value="{{$student->ArabicLastName}}" required autofocus>
+                        @if ($stu !== null)
+                        <input type="text" name="ArabicLastName" id="ArabicLastName" class="form-control{{ $errors->has('ArabicLastName') ? ' is-invalid' : '' }}" value="{{$stu->ArabicLastName}}" required autofocus>
+                        @else
+                        <input type="text" name="ArabicLastName" id="ArabicLastName" class="form-control{{ $errors->has('ArabicLastName') ? ' is-invalid' : '' }}" value="" required autofocus>
+                        @endif
 
                         @if ($errors->has('ArabicLastName'))
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $errors->first('ArabicLastName') }}</strong>
                         </span>
                         @endif
+
+                        <input type="hidden" id="ArabicLastNameSIS" value="{{$student->last_name_cd}}">
+
+                        <small class="form-text text-muted">SIS value: {{$student->last_name_cd}}</small>
                       </div>
+
                     </div>
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">English First Name</label>
                       <div class="col-md-6">
-                        {{$student->FirstName}}
+                        {{$student->first_name50}}
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">English Middle Name</label>
                       <div class="col-md-6">
-                        {{$student->MiddleName}}
+                        {{$student->middle_name}}
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">English Last Name</label>
                       <div class="col-md-6">
-                        {{$student->LastName}}
+                        {{$student->last_name}}
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">National ID</label>
                       <div class="col-md-6">
-                        {{$student->NationalID}}
+                        {{$student->national_id}}
                       </div>
                     </div>
 
@@ -127,49 +162,61 @@
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">Arabic First Name</label>
                     <div class="col-md-6">
-                      {{$student->ArabicFirstName}}
+                      @if ($stu !== null)
+                      {{$stu->ArabicFirstName}}
+                      @endif
+
+                      <small id="emailHelp" class="form-text text-muted">SIS value: {{$student->first_name}}</small>
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">Arabic Middle Name</label>
                     <div class="col-md-6">
-                      {{$student->ArabicMiddleName}}
+                      @if ($stu !== null)
+                      {{$stu->ArabicMiddleName}}
+                      @endif
+
+                      <small id="emailHelp" class="form-text text-muted">SIS value: {{$student->middle_name_cd}}</small>
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">Arabic Last Name</label>
                     <div class="col-md-6">
-                      {{$student->ArabicLastName}}
+                      @if ($stu !== null)
+                      {{$stu->ArabicLastName}}
+                      @endif
+
+                      <small id="emailHelp" class="form-text text-muted">SIS value: {{$student->last_name_cd}}</small>
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">English First Name</label>
                     <div class="col-md-6">
-                      {{$student->FirstName}}
+                      {{$student->first_name50}}
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">English Middle Name</label>
                     <div class="col-md-6">
-                      {{$student->MiddleName}}
+                      {{$student->middle_name}}
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">English Last Name</label>
                     <div class="col-md-6">
-                      {{$student->LastName}}
+                      {{$student->last_name}}
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">National ID</label>
                     <div class="col-md-6">
-                      {{$student->NationalID}}
+                      {{$student->national_id}}
                     </div>
                   </div>
 
@@ -191,36 +238,36 @@
 
                   <form method="POST" action="{{ route('student.update_academic') }}" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" value="{{$student->id}}">
+                    <input type="hidden" name="id" value="{{$stu->id}}">
 
                     <div class="form-row">
                       <div class="col">
                         <label for="Badge">Badge:</label>
-                        {{$student->Badge}}
+                        {{$student->external_system_id}}
                       </div>
 
                       <div class="col">
                         <label for="Status">Status:</label>
-                        {{$student->Status}}
+                        {{$student->student_status}}
                       </div>
                     </div>
 
                     <div class="form-row">
                       <div class="col">
                         <label for="AdmissionBatch">Admission Batch:</label>
-                        {{$student->Batch}}
+                        {{$stu->Batch}}
                       </div>
 
                       <div class="col">
                         <label for="StudentNo">Student No:</label>
-                        {{$student->StudentNo}}
+                        {{$student->campus_id}}
                       </div>
                     </div>
 
                     <div class="form-row">
                       <div class="col">
                         <label for="GraduationBatch">Graduation Batch:</label>
-                        <input type="text" name="GraduationBatch" value="{{$student->GraduationBatch}}" id="GraduationBatch" class="form-control{{ $errors->has('GraduationBatch') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');">
+                        <input type="text" name="GraduationBatch" value="{{$stu->GraduationBatch}}" id="GraduationBatch" class="form-control{{ $errors->has('GraduationBatch') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');">
                         @if ($errors->has('GraduationBatch'))
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $errors->first('GraduationBatch') }}</strong>
@@ -230,7 +277,7 @@
 
                       <div class="col">
                         <label for="Stream">Stream:</label>
-                        <input type="text" name="Stream" value="{{$student->Stream}}" id="Stream" class="form-control{{ $errors->has('Stream') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');">
+                        <input type="text" name="Stream" value="{{$stu->Stream}}" id="Stream" class="form-control{{ $errors->has('Stream') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');">
                         @if ($errors->has('Stream'))
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $errors->first('Stream') }}</strong>
@@ -242,61 +289,61 @@
                     <div class="form-row">
                       <div class="col">
                         <label for="GraduateExpectationsYear">Graduate Expectations Year:</label>
-                        {{$student->GraduateExpectationsYear}}
+                        {{$stu->GraduateExpectationsYear}}
                       </div>
 
 
                       <div class="col">
                         <label for="LastActivationDate">Last Activation Date:</label>
-                        {{$student->LastActivationDate}}
+                        {{$student->STUDENT_STATUS_DT}}
                       </div>
                     </div>
 
                     <div class="form-row">
                       <div class="col">
                         <label for="1stPostpone">1st Postpone:</label>
-                        {{$student->FirstPostpone}}
+                        {{$stu->FirstPostpone}}
                       </div>
 
                       <div class="col">
                         <label for="1stBlockDrop">1st Block Drop:</label>
-                        {{$student->	FirstBlockDrop}}
+                        {{$stu->FirstBlockDrop}}
                       </div>
                     </div>
 
                     <div class="form-row">
                       <div class="col">
                         <label for="2ndPostpone">2nd Postpone:</label>
-                        {{$student->SecondPostpone}}
+                        {{$stu->SecondPostpone}}
                       </div>
 
                       <div class="col">
                         <label for="2ndBlockDrop">2nd Block Drop:</label>
-                        {{$student->	SecondBlockDrop}}
+                        {{$stu->SecondBlockDrop}}
                       </div>
                     </div>
 
                     <div class="form-row">
                       <div class="col">
                         <label for="3rdPostpone">3rd Postpone:</label>
-                        {{$student->ThirdPostpone}}
+                        {{$stu->ThirdPostpone}}
                       </div>
 
                       <div class="col">
                         <label for="3rdBlockDrop">3rd Block Drop:</label>
-                        {{$student->	ThirdBlockDrop}}
+                        {{$stu->ThirdBlockDrop}}
                       </div>
                     </div>
 
                     <div class="form-row">
                       <div class="col">
                         <label for="1stAcademicViolation">1st Academic Violation:</label>
-                        <input type="text" name="FirstAcademicViolation" class="form-control" value="{{$student->FirstAcademicViolation}}" id="FirstAcademicViolation">
+                        <input type="text" name="FirstAcademicViolation" class="form-control" value="{{$stu->FirstAcademicViolation}}" id="FirstAcademicViolation">
                       </div>
 
                       <div class="col">
                         <label for="1stAttemptAttendanceViolation">1st Attempt Attendance Violation:</label>
-                        <input type="text" name="FirstAttemptAttendanceViolation" class="form-control" value="{{$student->FirstAttemptAttendanceViolation}}" id="FirstAttemptAttendanceViolation">
+                        <input type="text" name="FirstAttemptAttendanceViolation" class="form-control" value="{{$stu->FirstAttemptAttendanceViolation}}" id="FirstAttemptAttendanceViolation">
                       </div>
                     </div>
 
@@ -304,36 +351,36 @@
                     <div class="form-row">
                       <div class="col">
                         <label for="2ndAcademicViolation">2nd Academic Violation:</label>
-                        <input type="text" name="SecondAcademicViolation" class="form-control" value="{{$student->SecondAcademicViolation}}" id="SecondAcademicViolation">
+                        <input type="text" name="SecondAcademicViolation" class="form-control" value="{{$stu->SecondAcademicViolation}}" id="SecondAcademicViolation">
                       </div>
 
                       <div class="col">
                         <label for="2ndAttemptAttendanceViolation">2nd Attempt Attendance Violation:</label>
-                        <input type="text" name="SecondAttemptAttendanceViolation" class="form-control" value="{{$student->SecondAttemptAttendanceViolation}}" id="SecondAttemptAttendanceViolation">
+                        <input type="text" name="SecondAttemptAttendanceViolation" class="form-control" value="{{$stu->SecondAttemptAttendanceViolation}}" id="SecondAttemptAttendanceViolation">
                       </div>
                     </div>
 
                     <div class="form-row">
                       <div class="col">
                         <label for="3rdAcademicViolation">3rd Academic Violation:</label>
-                        <input type="text" name="ThirdAcademicViolation" class="form-control" value="{{$student->ThirdAcademicViolation}}" id="ThirdAcademicViolation">
+                        <input type="text" name="ThirdAcademicViolation" class="form-control" value="{{$stu->ThirdAcademicViolation}}" id="ThirdAcademicViolation">
                       </div>
 
                       <div class="col">
                         <label for="3rdAttemptAttendanceViolation">3rd Attempt Attendance Violation:</label>
-                        <input type="text" name="ThirdAttemptAttendanceViolation" class="form-control" value="{{$student->ThirdAttemptAttendanceViolation}}" id="ThirdAttemptAttendanceViolation">
+                        <input type="text" name="ThirdAttemptAttendanceViolation" class="form-control" value="{{$stu->ThirdAttemptAttendanceViolation}}" id="ThirdAttemptAttendanceViolation">
                       </div>
                     </div>
 
                     <div class="form-row">
                       <div class="col">
                         <label for="Dismissed">Dismissed (Date):</label>
-                        {{$student->Dismissed}}
+                        {{$stu->Dismissed}}
                       </div>
 
                       <div class="col">
                         <label for="Withdrawal">Withdrawal:</label>
-                        {{$student->Withdrawal}}
+                        {{$stu->Withdrawal}}
                       </div>
                     </div>
                     <div class="text-right">
@@ -346,97 +393,97 @@
                   <div class="form-row">
                     <div class="col">
                       <label for="Badge">Badge:</label>
-                      {{$student->Badge}}
+                      {{$student->external_system_id}}
                     </div>
 
                     <div class="col">
                       <label for="Status">Status:</label>
-                      {{$student->Status}}
+                      {{$student->student_status}}
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="col">
                       <label for="AdmissionBatch">Admission Batch:</label>
-                      {{$student->Batch}}
+                      {{$stu->Batch}}
                     </div>
 
                     <div class="col">
                       <label for="StudentNo">Student No:</label>
-                      {{$student->StudentNo}}
+                      {{$student->campus_id}}
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="col">
                       <label for="GraduationBatch">Graduation Batch:</label>
-                      {{$student->GraduationBatch}}
+                      {{$stu->GraduationBatch}}
                     </div>
 
                     <div class="col">
                       <label for="Stream">Stream:</label>
-                      {{$student->Stream}}
+                      {{$stu->Stream}}
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="col">
                       <label for="GraduateExpectationsYear">Graduate Expectations Year:</label>
-                      {{$student->GraduateExpectationsYear}}
+                      {{$stu->GraduateExpectationsYear}}
                     </div>
 
 
                     <div class="col">
                       <label for="LastActivationDate">Last Activation Date:</label>
-                      {{$student->LastActivationDate}}
+                      {{$student->STUDENT_STATUS_DT}}
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="col">
                       <label for="1stPostpone">1st Postpone:</label>
-                      {{$student->FirstPostpone}}
+                      {{$stu->FirstPostpone}}
                     </div>
 
                     <div class="col">
                       <label for="1stBlockDrop">1st Block Drop:</label>
-                      {{$student->	FirstBlockDrop}}
+                      {{$stu->FirstBlockDrop}}
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="col">
                       <label for="2ndPostpone">2nd Postpone:</label>
-                      {{$student->SecondPostpone}}
+                      {{$stu->SecondPostpone}}
                     </div>
 
                     <div class="col">
                       <label for="2ndBlockDrop">2nd Block Drop:</label>
-                      {{$student->	SecondBlockDrop}}
+                      {{$stu->SecondBlockDrop}}
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="col">
                       <label for="3rdPostpone">3rd Postpone:</label>
-                      {{$student->ThirdPostpone}}
+                      {{$stu->ThirdPostpone}}
                     </div>
 
                     <div class="col">
                       <label for="3rdBlockDrop">3rd Block Drop:</label>
-                      {{$student->	ThirdBlockDrop}}
+                      {{$stu->ThirdBlockDrop}}
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="col">
                       <label for="1stAcademicViolation">1st Academic Violation:</label>
-                      {{$student->FirstAcademicViolation}}
+                      <div>{{$stu->FirstAcademicViolation}}</div>
                     </div>
 
                     <div class="col">
                       <label for="1stAttemptAttendanceViolation">1st Attempt Attendance Violation:</label>
-                      {{$student->FirstAttemptAttendanceViolation}}
+                      <div>{{$stu->FirstAttemptAttendanceViolation}}</div>
                     </div>
                   </div>
 
@@ -444,36 +491,36 @@
                   <div class="form-row">
                     <div class="col">
                       <label for="2ndAcademicViolation">2nd Academic Violation:</label>
-                      {{$student->SecondAcademicViolation}}
+                      <div>{{$stu->SecondAcademicViolation}}</div>
                     </div>
 
                     <div class="col">
                       <label for="2ndAttemptAttendanceViolation">2nd Attempt Attendance Violation:</label>
-                      {{$student->SecondAttemptAttendanceViolation}}
+                      <div>{{$stu->SecondAttemptAttendanceViolation}}</div>
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="col">
                       <label for="3rdAcademicViolation">3rd Academic Violation:</label>
-                      {{$student->ThirdAcademicViolation}}
+                      <div>{{$stu->ThirdAcademicViolation}}</div>
                     </div>
 
                     <div class="col">
                       <label for="3rdAttemptAttendanceViolation">3rd Attempt Attendance Violation:</label>
-                      {{$student->ThirdAttemptAttendanceViolation}}
+                      <div>{{$stu->ThirdAttemptAttendanceViolation}}</div>
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="col">
                       <label for="Dismissed">Dismissed (Date):</label>
-                      {{$student->Dismissed}}
+                      {{$stu->Dismissed}}
                     </div>
 
                     <div class="col">
                       <label for="Withdrawal">Withdrawal:</label>
-                      {{$student->Withdrawal}}
+                      {{$stu->Withdrawal}}
                     </div>
                   </div>
                 </div>
@@ -491,12 +538,12 @@
 
                   <form method="POST" action="{{ route('student.update_contact') }}" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" value="{{$student->id}}">
+                    <input type="hidden" name="id" value="{{$stu->id}}">
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">Mobile</label>
                       <div class="col-md-6">
-                        <input type="number" name="Mobile" value="0{{$student->Mobile}}" id="Mobile" class="form-control{{ $errors->has('Mobile') ? ' is-invalid' : '' }}" required autofocus min="0" oninput="validity.valid||(value='');">
+                        <input type="text" name="Mobile" value="0{{$student->phone}}" id="Mobile" class="form-control{{ $errors->has('Mobile') ? ' is-invalid' : '' }}" required autofocus min="0" oninput="validity.valid||(value='');">
                         @if ($errors->has('Mobile'))
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $errors->first('Mobile') }}</strong>
@@ -508,21 +555,30 @@
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">KSAU-HS Email</label>
                       <div class="col-md-6">
-                        {{$student->KSAUHSEmail}}
+                        @if($ksauhs_email)
+                        {{$ksauhs_email->email_addr}}
+                        @endif
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">NGHA Email</label>
                       <div class="col-md-6">
-                        {{$student->	NGHAEmail}}
+                        <input type="text" name="NGHAEmail" value="{{$stu->NGHAEmail}}" id="NGHAEmail" class="form-control{{ $errors->has('NGHAEmail') ? ' is-invalid' : '' }}">
+                        @if ($errors->has('NGHAEmail'))
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $errors->first('NGHAEmail') }}</strong>
+                        </span>
+                        @endif
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">Personal Email</label>
                       <div class="col-md-6">
-                        {{$student->PersonalEmail}}
+                        @if($personal_email)
+                        {{$personal_email->email_addr}}
+                        @endif
                       </div>
                     </div>
 
@@ -540,28 +596,32 @@
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">Mobile</label>
                     <div class="col-md-6">
-                      0{{$student->Mobile}}
+                      0{{$student->phone}}
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">KSAU-HS Email</label>
                     <div class="col-md-6">
-                      {{$student->KSAUHSEmail}}
+                      @if($ksauhs_email)
+                      {{$ksauhs_email->email_addr}}
+                      @endif
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">NGHA Email</label>
                     <div class="col-md-6">
-                      {{$student->	NGHAEmail}}
+                      {{$stu->NGHAEmail}}
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-4 col-form-label">Personal Email</label>
                     <div class="col-md-6">
-                      {{$student->PersonalEmail}}
+                      @if($personal_email)
+                      {{$personal_email->email_addr}}
+                      @endif
                     </div>
                   </div>
 
@@ -619,10 +679,10 @@
                             <a href="{{route('attachments',$attachment->file)}}" target="_blank" title="Browse">{{$attachment->title}}</a>
                           </th>
                           <th>
-                            <a href="{{route('student.showEditAttForm',$attachment->id)}}" title="Edit"><i class="far fa-edit"></i></a>
+                            <a href="{{ route('student.showEditAttForm',['attachment'=>$attachment->id,'student'=>$student->emplid])}}" title="Edit"><i class="far fa-edit"></i></a>
                           </th>
                           <th>
-                            <a href="{{route('student.delete_attachment',$attachment->id)}}" title="Delete"
+                            <a href="{{route('student.delete_attachment',['attachment'=>$attachment->id,'student'=>$student->emplid])}}" title="Delete"
                               onclick="return confirm('Are you sure you want to delete this file?')"><i class="far fa-trash-alt"></i></a>
                           </th>
                         </tr>
@@ -630,7 +690,6 @@
                       </tbody>
                     </table>
                   </div>
-                  @endif
                   @endrole
 
                   @role('female-officer|male-officer')
@@ -653,13 +712,14 @@
                     </table>
                   </div>
                   @endrole
+                  @endif
 
                   @role('male-manager|female-manager')
                   <h5>Upload New Attachment</h5>
                   <form method="POST" action="{{ route('student.upload_attachment') }}" enctype="multipart/form-data" class="form-horizontal">
                     @csrf
 
-                    <input type="hidden" name="id" value="{{$student->id}}">
+                    <input type="hidden" name="id" value="{{$stu->id}}">
 
                     <div class="form-group row">
                       <label class="col-md-4 col-form-label">Attachment Title</label>
