@@ -39,7 +39,7 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Roles List</label>
               <div class="col-md-6 offset-md-4">
-                <div class="row col-md-8"><!--style="min-width:200px;"-->
+                <div class="col-md-6">
                 <!-- user cuurent roles -->
                 @foreach($user as $value)
                 <label class="container2">{{ ucwords($value->role_name)}}

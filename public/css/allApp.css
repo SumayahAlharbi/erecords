@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 section.section {
   padding:50px;min-height: 100vh;
 }
@@ -21,6 +22,10 @@ div .login-box {
 #loader{
   visibility:hidden;
 }
+
+.bs-tooltip-right  { margin-right: 5px; }
+.fa-exclamation-circle { color: #ffc107;}
+
 .fa-spin {
   font-size:35px;
   margin: 6px 0px 10px 0px;

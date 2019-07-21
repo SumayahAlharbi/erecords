@@ -69,9 +69,9 @@ class StudentController extends Controller
     ->orWhereRaw('lower(FIRST_NAME50) like lower(?)', ["%{$search}%"])
     ->orWhereRaw('lower(LAST_NAME) like lower(?)', ["%{$search}%"])
     ->orWhere('CAMPUS_ID', 'LIKE', '%'.$search.'%')
-    ->orderBy('FIRST_NAME50', 'ASC')
+    ->orderBy('CAMPUS_ID', 'ASC')
     ->distinct('NATIONAL_ID')
-    ->SimplePaginate(5);
+    ->SimplePaginate(10);
 
     $total =  Pres::Select('NATIONAL_ID')
     ->Where('EXTERNAL_SYSTEM_ID', '=', $search)
@@ -171,7 +171,7 @@ class StudentController extends Controller
       ->orWhereRaw('lower(FIRST_NAME50) like lower(?)', ["%{$search}%"])
       ->orWhereRaw('lower(LAST_NAME) like lower(?)', ["%{$search}%"])
       ->orWhere('CAMPUS_ID', 'LIKE', '%'.$search.'%')
-      ->orderBy('FIRST_NAME50', 'ASC')
+      ->orderBy('CAMPUS_ID', 'ASC')
       ->distinct()
       ->get();
 
@@ -579,10 +579,10 @@ class StudentController extends Controller
       }
       */
 
-      session(['SR'=>$query->orderBy('FIRST_NAME50', 'ASC')->get()]);
+      session(['SR'=>$query->orderBy('CAMPUS_ID', 'ASC')->get()]);
       Session::forget('search');
 
-      $searchResults_SIS = $query->orderBy('FIRST_NAME50', 'ASC')->distinct()->SimplePaginate(5);
+      $searchResults_SIS = $query->orderBy('CAMPUS_ID', 'ASC')->distinct()->SimplePaginate(10);
 
       $total =  $total_query->distinct('NATIONAL_ID')->get();
 

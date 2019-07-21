@@ -1,14 +1,14 @@
 @extends('layouts.template')
 @section('content')
 <section class="section">
-  <div class="container">
+  <div class="container-fluied">
     <div class="row justify-content-center">
       <div class="card">
         <div class="card-body">
 
           <div class="row mb-2">
             <div class="col">
-            <h6>About ({{count($total)}}) Search Results</h6>
+            <h6>{{count($total)}} Search Results</h6>
           </div>
 
           <div class="col">
@@ -30,15 +30,15 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">Badge</th>
-                  <th scope="col">National ID</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Student No</th>
-                  <th scope="col">Admission Batch</th>
-                  <th scope="col">Graduation Batch</th>
-                  <th scope="col">Stream</th>
+                  <th class="th-lg">First Name</th>
+                  <th class="th-lg">Last Name</th>
+                  <th class="th-lg">Badge</th>
+                  <th class="th-lg">National ID</th>
+                  <th class="th-lg">Status</th>
+                  <th class="th-lg">Student No</th>
+                  <th class="th-lg">Admission Batch</th>
+                  <th class="th-lg">Graduation Batch</th>
+                  <th class="th-lg">Stream</th>
                 </tr>
               </thead>
               @foreach($searchResults_SIS as $result)

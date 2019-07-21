@@ -148,7 +148,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        SpringsCS\Cas\CasServiceProvider::class,
 	      Yajra\Oci8\Oci8ServiceProvider::class,
         /*
          * Package Service Providers...
@@ -218,7 +217,7 @@ return [
         //'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
-        'Cas' => SpringsCS\Cas\Facades\Cas::class,
+
 
     ],
 
