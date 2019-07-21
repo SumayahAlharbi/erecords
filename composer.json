@@ -14,7 +14,6 @@
         "niklasravnsborg/laravel-pdf": "^2.0",
         "spatie/laravel-activitylog": "^3.1",
         "spatie/laravel-permission": "^2.23",
-        "springscs/cas": "^1.0",
         "yajra/laravel-oci8": "5.6.*"
     },
     "require-dev": {

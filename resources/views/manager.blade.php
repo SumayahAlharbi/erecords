@@ -87,6 +87,7 @@
                       <td>{{$result->id}}</td>
                         <td>{{$result->name}}</td>
                         <td>{{\Carbon\Carbon::parse($result->created_date)->diffForHumans(\Carbon\Carbon::now())}}
+                          <br>
                           {{$result->created_date}}</td>
                           <td>{{$result->des}}</td>
                           <td>{{json_decode('"'.$before[$index].'"')}}</td>

@@ -53,17 +53,22 @@ $(document).ready(function() {
 
   });
 
+  // Initialize tooltip component
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
   var first_name_sis = '';
   var first_name_local = '';
 
-  first_name_sis = $('#ArabicFirstNameSIS').val();
-  first_name_local = $('#ArabicFirstName').val();
+  first_name_sis = $('#ArabicFirstNameSIS').val().replace(" ", "");
+  first_name_local = $('#ArabicFirstName').val().replace(" ", "");
 
   compare1(first_name_sis,first_name_local);
 
   $( "#ArabicFirstName" ).on('change', function(){
-    first_name_local = $(this).val();
-    first_name_sis = $('#ArabicFirstNameSIS').val();
+    first_name_local = $(this).val().replace(" ", "");
+    first_name_sis = $('#ArabicFirstNameSIS').val().replace(" ", "");
     return compare1(first_name_sis,first_name_local);
   });
 
@@ -72,15 +77,21 @@ $(document).ready(function() {
   {
     if(first_name_sis != first_name_local)
     {
-      $('#ArabicFirstName').css('border-color', '#d9534f');
+      //$('#ArabicFirstName').css('border-color', '#d9534f');
       //$(this).attr('data-title', $(this).attr('title'));
-        $('#ArabicFirstName').attr("title", "Not Equal to SIS Value!");
-      //alert("u cant apply");
+      //$('#ArabicFirstName').attr("title", "Not Equal to SIS Value!");
+      //alert("u can't apply");
+      $('#ArabicFirstNameSISTooltip').show();
+      //$('#ArabicFirstName').tooltip('enable');
       return false;
     }
     else {
-      $('#ArabicFirstName').css('border-color', '');
-      $('#ArabicFirstName').removeAttr('title');
+      //$('#ArabicFirstName').css('border-color', '');
+      //$('#ArabicFirstName').removeAttr('title');
+      $('#ArabicFirstNameSISTooltip').hide();
+      //$('#ArabicFirstName').tooltip('enable');
+      //$('#ArabicFirstNameSISTooltip').hide();
+      //$('#ArabicFirstName').tooltip('disable');
       return true;
     }
   }
@@ -88,14 +99,14 @@ $(document).ready(function() {
   var middle_name_sis = '';
   var middle_name_local = '';
 
-  middle_name_sis = $('#ArabicMiddleNameSIS').val();
-  middle_name_local = $('#ArabicMiddleName').val();
+  middle_name_sis = $('#ArabicMiddleNameSIS').val().replace(" ", "");
+  middle_name_local = $('#ArabicMiddleName').val().replace(" ", "");
 
   compare2(middle_name_sis,middle_name_local);
 
   $( "#ArabicMiddleName" ).on('change', function(){
-    middle_name_local = $(this).val();
-    middle_name_sis = $('#ArabicMiddleNameSIS').val();
+    middle_name_local = $(this).val().replace(" ", "");
+    middle_name_sis = $('#ArabicMiddleNameSIS').val().replace(" ", "");
     return compare2(middle_name_sis,middle_name_local);
   });
 
@@ -104,15 +115,20 @@ $(document).ready(function() {
   {
     if(middle_name_sis != middle_name_local)
     {
-      $('#ArabicMiddleName').css('border-color', '#d9534f');
+      //$('#ArabicMiddleName').css('border-color', '#d9534f');
       //$(this).attr('data-title', $(this).attr('title'));
-        $('#ArabicMiddleName').attr("title", "Middle Name Not Equal to SIS Value!");
+      //$('#ArabicMiddleName').attr("title", "Middle Name Not Equal to SIS Value!");
       //alert("u cant apply");
+      //$('#ArabicMiddleName').tooltip('enable');
+      $('#ArabicMiddleNameSISTooltip').show();
       return false;
     }
     else {
-      $('#ArabicMiddleName').css('border-color', '');
-      $('#ArabicMiddleName').removeAttr('title');
+      //$('#ArabicMiddleName').css('border-color', '');
+      //$('#ArabicMiddleName').removeAttr('title');
+      //$('#ArabicMiddleName').tooltip('enable');
+      //alert("u cant apply");
+      $('#ArabicMiddleNameSISTooltip').hide();
       return true;
     }
   }
@@ -120,14 +136,14 @@ $(document).ready(function() {
   var last_name_sis = '';
   var last_name_local = '';
 
-  last_name_sis = $('#ArabicLastNameSIS').val();
-  last_name_local = $('#ArabicLastName').val();
+  last_name_sis = $('#ArabicLastNameSIS').val().replace(" ", "");
+  last_name_local = $('#ArabicLastName').val().replace(" ", "");
 
   compare3(last_name_sis,last_name_local);
 
   $( "#ArabicLastName" ).on('change', function(){
-    last_name_local = $(this).val();
-    last_name_sis = $('#ArabicLastNameSIS').val();
+    last_name_local = $(this).val().replace(" ", "");
+    last_name_sis = $('#ArabicLastNameSIS').val().replace(" ", "");
     return compare3(last_name_sis,last_name_local);
   });
 
@@ -136,15 +152,19 @@ $(document).ready(function() {
   {
     if(last_name_sis != last_name_local)
     {
-      $('#ArabicLastName').css('border-color', '#d9534f');
+      //$('#ArabicLastName').css('border-color', '#d9534f');
       //$(this).attr('data-title', $(this).attr('title'));
-        $('#ArabicLastName').attr("title", "Last Name Not Equal to SIS Value!");
+      //$('#ArabicLastName').attr("title", "Last Name Not Equal to SIS Value!");
       //alert("u cant apply");
+      //$('#ArabicLastName').tooltip('enable');
+      $('#ArabicLastNameSISTooltip').show();
       return false;
     }
     else {
-      $('#ArabicLastName').css('border-color', '');
-      $('#ArabicLastName').removeAttr('title');
+      //$('#ArabicLastName').css('border-color', '');
+      //$('#ArabicLastName').removeAttr('title');
+      //$('#ArabicLastName').tooltip('enable');
+      $('#ArabicLastNameSISTooltip').hide();
       return true;
     }
   }

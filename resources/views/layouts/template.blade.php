@@ -66,6 +66,8 @@
               {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{{ route('home') }}">Home</a>
+              <a class="dropdown-item" href="{{ route('student.search_result') }}">All Students</a>
               @role('male-manager|female-manager')
               <a class="dropdown-item" href="{{ route('manager.home') }}">Dashboard</a>
               @endrole
@@ -115,7 +117,7 @@
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
   <script type="text/javascript" src="{{ asset('js/popper-min.js') }}"></script>
   <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>-->
-  <script type="text/javascript" src="{{ asset('js/bootstrap-min.js') }}"></script>
+  <!--<script type="text/javascript" src="{{ asset('js/bootstrap-min.js') }}"></script>-->
 
   <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet"/>-->
   <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">

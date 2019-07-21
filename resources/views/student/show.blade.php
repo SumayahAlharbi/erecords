@@ -6,7 +6,8 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            <a href="{{ URL::previous() }}"><i class="fa fa-chevron-left"></i></a>&nbsp;&nbsp;{{$student->first_name50}} {{$student->last_name}}
+            <a class="nav-link" href="{{ route('student.search_result') }}" style="padding:0; margin-bottom:5px;"><i class="fas fa-home"></i> All Students</a>
+            <h5>{{$student->first_name50}} {{$student->last_name}}</h5>
           </div>
 
           <div class="card-body">
@@ -56,97 +57,78 @@
                     @csrf
                     <input type="hidden" name="id" value="{{$stu->id}}">
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">Arabic First Name</label>
-                      <div class="col-md-6">
-                        @if ($stu !== null)
-                        <input type="text" name="ArabicFirstName" id="ArabicFirstName" class="form-control{{ $errors->has('ArabicFirstName') ? ' is-invalid' : '' }}" value="{{$stu->ArabicFirstName}}" required autofocus>
-                        @else
-                        <input type="text" name="ArabicFirstName" id="ArabicFirstName" class="form-control{{ $errors->has('ArabicFirstName') ? ' is-invalid' : '' }}" value="" required autofocus>
-                        @endif
+                      @if ($stu !== null)
+                      <input type="text" name="ArabicFirstName" id="ArabicFirstName" class="form-control{{ $errors->has('ArabicFirstName') ? ' is-invalid' : '' }}" value="{{$stu->ArabicFirstName}}" required autofocus>
+                      @else
+                      <input type="text" name="ArabicFirstName" id="ArabicFirstName" class="form-control{{ $errors->has('ArabicFirstName') ? ' is-invalid' : '' }}" value="" required autofocus>
+                      @endif
 
-                        @if ($errors->has('ArabicFirstName'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('ArabicFirstName') }}</strong>
-                        </span>
-                        @endif
+                      @if ($errors->has('ArabicFirstName'))
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('ArabicFirstName') }}</strong>
+                      </span>
+                      @endif
 
-                        <input type="hidden" id="ArabicFirstNameSIS" value="{{$student->first_name}}">
-
-                      <small class="form-text text-muted">SIS value: {{$student->first_name}}</small>
-                      </div>
+                      <input type="hidden" id="ArabicFirstNameSIS" value="{{$student->first_name}}">
+                      <span data-toggle="tooltip" data-placement="right" class="bs-tooltip-right" data-html="true" title="Not Equal to SIS Value!<br>( {{$student->first_name}} )" id="ArabicFirstNameSISTooltip" style="display:none;"><i class="fas fa-exclamation-circle"></i></span>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">Arabic Middle Name</label>
-                      <div class="col-md-6">
-                        @if ($stu !== null)
-                        <input type="text" name="ArabicMiddleName" id="ArabicMiddleName" class="form-control{{ $errors->has('ArabicMiddleName') ? ' is-invalid' : '' }}" value="{{$stu->ArabicMiddleName}}" required autofocus>
-                        @else
-                        <input type="text" name="ArabicMiddleName" id="ArabicMiddleName" class="form-control{{ $errors->has('ArabicMiddleName') ? ' is-invalid' : '' }}" value="" required autofocus>
-                        @endif
+                      @if ($stu !== null)
+                      <input type="text" name="ArabicMiddleName" id="ArabicMiddleName" class="form-control{{ $errors->has('ArabicMiddleName') ? ' is-invalid' : '' }}" value="{{$stu->ArabicMiddleName}}" required autofocus>
+                      @else
+                      <input type="text" name="ArabicMiddleName" id="ArabicMiddleName" class="form-control{{ $errors->has('ArabicMiddleName') ? ' is-invalid' : '' }}" value="" required autofocus>
+                      @endif
 
-                        @if ($errors->has('ArabicMiddleName'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('ArabicMiddleName') }}</strong>
-                        </span>
-                        @endif
+                      @if ($errors->has('ArabicMiddleName'))
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('ArabicMiddleName') }}</strong>
+                      </span>
+                      @endif
 
-                        <input type="hidden" id="ArabicMiddleNameSIS" value="{{$student->middle_name_cd}}">
-
-                        <small class="form-text text-muted">SIS value: {{$student->middle_name_cd}}</small>
-                      </div>
-
+                      <input type="hidden" id="ArabicMiddleNameSIS" value="{{$student->middle_name_cd}}">
+                      <span data-toggle="tooltip" data-placement="right" class="bs-tooltip-right" data-html="true" title="Not Equal to SIS Value!<br>( {{$student->middle_name_cd}} )" id="ArabicMiddleNameSISTooltip" style="display:none;"><i class="fas fa-exclamation-circle"></i></span>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">Arabic Last Name</label>
-                      <div class="col-md-6">
-                        @if ($stu !== null)
-                        <input type="text" name="ArabicLastName" id="ArabicLastName" class="form-control{{ $errors->has('ArabicLastName') ? ' is-invalid' : '' }}" value="{{$stu->ArabicLastName}}" required autofocus>
-                        @else
-                        <input type="text" name="ArabicLastName" id="ArabicLastName" class="form-control{{ $errors->has('ArabicLastName') ? ' is-invalid' : '' }}" value="" required autofocus>
-                        @endif
+                      @if ($stu !== null)
+                      <input type="text" name="ArabicLastName" id="ArabicLastName" class="form-control{{ $errors->has('ArabicLastName') ? ' is-invalid' : '' }}" value="{{$stu->ArabicLastName}}" required autofocus>
+                      @else
+                      <input type="text" name="ArabicLastName" id="ArabicLastName" class="form-control{{ $errors->has('ArabicLastName') ? ' is-invalid' : '' }}" value="" required autofocus>
+                      @endif
 
-                        @if ($errors->has('ArabicLastName'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('ArabicLastName') }}</strong>
-                        </span>
-                        @endif
+                      @if ($errors->has('ArabicLastName'))
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('ArabicLastName') }}</strong>
+                      </span>
+                      @endif
 
-                        <input type="hidden" id="ArabicLastNameSIS" value="{{$student->last_name_cd}}">
-
-                        <small class="form-text text-muted">SIS value: {{$student->last_name_cd}}</small>
-                      </div>
-
+                      <input type="hidden" id="ArabicLastNameSIS" value="{{$student->last_name_cd}}">
+                      <span data-toggle="tooltip" data-placement="right" class="bs-tooltip-right" data-html="true" title="Not Equal to SIS Value!<br>( {{$student->last_name_cd}} )" id="ArabicLastNameSISTooltip" style="display:none;"><i class="fas fa-exclamation-circle"></i></span>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">English First Name</label>
-                      <div class="col-md-6">
-                        {{$student->first_name50}}
-                      </div>
+                      {{$student->first_name50}}
                     </div>
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">English Middle Name</label>
-                      <div class="col-md-6">
-                        {{$student->middle_name}}
-                      </div>
+                      {{$student->middle_name}}
                     </div>
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">English Last Name</label>
-                      <div class="col-md-6">
-                        {{$student->last_name}}
-                      </div>
+                      {{$student->last_name}}
                     </div>
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">National ID</label>
-                      <div class="col-md-6">
-                        {{$student->national_id}}
-                      </div>
+                      {{$student->national_id}}
                     </div>
 
                     <div class="form-group row mb-0">
@@ -159,65 +141,51 @@
                 </div>
                 @else
                 <div class="card-body">
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">Arabic First Name</label>
-                    <div class="col-md-6">
                       @if ($stu !== null)
-                      {{$stu->ArabicFirstName}}
+                      <input type="text" id="ArabicFirstName" class="form-control" value="{{$stu->ArabicFirstName}}" disabled>
                       @endif
-
-                      <small id="emailHelp" class="form-text text-muted">SIS value: {{$student->first_name}}</small>
-                    </div>
+                      <input type="hidden" id="ArabicFirstNameSIS" value="{{$student->first_name}}">
+                    <span data-toggle="tooltip" data-placement="right" class="bs-tooltip-right" data-html="true" title="Not Equal to SIS Value!<br>( {{$student->first_name}} )" id="ArabicFirstNameSISTooltip" style="display:none;"><i class="fas fa-exclamation-circle"></i></span>
                   </div>
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">Arabic Middle Name</label>
-                    <div class="col-md-6">
                       @if ($stu !== null)
-                      {{$stu->ArabicMiddleName}}
+                      <input type="text" id="ArabicMiddleName" class="form-control" value="{{$stu->ArabicMiddleName}}" disabled>
                       @endif
-
-                      <small id="emailHelp" class="form-text text-muted">SIS value: {{$student->middle_name_cd}}</small>
-                    </div>
+                      <input type="hidden" id="ArabicMiddleNameSIS" value="{{$student->middle_name_cd}}">
+                    <span data-toggle="tooltip" data-placement="right" class="bs-tooltip-right" data-html="true" title="Not Equal to SIS Value!<br>( {{$student->middle_name_cd}} )" id="ArabicMiddleNameSISTooltip" style="display:none;"><i class="fas fa-exclamation-circle"></i></span>
                   </div>
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">Arabic Last Name</label>
-                    <div class="col-md-6">
                       @if ($stu !== null)
-                      {{$stu->ArabicLastName}}
+                      <input type="text" id="ArabicLastName" class="form-control" value="{{$stu->ArabicLastName}}" disabled>
                       @endif
-
-                      <small id="emailHelp" class="form-text text-muted">SIS value: {{$student->last_name_cd}}</small>
-                    </div>
+                      <input type="hidden" id="ArabicLastNameSIS" value="{{$student->last_name_cd}}">
+                    <span data-toggle="tooltip" data-placement="right" class="bs-tooltip-right" data-html="true" title="Not Equal to SIS Value!<br>( {{$student->last_name_cd}} )" id="ArabicLastNameSISTooltip" style="display:none;"><i class="fas fa-exclamation-circle"></i></span>
                   </div>
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">English First Name</label>
-                    <div class="col-md-6">
-                      {{$student->first_name50}}
-                    </div>
+                    {{$student->first_name50}}
                   </div>
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">English Middle Name</label>
-                    <div class="col-md-6">
-                      {{$student->middle_name}}
-                    </div>
+                    {{$student->middle_name}}
                   </div>
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">English Last Name</label>
-                    <div class="col-md-6">
-                      {{$student->last_name}}
-                    </div>
+                    {{$student->last_name}}
                   </div>
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">National ID</label>
-                    <div class="col-md-6">
-                      {{$student->national_id}}
-                    </div>
+                    {{$student->national_id}}
                   </div>
 
                 </div>
@@ -240,33 +208,28 @@
                     @csrf
                     <input type="hidden" name="id" value="{{$stu->id}}">
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="Badge">Badge:</label>
+                    <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">Badge</label>
                         {{$student->external_system_id}}
                       </div>
 
-                      <div class="col">
-                        <label for="Status">Status:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">Status</label>
                         {{$student->student_status}}
-                      </div>
                     </div>
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="AdmissionBatch">Admission Batch:</label>
+                    <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">Admission Batch</label>
                         {{$stu->Batch}}
                       </div>
 
-                      <div class="col">
-                        <label for="StudentNo">Student No:</label>
+                      <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Student No:</label>
                         {{$student->campus_id}}
-                      </div>
                     </div>
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="GraduationBatch">Graduation Batch:</label>
+                    <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">Graduation Batch:</label>
                         <input type="text" name="GraduationBatch" value="{{$stu->GraduationBatch}}" id="GraduationBatch" class="form-control{{ $errors->has('GraduationBatch') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');">
                         @if ($errors->has('GraduationBatch'))
                         <span class="invalid-feedback" role="alert">
@@ -275,8 +238,8 @@
                         @endif
                       </div>
 
-                      <div class="col">
-                        <label for="Stream">Stream:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">Stream:</label>
                         <input type="text" name="Stream" value="{{$stu->Stream}}" id="Stream" class="form-control{{ $errors->has('Stream') ? ' is-invalid' : '' }}" required autofocus min="1" oninput="validity.valid||(value='');">
                         @if ($errors->has('Stream'))
                         <span class="invalid-feedback" role="alert">
@@ -284,245 +247,208 @@
                         </span>
                         @endif
                       </div>
-                    </div>
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="GraduateExpectationsYear">Graduate Expectations Year:</label>
+                    <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">Graduate Expectations Year:</label>
                         {{$stu->GraduateExpectationsYear}}
                       </div>
 
 
-                      <div class="col">
-                        <label for="LastActivationDate">Last Activation Date:</label>
+                      <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Last Activation Date:</label>
                         {{$student->STUDENT_STATUS_DT}}
                       </div>
-                    </div>
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="1stPostpone">1st Postpone:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">1st Postpone:</label>
                         {{$stu->FirstPostpone}}
                       </div>
 
-                      <div class="col">
-                        <label for="1stBlockDrop">1st Block Drop:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">1st Block Drop:</label>
                         {{$stu->FirstBlockDrop}}
                       </div>
-                    </div>
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="2ndPostpone">2nd Postpone:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">2nd Postpone:</label>
                         {{$stu->SecondPostpone}}
                       </div>
 
-                      <div class="col">
-                        <label for="2ndBlockDrop">2nd Block Drop:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">2nd Block Drop:</label>
                         {{$stu->SecondBlockDrop}}
                       </div>
-                    </div>
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="3rdPostpone">3rd Postpone:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">3rd Postpone:</label>
                         {{$stu->ThirdPostpone}}
                       </div>
 
-                      <div class="col">
-                        <label for="3rdBlockDrop">3rd Block Drop:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">3rd Block Drop:</label>
                         {{$stu->ThirdBlockDrop}}
                       </div>
-                    </div>
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="1stAcademicViolation">1st Academic Violation:</label>
+                    <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">1st Academic Violation:</label>
                         <input type="text" name="FirstAcademicViolation" class="form-control" value="{{$stu->FirstAcademicViolation}}" id="FirstAcademicViolation">
                       </div>
 
-                      <div class="col">
-                        <label for="1stAttemptAttendanceViolation">1st Attempt Attendance Violation:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">1st Attempt Attendance Violation:</label>
                         <input type="text" name="FirstAttemptAttendanceViolation" class="form-control" value="{{$stu->FirstAttemptAttendanceViolation}}" id="FirstAttemptAttendanceViolation">
                       </div>
-                    </div>
 
-
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="2ndAcademicViolation">2nd Academic Violation:</label>
+                  <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">2nd Academic Violation:</label>
                         <input type="text" name="SecondAcademicViolation" class="form-control" value="{{$stu->SecondAcademicViolation}}" id="SecondAcademicViolation">
                       </div>
 
-                      <div class="col">
-                        <label for="2ndAttemptAttendanceViolation">2nd Attempt Attendance Violation:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">2nd Attempt Attendance Violation:</label>
                         <input type="text" name="SecondAttemptAttendanceViolation" class="form-control" value="{{$stu->SecondAttemptAttendanceViolation}}" id="SecondAttemptAttendanceViolation">
                       </div>
-                    </div>
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="3rdAcademicViolation">3rd Academic Violation:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">3rd Academic Violation:</label>
                         <input type="text" name="ThirdAcademicViolation" class="form-control" value="{{$stu->ThirdAcademicViolation}}" id="ThirdAcademicViolation">
                       </div>
 
-                      <div class="col">
-                        <label for="3rdAttemptAttendanceViolation">3rd Attempt Attendance Violation:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">3rd Attempt Attendance Violation:</label>
                         <input type="text" name="ThirdAttemptAttendanceViolation" class="form-control" value="{{$stu->ThirdAttemptAttendanceViolation}}" id="ThirdAttemptAttendanceViolation">
                       </div>
-                    </div>
 
-                    <div class="form-row">
-                      <div class="col">
-                        <label for="Dismissed">Dismissed (Date):</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">Dismissed (Date):</label>
                         {{$stu->Dismissed}}
                       </div>
 
-                      <div class="col">
-                        <label for="Withdrawal">Withdrawal:</label>
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-6 col-form-label">Withdrawal:</label>
                         {{$stu->Withdrawal}}
                       </div>
-                    </div>
-                    <div class="text-right">
+
+                      <div class="form-group row mb-0">
+                        <div class="col-md-8 offset-md-4">
                       <button type="submit" name="update_academic" class="btn btn-primary">Save</button>
                     </div>
+                  </div>
                   </form>
                 </div>
                 @else
                 <div class="card-body">
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="Badge">Badge:</label>
+
+                  <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Badge</label>
                       {{$student->external_system_id}}
                     </div>
 
-                    <div class="col">
-                      <label for="Status">Status:</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Status</label>
                       {{$student->student_status}}
-                    </div>
                   </div>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="AdmissionBatch">Admission Batch:</label>
+                  <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Admission Batch</label>
                       {{$stu->Batch}}
                     </div>
 
-                    <div class="col">
-                      <label for="StudentNo">Student No:</label>
+                    <div class="col-md-12 form-group form-inline">
+                    <label class="col-md-6 col-form-label">Student No:</label>
                       {{$student->campus_id}}
-                    </div>
                   </div>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="GraduationBatch">Graduation Batch:</label>
+                  <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Graduation Batch:</label>
                       {{$stu->GraduationBatch}}
                     </div>
 
-                    <div class="col">
-                      <label for="Stream">Stream:</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Stream:</label>
                       {{$stu->Stream}}
                     </div>
-                  </div>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="GraduateExpectationsYear">Graduate Expectations Year:</label>
+                  <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Graduate Expectations Year:</label>
                       {{$stu->GraduateExpectationsYear}}
                     </div>
 
 
-                    <div class="col">
-                      <label for="LastActivationDate">Last Activation Date:</label>
+                    <div class="col-md-12 form-group form-inline">
+                    <label class="col-md-6 col-form-label">Last Activation Date:</label>
                       {{$student->STUDENT_STATUS_DT}}
                     </div>
-                  </div>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="1stPostpone">1st Postpone:</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">1st Postpone:</label>
                       {{$stu->FirstPostpone}}
                     </div>
 
-                    <div class="col">
-                      <label for="1stBlockDrop">1st Block Drop:</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">1st Block Drop:</label>
                       {{$stu->FirstBlockDrop}}
                     </div>
-                  </div>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="2ndPostpone">2nd Postpone:</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">2nd Postpone:</label>
                       {{$stu->SecondPostpone}}
                     </div>
 
-                    <div class="col">
-                      <label for="2ndBlockDrop">2nd Block Drop:</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">2nd Block Drop:</label>
                       {{$stu->SecondBlockDrop}}
                     </div>
-                  </div>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="3rdPostpone">3rd Postpone:</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">3rd Postpone:</label>
                       {{$stu->ThirdPostpone}}
                     </div>
 
-                    <div class="col">
-                      <label for="3rdBlockDrop">3rd Block Drop:</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">3rd Block Drop:</label>
                       {{$stu->ThirdBlockDrop}}
                     </div>
-                  </div>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="1stAcademicViolation">1st Academic Violation:</label>
-                      <div>{{$stu->FirstAcademicViolation}}</div>
+                  <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">1st Academic Violation:</label>
+                      {{$stu->FirstAcademicViolation}}
                     </div>
 
-                    <div class="col">
-                      <label for="1stAttemptAttendanceViolation">1st Attempt Attendance Violation:</label>
-                      <div>{{$stu->FirstAttemptAttendanceViolation}}</div>
-                    </div>
-                  </div>
-
-
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="2ndAcademicViolation">2nd Academic Violation:</label>
-                      <div>{{$stu->SecondAcademicViolation}}</div>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">1st Attempt Attendance Violation:</label>
+                      {{$stu->FirstAttemptAttendanceViolation}}
                     </div>
 
-                    <div class="col">
-                      <label for="2ndAttemptAttendanceViolation">2nd Attempt Attendance Violation:</label>
-                      <div>{{$stu->SecondAttemptAttendanceViolation}}</div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="3rdAcademicViolation">3rd Academic Violation:</label>
-                      <div>{{$stu->ThirdAcademicViolation}}</div>
+                <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">2nd Academic Violation:</label>
+                      {{$stu->SecondAcademicViolation}}
                     </div>
 
-                    <div class="col">
-                      <label for="3rdAttemptAttendanceViolation">3rd Attempt Attendance Violation:</label>
-                      <div>{{$stu->ThirdAttemptAttendanceViolation}}</div>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">2nd Attempt Attendance Violation:</label>
+                      {{$stu->SecondAttemptAttendanceViolation}}
                     </div>
-                  </div>
 
-                  <div class="form-row">
-                    <div class="col">
-                      <label for="Dismissed">Dismissed (Date):</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">3rd Academic Violation:</label>
+                      {{$stu->ThirdAcademicViolation}}
+                    </div>
+
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">3rd Attempt Attendance Violation:</label>
+                      {{$stu->ThirdAttemptAttendanceViolation}}
+                    </div>
+
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Dismissed (Date):</label>
                       {{$stu->Dismissed}}
                     </div>
 
-                    <div class="col">
-                      <label for="Withdrawal">Withdrawal:</label>
+                    <div class="col-md-12 form-group form-inline">
+                      <label class="col-md-6 col-form-label">Withdrawal:</label>
                       {{$stu->Withdrawal}}
                     </div>
-                  </div>
                 </div>
                 @endrole
               </div>
@@ -540,46 +466,38 @@
                     @csrf
                     <input type="hidden" name="id" value="{{$stu->id}}">
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">Mobile</label>
-                      <div class="col-md-6">
-                        <input type="text" name="Mobile" value="0{{$student->phone}}" id="Mobile" class="form-control{{ $errors->has('Mobile') ? ' is-invalid' : '' }}" required autofocus min="0" oninput="validity.valid||(value='');">
-                        @if ($errors->has('Mobile'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('Mobile') }}</strong>
-                        </span>
-                        @endif
-                      </div>
+                      <input type="text" name="Mobile" value="0{{$student->phone}}" id="Mobile" class="form-control{{ $errors->has('Mobile') ? ' is-invalid' : '' }}" required autofocus min="0" oninput="validity.valid||(value='');">
+                      @if ($errors->has('Mobile'))
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('Mobile') }}</strong>
+                      </span>
+                      @endif
                     </div>
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">KSAU-HS Email</label>
-                      <div class="col-md-6">
-                        @if($ksauhs_email)
-                        {{$ksauhs_email->email_addr}}
-                        @endif
-                      </div>
+                      @if($ksauhs_email)
+                      {{$ksauhs_email->email_addr}}
+                      @endif
                     </div>
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">NGHA Email</label>
-                      <div class="col-md-6">
-                        <input type="text" name="NGHAEmail" value="{{$stu->NGHAEmail}}" id="NGHAEmail" class="form-control{{ $errors->has('NGHAEmail') ? ' is-invalid' : '' }}">
-                        @if ($errors->has('NGHAEmail'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('NGHAEmail') }}</strong>
-                        </span>
-                        @endif
-                      </div>
+                      <input type="text" name="NGHAEmail" value="{{$stu->NGHAEmail}}" id="NGHAEmail" class="form-control{{ $errors->has('NGHAEmail') ? ' is-invalid' : '' }}">
+                      @if ($errors->has('NGHAEmail'))
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('NGHAEmail') }}</strong>
+                      </span>
+                      @endif
                     </div>
 
-                    <div class="form-group row">
+                    <div class="col-md-12 form-group form-inline">
                       <label class="col-md-4 col-form-label">Personal Email</label>
-                      <div class="col-md-6">
-                        @if($personal_email)
-                        {{$personal_email->email_addr}}
-                        @endif
-                      </div>
+                      @if($personal_email)
+                      {{$personal_email->email_addr}}
+                      @endif
                     </div>
 
                     <div class="form-group row mb-0">
@@ -593,42 +511,28 @@
                 @else
                 <div class="card-body">
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">Mobile</label>
-                    <div class="col-md-6">
-                      0{{$student->phone}}
-                    </div>
+                    0{{$student->phone}}
                   </div>
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">KSAU-HS Email</label>
-                    <div class="col-md-6">
-                      @if($ksauhs_email)
-                      {{$ksauhs_email->email_addr}}
-                      @endif
-                    </div>
+                    @if($ksauhs_email)
+                    {{$ksauhs_email->email_addr}}
+                    @endif
                   </div>
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">NGHA Email</label>
-                    <div class="col-md-6">
-                      {{$stu->NGHAEmail}}
-                    </div>
+                    {{$stu->NGHAEmail}}
                   </div>
 
-                  <div class="form-group row">
+                  <div class="col-md-12 form-group form-inline">
                     <label class="col-md-4 col-form-label">Personal Email</label>
-                    <div class="col-md-6">
-                      @if($personal_email)
-                      {{$personal_email->email_addr}}
-                      @endif
-                    </div>
-                  </div>
-
-                  <div class="form-group row mb-0">
-                    <div class="col-md-8 offset-md-4">
-                      <button type="submit" name="update_contact" class="btn btn-primary">Save</button>
-                    </div>
+                    @if($personal_email)
+                    {{$personal_email->email_addr}}
+                    @endif
                   </div>
 
                 </div>
@@ -684,84 +588,85 @@
                           <th>
                             <a href="{{route('student.delete_attachment',['attachment'=>$attachment->id,'student'=>$student->emplid])}}" title="Delete"
                               onclick="return confirm('Are you sure you want to delete this file?')"><i class="far fa-trash-alt"></i></a>
-                          </th>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
+                            </th>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                    @endrole
+
+                    @role('female-officer|male-officer')
+                    <div class="table-responsive">
+                      <table class="table table-borderless">
+                        <thead>
+                          <tr>
+                            <td>Browse</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($attachments as $attachment)
+                          <tr>
+                            <th>
+                              <a href="{{route('attachments',$attachment->file)}}" target="_blank" title="Browse">{{$attachment->title}}</a>
+                            </th>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                    @endrole
+                    @endif
+
+                    @role('male-manager|female-manager')
+                    <h5>Upload New Attachment</h5>
+                    <br>
+                    <form method="POST" action="{{ route('student.upload_attachment') }}" enctype="multipart/form-data" class="form-horizontal">
+                      @csrf
+
+                      <input type="hidden" name="id" value="{{$stu->id}}">
+
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-4 col-form-label">Attachment Title</label>
+                        <div class="col-md-6">
+                          <input type="text" name="attch_title" id="attch_title" class="form-control{{ $errors->has('attch_title') ? ' is-invalid' : '' }}" required autofocus>
+                          @if ($errors->has('attch_title'))
+                          <span class="invalid-feedback">
+                            <strong>{{ $errors->first('attch_title') }}</strong>
+                          </span>
+                          @endif
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 form-group form-inline">
+                        <label class="col-md-4 col-form-label">Attachment File</label>
+                        <div class="col-md-6">
+                          <input type="file" name="attachment" id="attachment" class="form-control{{ $errors->has('attachment') ? ' is-invalid' : '' }}" required autofocus>
+                          <small class="text-muted">image, pdf and word document</small>
+                          @if ($errors->has('attachment'))
+                          <span class="invalid-feedback">
+                            <strong>{{ $errors->first('attachment') }}</strong>
+                          </span>
+                          @endif
+                        </div>
+                      </div>
+
+                      <div class="form-group row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                          <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                      </div>
+                    </form>
+                    @endrole
                   </div>
-                  @endrole
-
-                  @role('female-officer|male-officer')
-                  <div class="table-responsive">
-                    <table class="table table-borderless">
-                      <thead>
-                        <tr>
-                          <td>Browse</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($attachments as $attachment)
-                        <tr>
-                          <th>
-                            <a href="{{route('attachments',$attachment->file)}}" target="_blank" title="Browse">{{$attachment->title}}</a>
-                          </th>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                  @endrole
-                  @endif
-
-                  @role('male-manager|female-manager')
-                  <h5>Upload New Attachment</h5>
-                  <form method="POST" action="{{ route('student.upload_attachment') }}" enctype="multipart/form-data" class="form-horizontal">
-                    @csrf
-
-                    <input type="hidden" name="id" value="{{$stu->id}}">
-
-                    <div class="form-group row">
-                      <label class="col-md-4 col-form-label">Attachment Title</label>
-                      <div class="col-md-6">
-                        <input type="text" name="attch_title" id="attch_title" class="form-control{{ $errors->has('attch_title') ? ' is-invalid' : '' }}" required autofocus>
-                        @if ($errors->has('attch_title'))
-                        <span class="invalid-feedback">
-                          <strong>{{ $errors->first('attch_title') }}</strong>
-                        </span>
-                        @endif
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label class="col-md-4 col-form-label">Attachment File</label>
-                      <div class="col-md-6">
-                        <input type="file" name="attachment" id="attachment" class="form-control{{ $errors->has('attachment') ? ' is-invalid' : '' }}" required autofocus>
-                        <span>image, pdf and word document</span>
-                        @if ($errors->has('attachment'))
-                        <span class="invalid-feedback">
-                          <strong>{{ $errors->first('attachment') }}</strong>
-                        </span>
-                        @endif
-                      </div>
-                    </div>
-
-                    <div class="form-group row mb-0">
-                      <div class="col-md-8 offset-md-4">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                      </div>
-                    </div>
-                  </form>
-                  @endrole
                 </div>
-              </div>
-              <div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
-                ...
+                <div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
+                  ...
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  @endsection
+    </section>
+    @endsection
