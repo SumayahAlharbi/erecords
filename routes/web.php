@@ -47,11 +47,13 @@ Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|fe
   Route::get('student/search_result', 'StudentController@search')->name('student.search_result');
   Route::get('student/advanced_search_result', 'StudentController@advanced_search')->name('student.advanced_search_result');
   Route::get('/advanced_search', 'StudentController@advanced_search_form')->name('advanced_search');
-  Route::resource('/student', 'StudentController');
 });
 
 Route::group(['middleware' => ['role:male-manager|female-manager|admin']], function ()
 {
+  Route::get('student/showAddForm', 'StudentController@show_add_form')->name('student.showAddForm');
+  Route::post('student/add', 'StudentController@add')->name('student.add');
+  Route::resource('/student', 'StudentController');
   Route::post('student/update_personal', 'StudentController@update_personal')->name('student.update_personal');
   Route::post('student/update_academic', 'StudentController@update_academic')->name('student.update_academic');
   Route::post('student/update_contact', 'StudentController@update_contact')->name('student.update_contact');
@@ -76,7 +78,7 @@ Route::group(['middleware' => ['role:male-manager|female-manager|admin']], funct
   Route::get('user/{id}','UserController@update')->name('user.update'); // assign user to roles
 
   Route::get('/manager/activityLog','UserController@activity_log')->name('activity.log');
-    Route::get('/manager/users','UserController@index')->name('users');
+  Route::get('/manager/users','UserController@index')->name('users');
 });
 
 Route::group(['middleware' => ['role:admin']], function ()

@@ -70,6 +70,7 @@
               <a class="dropdown-item" href="{{ route('student.search_result') }}">All Students</a>
               @role('male-manager|female-manager')
               <a class="dropdown-item" href="{{ route('manager.home') }}">Dashboard</a>
+              <a class="dropdown-item" href="{{ route('student.showAddForm') }}">Add New Students</a>
               @endrole
               @role('admin')
               <a class="dropdown-item" href="{{ route('admin.home') }}">Dashboard</a>

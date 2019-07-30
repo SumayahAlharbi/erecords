@@ -68,7 +68,7 @@ class StudentController extends Controller
     ->orWhereRaw('lower(STUDENT_STATUS) like lower(?)', ["%{$search}%"])
     ->orWhereRaw('lower(FIRST_NAME50) like lower(?)', ["%{$search}%"])
     ->orWhereRaw('lower(LAST_NAME) like lower(?)', ["%{$search}%"])
-    ->orWhere('CAMPUS_ID', 'LIKE', '%'.$search.'%')
+    ->orWhere(DB::raw("REPLACE(CAMPUS_ID, '-', '')"), 'LIKE', '%'.str_replace("-","",$search).'%')
     ->orderBy('CAMPUS_ID', 'ASC')
     ->distinct('NATIONAL_ID')
     ->SimplePaginate(10);
@@ -79,7 +79,7 @@ class StudentController extends Controller
     ->orWhereRaw('lower(STUDENT_STATUS) like lower(?)', ["%{$search}%"])
     ->orWhereRaw('lower(FIRST_NAME50) like lower(?)', ["%{$search}%"])
     ->orWhereRaw('lower(LAST_NAME) like lower(?)', ["%{$search}%"])
-    ->orWhere('CAMPUS_ID', 'LIKE', '%'.$search.'%')
+    ->orWhere(DB::raw("REPLACE(CAMPUS_ID, '-', '')"), 'LIKE', '%'.str_replace("-","",$search).'%')
     ->distinct('NATIONAL_ID')->get();
 
     //return count($total);
@@ -742,6 +742,145 @@ class StudentController extends Controller
     return back()->with('update_contact','Student Contact Information Updated Successfully!');
 
   }
+
+  /**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function show_add_form()
+  {
+    $sis =  Pres::Select('NATIONAL_ID')
+    ->distinct('NATIONAL_ID')->get('NATIONAL_ID');
+
+    $array1 ;
+    foreach ($sis as $key => $value) {
+      $array1[] =$value['national_id'];
+    }
+
+    $app_db = Student::Select('NationalID')
+    ->get('NationalID');
+
+    $array2 ;
+    foreach ($app_db as $key => $value) {
+      $array2[] =$value['NationalID'];
+    }
+
+    $new_students = array_diff($array1, $array2);
+
+    $results;
+    foreach ($new_students as $key => $value) {
+      $results[] = Pres::Select('EMPLID','FIRST_NAME50','LAST_NAME','EXTERNAL_SYSTEM_ID','NATIONAL_ID','STUDENT_STATUS','CAMPUS_ID')
+                  ->Where('NATIONAL_ID', '=', $value)
+                  ->distinct('NATIONAL_ID')
+                  ->get();
+    }
+
+    // sort by student number (campus_id)
+    $campus_id = array();
+    foreach ($results as $key => $row)
+    {
+        $campus_id[$key] = $row[0]->campus_id;
+    }
+
+    array_multisort($campus_id, SORT_ASC, $results);
+
+    return view('student.add', compact('results'));
+  }
+
+  /**
+  * Show the form for creating a new resource.
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function add(Request $request)
+  {
+    // Validate the form data
+    $this->validate($request, [
+      'AdmissionBatch' => 'required|numeric',
+      'GraduationBatch' => 'required|numeric',
+      'Stream' => 'required|numeric',
+      'GraduateExpectationsYear' => 'required|numeric',
+      'NewStudents' => 'required|min:1',
+    ]);
+
+    $Stream = $request['Stream'];
+    $AdmissionBatch = $request['AdmissionBatch'];
+    $GraduationBatch = $request['GraduationBatch'];
+    $GraduateExpectationsYear = $request['GraduateExpectationsYear'];
+
+    $new_students = $request['NewStudents'];
+
+    /*$results = Pres::Select('phone')
+                  ->Where('emplid', '=', '1000056620')
+                  ->get();
+
+                  return $results;*/
+
+    $added;
+
+    foreach ($new_students as $key => $value) {
+
+      $results = Pres::Select('EMPLID','FIRST_NAME50','middle_name_cd','LAST_NAME','EXTERNAL_SYSTEM_ID','NATIONAL_ID','STUDENT_STATUS','CAMPUS_ID',
+                    'last_name','middle_name','first_name','last_name_cd','phone','sex')
+                    ->Where('EMPLID', '=', $value)
+                    ->get();
+
+        foreach ($results as $result) {
+        $input['ArabicFirstName']=$result->first_name;
+        $input['ArabicMiddleName']=$result->middle_name_cd;
+        $input['ArabicLastName']=$result->last_name_cd;
+        $input['FirstName']=$result->first_name50;
+        $input['MiddleName']=$result->middle_name;
+        $input['LastName']=$result->last_name;
+        $input['NationalID']=$result->national_id;
+        $input['Badge']=$result->external_system_id;
+        $input['Status']=$result->student_status;
+        $input['StudentNo']=$result->campus_id;
+        $gender = $result->sex;
+        $input['Mobile'] = preg_replace('/[^0-9]/', '', $result->phone);
+      }
+
+      $input['Stream']=$Stream;
+      $input['Batch']=$AdmissionBatch;
+      $input['GraduationBatch']=$GraduationBatch;
+      $input['GraduateExpectationsYear']=$GraduateExpectationsYear;
+
+      $id = $value;
+
+      $ksauhs_email = Pres::Select('EMAIL_ADDR')
+      ->where('EMPLID', '=', $id)
+      ->where('E_ADDR_TYPE', '=', 'CAMP')
+      ->first();
+
+      $personal_email = Pres::Select('EMAIL_ADDR')
+      ->where('EMPLID', '=', $id)
+      ->where('E_ADDR_TYPE', '=', 'HOME')
+      ->first();
+
+      $input['KSAUHSEmail']= $ksauhs_email->email_addr;
+      $input['PersonalEmail']= $personal_email->email_addr;
+
+      if ($result->sex == 'M')
+      $input['Gender']='m';
+      else {
+      $input['Gender']='f';
+      }
+
+      $id = Student::withoutGlobalScopes()->max('id');
+      $input['id']= $id+1;
+
+      $added = Student::create($input);
+
+  }
+
+    if ($added)
+    {
+      return back()->with('add_new_student','Students Added Successfully!');
+    }
+
+  }
+
 
   /**
   * Show the form for creating a new resource.
