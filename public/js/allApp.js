@@ -17,7 +17,38 @@ function growShrinkLogo() {
 
 $(document).ready(function() {
 
+   /*
+   $('#addStudent-form').validate({
+    rules: {
+
+	    	'new_students[]': {required: true}
+	    },
+	    messages: {
+
+        'checkboxes[]': "You must check at least 1 box",
+
+        },
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').addClass('error');
+	    },
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+	    }
+
+	  });
+    */
+
   $('.selectpicker').selectpicker();
+
+  $('#selectAll').click(function() {
+        if ($(this).prop('checked')) {
+            $('.new_students_list').prop('checked', true);
+        } else {
+            $('.new_students_list').prop('checked', false);
+        }
+    });
 
   $('select[name="role_id"]').on('change', function(){
     var roleID = $(this).val();
