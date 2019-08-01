@@ -29,14 +29,14 @@
                 <label class="col-md-4 col-form-label text-md-right">Roles List</label>
                 <div class="col-md-6">
                   <!-- user cuurent roles -->
-                  @if($user)
                   @foreach($user as $value)
+                  @if($value->role_name)
                   <label class="container2">{{ ucwords($value->role_name)}}
                     <input type="checkbox" name="roles[]" value="{{$value->role_id}}" checked="checked">
                     <span class="checkmark"></span>
                   </label>
-                  @endforeach
                   @endif
+                  @endforeach
 
                   <!-- rest of roles -->
                   @foreach($roles as $role)
