@@ -859,7 +859,10 @@ class StudentController extends Controller
       ->first();
 
       $input['KSAUHSEmail']= $ksauhs_email->email_addr;
+
+      if ($personal_email)
       $input['PersonalEmail']= $personal_email->email_addr;
+      else $input['PersonalEmail']='';
 
       if ($result->sex == 'M')
       $input['Gender']='m';
