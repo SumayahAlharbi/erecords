@@ -39,8 +39,8 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', $_SERVER['REMOTE_ADDR'] == '10.131.6.154' ? true : false)
-
+    'debug' => env('APP_DEBUG', false),
+    
     /*
     |--------------------------------------------------------------------------
     | Application URL
