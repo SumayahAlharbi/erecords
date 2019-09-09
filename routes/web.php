@@ -40,7 +40,11 @@ Route::get('403error', function () {
 
 Auth::routes();
 
-Route::get('student/showAddForm', 'StudentController@show_add_form')->name('student.showAddForm');
+Route::group(['middleware' => ['role:male-manager|female-manager']], function ()
+{
+  Route::get('student/showAddForm', 'StudentController@show_add_form')->name('student.showAddForm');
+  Route::post('student/add', 'StudentController@add')->name('student.add');
+});
 
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager|admin']], function ()
 {
@@ -53,9 +57,7 @@ Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|fe
 
 Route::group(['middleware' => ['role:male-manager|female-manager|admin']], function ()
 {
-  //Route::get('student/showAddForm', 'StudentController@show_add_form')->name('student.showAddForm');
-  Route::post('student/add', 'StudentController@add')->name('student.add');
-
+  
   Route::post('student/update_personal', 'StudentController@update_personal')->name('student.update_personal');
   Route::post('student/update_academic', 'StudentController@update_academic')->name('student.update_academic');
   Route::post('student/update_contact', 'StudentController@update_contact')->name('student.update_contact');
