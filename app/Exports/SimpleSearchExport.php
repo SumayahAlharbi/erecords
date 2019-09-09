@@ -30,7 +30,8 @@ class SimpleSearchExport implements FromCollection, WithHeadings, ShouldAutoSize
           $query->whereIn('Batch', session('Batch'));
         }*/
 
-        $status = session('Status');
+        $status = implode(",", session('Status'));
+
         if (session('Status')) {
           $query->whereRaw('lower(STUDENT_STATUS) like lower(?)', ["%{$status}%"]);
         }
