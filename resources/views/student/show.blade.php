@@ -291,32 +291,56 @@
 
                     <div class="col-md-12 form-group form-inline">
                         <label class="col-md-6 col-form-label">1st Academic Violation:</label>
+                        @if ($stu->FirstAcademicViolation != 'NULL')
                         <input type="text" name="FirstAcademicViolation" class="form-control" value="{{$stu->FirstAcademicViolation}}" id="FirstAcademicViolation">
+                        @else
+                        <input type="text" name="FirstAcademicViolation" class="form-control" value="" id="FirstAcademicViolation">
+                        @endif
                       </div>
 
                       <div class="col-md-12 form-group form-inline">
                         <label class="col-md-6 col-form-label">1st Attempt Attendance Violation:</label>
+                        @if ($stu->FirstAttemptAttendanceViolation != 'NULL')
                         <input type="text" name="FirstAttemptAttendanceViolation" class="form-control" value="{{$stu->FirstAttemptAttendanceViolation}}" id="FirstAttemptAttendanceViolation">
+                        @else
+                        <input type="text" name="FirstAttemptAttendanceViolation" class="form-control" value="" id="FirstAttemptAttendanceViolation">
+                        @endif
                       </div>
 
                   <div class="col-md-12 form-group form-inline">
                         <label class="col-md-6 col-form-label">2nd Academic Violation:</label>
+                        @if ($stu->SecondAcademicViolation != 'NULL')
                         <input type="text" name="SecondAcademicViolation" class="form-control" value="{{$stu->SecondAcademicViolation}}" id="SecondAcademicViolation">
+                        @else
+                        <input type="text" name="SecondAcademicViolation" class="form-control" value="" id="SecondAcademicViolation">
+                        @endif
                       </div>
 
                       <div class="col-md-12 form-group form-inline">
                         <label class="col-md-6 col-form-label">2nd Attempt Attendance Violation:</label>
+                        @if ($stu->SecondAttemptAttendanceViolation != 'NULL')
                         <input type="text" name="SecondAttemptAttendanceViolation" class="form-control" value="{{$stu->SecondAttemptAttendanceViolation}}" id="SecondAttemptAttendanceViolation">
+                        @else
+                        <input type="text" name="SecondAttemptAttendanceViolation" class="form-control" value="" id="SecondAttemptAttendanceViolation">
+                        @endif
                       </div>
 
                       <div class="col-md-12 form-group form-inline">
                         <label class="col-md-6 col-form-label">3rd Academic Violation:</label>
+                        @if ($stu->ThirdAcademicViolation != 'NULL')
                         <input type="text" name="ThirdAcademicViolation" class="form-control" value="{{$stu->ThirdAcademicViolation}}" id="ThirdAcademicViolation">
+                        @else
+                        <input type="text" name="ThirdAcademicViolation" class="form-control" value="" id="ThirdAcademicViolation">
+                        @endif
                       </div>
 
                       <div class="col-md-12 form-group form-inline">
                         <label class="col-md-6 col-form-label">3rd Attempt Attendance Violation:</label>
+                        @if ($stu->ThirdAttemptAttendanceViolation != 'NULL')
                         <input type="text" name="ThirdAttemptAttendanceViolation" class="form-control" value="{{$stu->ThirdAttemptAttendanceViolation}}" id="ThirdAttemptAttendanceViolation">
+                        @else
+                        <input type="text" name="ThirdAttemptAttendanceViolation" class="form-control" value="" id="ThirdAttemptAttendanceViolation">
+                        @endif
                       </div>
 
                       <div class="col-md-12 form-group form-inline">
@@ -412,32 +436,44 @@
 
                   <div class="col-md-12 form-group form-inline">
                       <label class="col-md-6 col-form-label">1st Academic Violation:</label>
+                      @if ($stu->FirstAcademicViolation != 'NULL')
                       {{$stu->FirstAcademicViolation}}
+                      @endif
                     </div>
 
                     <div class="col-md-12 form-group form-inline">
                       <label class="col-md-6 col-form-label">1st Attempt Attendance Violation:</label>
+                      @if ($stu->FirstAttemptAttendanceViolation != 'NULL')
                       {{$stu->FirstAttemptAttendanceViolation}}
+                      @endif
                     </div>
 
                 <div class="col-md-12 form-group form-inline">
                       <label class="col-md-6 col-form-label">2nd Academic Violation:</label>
+                      @if ($stu->SecondAcademicViolation != 'NULL')
                       {{$stu->SecondAcademicViolation}}
+                      @endif
                     </div>
 
                     <div class="col-md-12 form-group form-inline">
                       <label class="col-md-6 col-form-label">2nd Attempt Attendance Violation:</label>
+                      @if ($stu->SecondAttemptAttendanceViolation != 'NULL')
                       {{$stu->SecondAttemptAttendanceViolation}}
+                      @endif
                     </div>
 
                     <div class="col-md-12 form-group form-inline">
                       <label class="col-md-6 col-form-label">3rd Academic Violation:</label>
+                      @if ($stu->ThirdAcademicViolation != 'NULL')
                       {{$stu->ThirdAcademicViolation}}
+                      @endif
                     </div>
 
                     <div class="col-md-12 form-group form-inline">
                       <label class="col-md-6 col-form-label">3rd Attempt Attendance Violation:</label>
+                      @if ($stu->ThirdAttemptAttendanceViolation != 'NULL')
                       {{$stu->ThirdAttemptAttendanceViolation}}
+                      @endif
                     </div>
 
                     <div class="col-md-12 form-group form-inline">
