@@ -106,12 +106,7 @@ class RoleController extends Controller
   */
   public function update(Request $request, $user_id)
   {
-    /*Validate the form data
-    $this->validate($request, [
-    'roles'=>'required',
-  ]);
-  */// not required - to remove all the permissions of this user
-
+    
   $input = $request->except('_token');
   if (isset($input['roles']))
   {
@@ -144,11 +139,17 @@ class RoleController extends Controller
 /**
 * Remove the specified resource from storage.
 *
-* @param  \App\Role  $role
+* @param  int  $id
 * @return \Illuminate\Http\Response
 */
-public function destroy(Role $role)
+public function destroy($id)
 {
-  //
+  $delete = Role::where('id', '=', $id)->delete();
+  if ($delete){
+    return redirect('/role/create')->with('success', 'Role has been deleted');
+  }
+  else{
+    return redirect('/role/create')->with('warning', 'Something wrong happened, please try again');
+  }
 }
 }

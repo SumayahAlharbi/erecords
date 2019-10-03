@@ -137,11 +137,17 @@ class PermissionController extends Controller
   /**
   * Remove the specified resource from storage.
   *
-  * @param  \App\Permission  $permission
+  * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-  public function destroy(Permission $permission)
+  public function destroy($id)
   {
-    //
+    $delete = Permission::where('id', '=', $id)->delete();
+    if ($delete){
+      return redirect('/permission/create')->with('success', 'Permission has been deleted');
+    }
+    else{
+      return redirect('/permission/create')->with('warning', 'Something wrong happened, please try again');
+    }
   }
 }
