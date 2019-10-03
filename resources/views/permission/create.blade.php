@@ -8,18 +8,32 @@
           <div class="card-header">Add New Permission</div>
 
           <div class="card-body">
+            @if(session()->get('success'))
+     <div class="alert alert-success">
+       {{ session()->get('success') }}
+     </div>
+   @endif
+
+   @if(session()->get('warning'))
+  <div class="alert alert-warning">
+  {{ session()->get('warning') }}
+  </div>
+  @endif
+
             <div class="table-responsive">
             <table class="table table-hover">
               <thead>
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Name</th>
+                  <th scope="col">Delete</th>
                 </tr>
               </thead>
               @foreach($permissions as $permission)
               <tr>
                 <th scope="row">{{$permission->id}}</th>
                 <td>{{ucwords($permission->name)}}</td>
+                <td><a onclick="return confirm('Are you sure?')" href="{{ route('permission.delete',$permission->id)}}" class="btn btn-danger">-</a></td>
               </tr>
               @endforeach
             </tbody>

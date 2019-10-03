@@ -57,7 +57,7 @@ Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|fe
 
 Route::group(['middleware' => ['role:male-manager|female-manager|admin']], function ()
 {
-  
+
   Route::post('student/update_personal', 'StudentController@update_personal')->name('student.update_personal');
   Route::post('student/update_academic', 'StudentController@update_academic')->name('student.update_academic');
   Route::post('student/update_contact', 'StudentController@update_contact')->name('student.update_contact');
@@ -97,9 +97,8 @@ Route::group(['middleware' => ['role:admin']], function ()
   Route::get('dynamic_dependent/ajax/{id}', 'PermissionController@dynamic_dependent_ajax'); // show list of permissions for the selected role -2-
   Route::get('/permission/assign','PermissionController@update')->name('permission.update'); // assign permission to role -3-
   Route::get('/test','StudentController@testSIS');
-  Route::get('/phpInfo', function () {
-  return view('phpinfo');
-});
+  Route::get('/role/delete/{id}','RoleController@destroy')->name('role.delete');
+  Route::get('/permission/delete/{id}','PermissionController@destroy')->name('permission.delete');
 
 
 

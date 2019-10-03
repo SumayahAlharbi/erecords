@@ -8,6 +8,37 @@
         <div class="card-header">Add New Role</div>
 
         <div class="card-body">
+          @if(session()->get('success'))
+   <div class="alert alert-success">
+     {{ session()->get('success') }}
+   </div>
+ @endif
+
+ @if(session()->get('warning'))
+<div class="alert alert-warning">
+{{ session()->get('warning') }}
+</div>
+@endif
+
+          <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            @foreach($roles as $role)
+            <tr>
+              <th scope="row">{{$role->id}}</th>
+              <td>{{ucwords($role->name)}}</td>
+              <td><a onclick="return confirm('Are you sure?')" href="{{ route('role.delete',$role->id)}}" class="btn btn-danger">-</a></td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+        </div>
 
           <form method="post" action="{{ route('role.store') }}" enctype="multipart/form-data">
             @csrf
