@@ -99,9 +99,6 @@ Route::group(['middleware' => ['role:admin']], function ()
   Route::get('/test','StudentController@testSIS');
   Route::get('/role/delete/{id}','RoleController@destroy')->name('role.delete');
   Route::get('/permission/delete/{id}','PermissionController@destroy')->name('permission.delete');
-
-
-
 });
 
 Route::group(['middleware' => ['role:male-officer|male-manager|female-officer|female-manager']], function ()

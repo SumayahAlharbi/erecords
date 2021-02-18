@@ -126,11 +126,11 @@ class PermissionController extends Controller
           array('permission_id' => $permission_id,'role_id' => $role_id ));
         }
         if ($query) {
-          return redirect('/permission_assign');
+          return redirect('/assign');
         }
       }
       else {
-        return redirect('/permission_assign');
+        return redirect('/assign');
       }
   }
 
