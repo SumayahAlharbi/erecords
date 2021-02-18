@@ -17,7 +17,7 @@
           </div>
 
           <hr>-->
-          
+
           <h3 class="box-title m-b-20">Login</h3>
 
           <div class="form-group">
@@ -53,9 +53,9 @@
                   {{ __('Remember Me') }}
                 </label>
               </div>
-              <!--<i class="fas fa-lock"></i><a class="btn btn-link text-success" href="{{ route('password.request') }}">
+              <i class="fas fa-lock"></i><a class="btn btn-link text-success" href="{{ route('password.request') }}">
                 {{ __('Forgot Your Password?') }}
-              </a>-->
+              </a>
             </div>
           </div>
 
